@@ -61,11 +61,12 @@
 			isa = PBXGroup;
 			children = (
 				8292A2532BAC52ED0086A8C3 /* Info.plist */,
-				823031A82BAC4D6C005B00EF /* TurnosFGVApp.swift */,
 				8292A2512BAC51C50086A8C3 /* PrivacyInfo.xcprivacy */,
+				823031A82BAC4D6C005B00EF /* TurnosFGVApp.swift */,
 				8292A24A2BAC4F700086A8C3 /* Views */,
-				8292A2492BAC4F620086A8C3 /* Models */,
 				8292A2482BAC4F5C0086A8C3 /* Extensions */,
+				8292A2492BAC4F620086A8C3 /* Models */,
+				8292A25C2BAC58A90086A8C3 /* Helpers */,
 				823031AC2BAC4D6C005B00EF /* Assets.xcassets */,
 				823031AE2BAC4D6C005B00EF /* Preview Content */,
 			);
@@ -101,8 +102,79 @@
 			isa = PBXGroup;
 			children = (
 				823031AA2BAC4D6C005B00EF /* ContentView.swift */,
+				8292A2592BAC57880086A8C3 /* Calendar */,
+				8292A2582BAC577D0086A8C3 /* Summary */,
+				8292A2572BAC57750086A8C3 /* Charts */,
+				8292A2562BAC57690086A8C3 /* Onboard */,
+				8292A2552BAC57610086A8C3 /* Components */,
+				8292A2542BAC57140086A8C3 /* Modifiers */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		8292A2542BAC57140086A8C3 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Modifiers;
+			sourceTree = "<group>";
+		};
+		8292A2552BAC57610086A8C3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		8292A2562BAC57690086A8C3 /* Onboard */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Onboard;
+			sourceTree = "<group>";
+		};
+		8292A2572BAC57750086A8C3 /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Charts;
+			sourceTree = "<group>";
+		};
+		8292A2582BAC577D0086A8C3 /* Summary */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Summary;
+			sourceTree = "<group>";
+		};
+		8292A2592BAC57880086A8C3 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				8292A25B2BAC57940086A8C3 /* Calendar */,
+				8292A25A2BAC578E0086A8C3 /* Records */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		8292A25A2BAC578E0086A8C3 /* Records */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Records;
+			sourceTree = "<group>";
+		};
+		8292A25B2BAC57940086A8C3 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		8292A25C2BAC58A90086A8C3 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

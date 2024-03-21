@@ -7,18 +7,52 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+enum Tab: String {
+    case calendar = "Calendario"
+    case summary = "Nómina"
+    case chart = "Resumen"
+    
+    var icon: String {
+        switch self {
+            case .calendar: "calendar"
+            case .summary: "doc.plaintext"
+            case .chart: "chart.bar.xaxis"
         }
-        .padding()
+    }
+}
+
+struct ContentView: View {
+    @State private var currentDate: Date = .now
+//    @State private var currentMonth: Date = .currentMonth
+    @State private var selectedTab: Tab = .calendar
+    
+    var body: some View {
+        TabView(selection: $selectedTab) {
+//            CalendarScreen(selectedDate: $currentDate, selectedMonth: $currentMonth)
+            Text("Calendar")
+                .setUpTab(.calendar)
+            
+//            SummaryView(selectedDate: $currentDate, selectedMonth: $currentMonth)
+            Text("Summary")
+                .setUpTab(.summary)
+            
+//            ChartView()
+            Text("Charts")
+                .setUpTab(.chart)
+        }
     }
 }
 
 #Preview {
     ContentView()
+}
+
+extension View {
+    func setUpTab(_ tab: Tab) -> some View {
+        self
+            .tag(tab)
+            .tabItem {
+                Label(tab.rawValue, systemImage: tab.icon)
+            }
+    }
 }
