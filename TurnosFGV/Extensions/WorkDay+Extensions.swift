@@ -18,8 +18,8 @@ extension WorkDay {
     }
     
     var viewRecordDuration: String {
-        let startTime = String(describing: startDate.toString(format: .custom("HH:mm")))
-        let endTime = String(describing: endDate.toString(format: .custom("HH:mm")))
+        let startTime = String(describing: startDate.toString(format: .custom("HH:mm"))!)
+        let endTime = String(describing: endDate.toString(format: .custom("HH:mm"))!)
         return "De \(startTime) a \(endTime)"
     }
     

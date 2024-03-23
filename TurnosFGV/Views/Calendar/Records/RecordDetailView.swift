@@ -111,6 +111,9 @@ extension RecordDetailView {
                     Text(workDay.shift)
                         .shiftTextModifier(color: workDay.color)
                 }
+                .onChange(of: workDay.shift) {
+                    workDay.extraTime = 0
+                }
             }
         }
         .groupBoxBackGroundStyle()
@@ -130,7 +133,12 @@ extension RecordDetailView {
                         }
                         if let selectedShift {
                             let selectedShiftEndTime = workDay.startDate.adjust(for: .startOfDay)!.addingTimeInterval(selectedShift.endTime)
-                            workDay.extraTime = Int(selectedShiftEndTime.since(workDay.endDate, in: .minute)!)
+                            let extraTime = Int(workDay.endDate.since(selectedShiftEndTime, in: .minute)!)
+                            if extraTime > 0 {
+                                workDay.extraTime = extraTime
+                            } else {
+                                workDay.extraTime = 0
+                            }
                         }
                     }
             }
@@ -212,18 +220,6 @@ extension RecordDetailView {
 
 // MARK: - Computed properties and functions
 extension RecordDetailView {
-//    var shiftsByLocation: [String: [Shift]] {
-//        var shiftsByLocation: [String: [Shift]] = [:]
-//        
-//        let currentShiftGroups = shiftGroups.shiftsGroupsValidsTo(workDay.startDate)
-//        
-//        for shiftGroup in currentShiftGroups {
-//            shiftsByLocation[shiftGroup.location.displayName, default: []].append(contentsOf: shiftGroup.shifts.sorted())
-//        }
-//        
-//        return shiftsByLocation
-//    }
-    
     var locations: [String] {
         shiftsByLocation.keys.sorted(by: <)
     }
