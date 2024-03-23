@@ -24,7 +24,7 @@ enum TypeOfShift: String, CaseIterable, Identifiable {
     }
 }
 
-enum Role: String, Identifiable, CaseIterable {
+enum Role: String, Identifiable, CaseIterable, PickerEnum {
     case maquinista
     case usi
     
@@ -38,7 +38,7 @@ enum Role: String, Identifiable, CaseIterable {
     }
 }
 
-enum Location: String, Identifiable, CaseIterable {
+enum Location: String, Identifiable, CaseIterable, PickerEnum {
     case benidorm
     case denia
     case campello

@@ -37,6 +37,9 @@
 		8292A2852BADB8E00086A8C3 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2842BADB8E00086A8C3 /* Color+Extensions.swift */; };
 		8292A2872BADC0AA0086A8C3 /* Shift+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2862BADC0AA0086A8C3 /* Shift+Extensions.swift */; };
 		8292A2892BAF28F70086A8C3 /* ShiftGroup+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2882BAF28F70086A8C3 /* ShiftGroup+Extensions.swift */; };
+		8292A28D2BAF37810086A8C3 /* OnboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A28A2BAF37810086A8C3 /* OnboardView.swift */; };
+		8292A28E2BAF37810086A8C3 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A28B2BAF37810086A8C3 /* CustomPicker.swift */; };
+		8292A28F2BAF37810086A8C3 /* OnboardStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A28C2BAF37810086A8C3 /* OnboardStepView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +74,9 @@
 		8292A2842BADB8E00086A8C3 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		8292A2862BADC0AA0086A8C3 /* Shift+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shift+Extensions.swift"; sourceTree = "<group>"; };
 		8292A2882BAF28F70086A8C3 /* ShiftGroup+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShiftGroup+Extensions.swift"; sourceTree = "<group>"; };
+		8292A28A2BAF37810086A8C3 /* OnboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardView.swift; sourceTree = "<group>"; };
+		8292A28B2BAF37810086A8C3 /* CustomPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
+		8292A28C2BAF37810086A8C3 /* OnboardStepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardStepView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +192,9 @@
 		8292A2562BAC57690086A8C3 /* Onboard */ = {
 			isa = PBXGroup;
 			children = (
+				8292A28B2BAF37810086A8C3 /* CustomPicker.swift */,
+				8292A28C2BAF37810086A8C3 /* OnboardStepView.swift */,
+				8292A28A2BAF37810086A8C3 /* OnboardView.swift */,
 			);
 			path = Onboard;
 			sourceTree = "<group>";
@@ -327,8 +336,10 @@
 				8292A25E2BAC6CD80086A8C3 /* CalendarScreen.swift in Sources */,
 				8292A27C2BAC6F920086A8C3 /* WorkDay+Extensions.swift in Sources */,
 				823031A92BAC4D6C005B00EF /* TurnosFGVApp.swift in Sources */,
+				8292A28F2BAF37810086A8C3 /* OnboardStepView.swift in Sources */,
 				8292A2832BAD54F40086A8C3 /* View+Extensions.swift in Sources */,
 				8292A2502BAC4FE70086A8C3 /* ShiftsDataModel.swift in Sources */,
+				8292A28D2BAF37810086A8C3 /* OnboardView.swift in Sources */,
 				8292A2752BAC6DA20086A8C3 /* GroupBoxBackgroundModifier.swift in Sources */,
 				8292A2852BADB8E00086A8C3 /* Color+Extensions.swift in Sources */,
 				8292A26D2BAC6D430086A8C3 /* MonthYearHeader.swift in Sources */,
@@ -340,6 +351,7 @@
 				8292A2892BAF28F70086A8C3 /* ShiftGroup+Extensions.swift in Sources */,
 				8292A2672BAC6D2D0086A8C3 /* RecordRowView.swift in Sources */,
 				8292A26A2BAC6D2D0086A8C3 /* RecordsView.swift in Sources */,
+				8292A28E2BAF37810086A8C3 /* CustomPicker.swift in Sources */,
 				8292A24C2BAC4F900086A8C3 /* Date+Extensions.swift in Sources */,
 				8292A2742BAC6DA20086A8C3 /* DisclosureGroupLabelModifier.swift in Sources */,
 				8292A2782BAC6DD40086A8C3 /* VersionedSchemaV1.swift in Sources */,

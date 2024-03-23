@@ -15,8 +15,7 @@ struct RecordDetailView: View {
     @Environment(\.dismiss) private var dismiss
     
     // AppStorage properties
-    @AppStorage("category") var category: String = "maquinista"
-    @AppStorage("location") var location: String = "benidorm"
+    @AppStorage("location") var location: String = ""
     
     // View properties
     @State private var isLicense: Bool = false

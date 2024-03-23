@@ -12,9 +12,15 @@ typealias WorkDay = VersionedSchemaV1.WorkDay
 
 @main
 struct TurnosFGVApp: App {
+    @AppStorage(Constants.currentOnboardingVersion) private var hasSeenOnboardingView = false
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if hasSeenOnboardingView {
+                ContentView()
+            } else {
+                OnboardView()
+            }
         }
         .modelContainer(for: WorkDay.self)
     }

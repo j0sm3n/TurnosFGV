@@ -18,8 +18,7 @@ struct NewRecordView: View {
     let shiftGroups = ShiftsDataModel()
     
     // AppStorage properties
-    @AppStorage("category") var category: String = "maquinista"
-    @AppStorage("location") var location: String = "benidorm"
+    @AppStorage("location") var location: String = ""
 
     // View properties
     @State private var shiftsByLocation: [String: [Shift]] = [:]
