@@ -23,13 +23,12 @@ enum Tab: String {
 
 struct ContentView: View {
     @State private var currentDate: Date = .now
-//    @State private var currentMonth: Date = .currentMonth
+    @State private var currentMonth: Date = .currentMonth
     @State private var selectedTab: Tab = .calendar
     
     var body: some View {
         TabView(selection: $selectedTab) {
-//            CalendarScreen(selectedDate: $currentDate, selectedMonth: $currentMonth)
-            Text("Calendar")
+            CalendarScreen(selectedDate: $currentDate, selectedMonth: $currentMonth)
                 .setUpTab(.calendar)
             
 //            SummaryView(selectedDate: $currentDate, selectedMonth: $currentMonth)

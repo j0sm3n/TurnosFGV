@@ -15,6 +15,28 @@
 		8292A24E2BAC4F9F0086A8C3 /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A24D2BAC4F9F0086A8C3 /* TimeInterval+Extensions.swift */; };
 		8292A2502BAC4FE70086A8C3 /* ShiftsDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A24F2BAC4FE70086A8C3 /* ShiftsDataModel.swift */; };
 		8292A2522BAC51C50086A8C3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8292A2512BAC51C50086A8C3 /* PrivacyInfo.xcprivacy */; };
+		8292A25E2BAC6CD80086A8C3 /* CalendarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A25D2BAC6CD80086A8C3 /* CalendarScreen.swift */; };
+		8292A2612BAC6D180086A8C3 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A25F2BAC6D180086A8C3 /* CalendarView.swift */; };
+		8292A2622BAC6D180086A8C3 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2602BAC6D180086A8C3 /* DayView.swift */; };
+		8292A2672BAC6D2D0086A8C3 /* RecordRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2632BAC6D2D0086A8C3 /* RecordRowView.swift */; };
+		8292A2682BAC6D2D0086A8C3 /* RecordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2642BAC6D2D0086A8C3 /* RecordDetailView.swift */; };
+		8292A2692BAC6D2D0086A8C3 /* NewRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2652BAC6D2D0086A8C3 /* NewRecordView.swift */; };
+		8292A26A2BAC6D2D0086A8C3 /* RecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2662BAC6D2D0086A8C3 /* RecordsView.swift */; };
+		8292A26D2BAC6D430086A8C3 /* MonthYearHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A26B2BAC6D430086A8C3 /* MonthYearHeader.swift */; };
+		8292A26E2BAC6D430086A8C3 /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A26C2BAC6D430086A8C3 /* SaveButton.swift */; };
+		8292A2732BAC6DA20086A8C3 /* ShiftTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A26F2BAC6DA20086A8C3 /* ShiftTextModifier.swift */; };
+		8292A2742BAC6DA20086A8C3 /* DisclosureGroupLabelModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2702BAC6DA20086A8C3 /* DisclosureGroupLabelModifier.swift */; };
+		8292A2752BAC6DA20086A8C3 /* GroupBoxBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2712BAC6DA20086A8C3 /* GroupBoxBackgroundModifier.swift */; };
+		8292A2762BAC6DA20086A8C3 /* DisclosureGroupModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2722BAC6DA20086A8C3 /* DisclosureGroupModifier.swift */; };
+		8292A2782BAC6DD40086A8C3 /* VersionedSchemaV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2772BAC6DD40086A8C3 /* VersionedSchemaV1.swift */; };
+		8292A27A2BAC6F240086A8C3 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2792BAC6F240086A8C3 /* Day.swift */; };
+		8292A27C2BAC6F920086A8C3 /* WorkDay+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A27B2BAC6F920086A8C3 /* WorkDay+Extensions.swift */; };
+		8292A27F2BAC8AAE0086A8C3 /* DateHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 8292A27E2BAC8AAE0086A8C3 /* DateHelper */; };
+		8292A2812BACA7E20086A8C3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2802BACA7E20086A8C3 /* Constants.swift */; };
+		8292A2832BAD54F40086A8C3 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2822BAD54F40086A8C3 /* View+Extensions.swift */; };
+		8292A2852BADB8E00086A8C3 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2842BADB8E00086A8C3 /* Color+Extensions.swift */; };
+		8292A2872BADC0AA0086A8C3 /* Shift+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2862BADC0AA0086A8C3 /* Shift+Extensions.swift */; };
+		8292A2892BAF28F70086A8C3 /* ShiftGroup+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2882BAF28F70086A8C3 /* ShiftGroup+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +50,27 @@
 		8292A24F2BAC4FE70086A8C3 /* ShiftsDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftsDataModel.swift; sourceTree = "<group>"; };
 		8292A2512BAC51C50086A8C3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		8292A2532BAC52ED0086A8C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8292A25D2BAC6CD80086A8C3 /* CalendarScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarScreen.swift; sourceTree = "<group>"; };
+		8292A25F2BAC6D180086A8C3 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		8292A2602BAC6D180086A8C3 /* DayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
+		8292A2632BAC6D2D0086A8C3 /* RecordRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordRowView.swift; sourceTree = "<group>"; };
+		8292A2642BAC6D2D0086A8C3 /* RecordDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordDetailView.swift; sourceTree = "<group>"; };
+		8292A2652BAC6D2D0086A8C3 /* NewRecordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewRecordView.swift; sourceTree = "<group>"; };
+		8292A2662BAC6D2D0086A8C3 /* RecordsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordsView.swift; sourceTree = "<group>"; };
+		8292A26B2BAC6D430086A8C3 /* MonthYearHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthYearHeader.swift; sourceTree = "<group>"; };
+		8292A26C2BAC6D430086A8C3 /* SaveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
+		8292A26F2BAC6DA20086A8C3 /* ShiftTextModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShiftTextModifier.swift; sourceTree = "<group>"; };
+		8292A2702BAC6DA20086A8C3 /* DisclosureGroupLabelModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisclosureGroupLabelModifier.swift; sourceTree = "<group>"; };
+		8292A2712BAC6DA20086A8C3 /* GroupBoxBackgroundModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupBoxBackgroundModifier.swift; sourceTree = "<group>"; };
+		8292A2722BAC6DA20086A8C3 /* DisclosureGroupModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisclosureGroupModifier.swift; sourceTree = "<group>"; };
+		8292A2772BAC6DD40086A8C3 /* VersionedSchemaV1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionedSchemaV1.swift; sourceTree = "<group>"; };
+		8292A2792BAC6F240086A8C3 /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
+		8292A27B2BAC6F920086A8C3 /* WorkDay+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkDay+Extensions.swift"; sourceTree = "<group>"; };
+		8292A2802BACA7E20086A8C3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		8292A2822BAD54F40086A8C3 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
+		8292A2842BADB8E00086A8C3 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
+		8292A2862BADC0AA0086A8C3 /* Shift+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shift+Extensions.swift"; sourceTree = "<group>"; };
+		8292A2882BAF28F70086A8C3 /* ShiftGroup+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShiftGroup+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8292A27F2BAC8AAE0086A8C3 /* DateHelper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,8 +108,8 @@
 				8292A2512BAC51C50086A8C3 /* PrivacyInfo.xcprivacy */,
 				823031A82BAC4D6C005B00EF /* TurnosFGVApp.swift */,
 				8292A24A2BAC4F700086A8C3 /* Views */,
-				8292A2482BAC4F5C0086A8C3 /* Extensions */,
 				8292A2492BAC4F620086A8C3 /* Models */,
+				8292A2482BAC4F5C0086A8C3 /* Extensions */,
 				8292A25C2BAC58A90086A8C3 /* Helpers */,
 				823031AC2BAC4D6C005B00EF /* Assets.xcassets */,
 				823031AE2BAC4D6C005B00EF /* Preview Content */,
@@ -84,8 +128,13 @@
 		8292A2482BAC4F5C0086A8C3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				8292A27B2BAC6F920086A8C3 /* WorkDay+Extensions.swift */,
+				8292A2862BADC0AA0086A8C3 /* Shift+Extensions.swift */,
+				8292A2882BAF28F70086A8C3 /* ShiftGroup+Extensions.swift */,
 				8292A24B2BAC4F900086A8C3 /* Date+Extensions.swift */,
 				8292A24D2BAC4F9F0086A8C3 /* TimeInterval+Extensions.swift */,
+				8292A2822BAD54F40086A8C3 /* View+Extensions.swift */,
+				8292A2842BADB8E00086A8C3 /* Color+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -94,6 +143,8 @@
 			isa = PBXGroup;
 			children = (
 				8292A24F2BAC4FE70086A8C3 /* ShiftsDataModel.swift */,
+				8292A2772BAC6DD40086A8C3 /* VersionedSchemaV1.swift */,
+				8292A2792BAC6F240086A8C3 /* Day.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -115,6 +166,10 @@
 		8292A2542BAC57140086A8C3 /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
+				8292A2702BAC6DA20086A8C3 /* DisclosureGroupLabelModifier.swift */,
+				8292A2722BAC6DA20086A8C3 /* DisclosureGroupModifier.swift */,
+				8292A2712BAC6DA20086A8C3 /* GroupBoxBackgroundModifier.swift */,
+				8292A26F2BAC6DA20086A8C3 /* ShiftTextModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -122,6 +177,8 @@
 		8292A2552BAC57610086A8C3 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				8292A26B2BAC6D430086A8C3 /* MonthYearHeader.swift */,
+				8292A26C2BAC6D430086A8C3 /* SaveButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -150,6 +207,7 @@
 		8292A2592BAC57880086A8C3 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				8292A25D2BAC6CD80086A8C3 /* CalendarScreen.swift */,
 				8292A25B2BAC57940086A8C3 /* Calendar */,
 				8292A25A2BAC578E0086A8C3 /* Records */,
 			);
@@ -159,6 +217,10 @@
 		8292A25A2BAC578E0086A8C3 /* Records */ = {
 			isa = PBXGroup;
 			children = (
+				8292A2652BAC6D2D0086A8C3 /* NewRecordView.swift */,
+				8292A2642BAC6D2D0086A8C3 /* RecordDetailView.swift */,
+				8292A2632BAC6D2D0086A8C3 /* RecordRowView.swift */,
+				8292A2662BAC6D2D0086A8C3 /* RecordsView.swift */,
 			);
 			path = Records;
 			sourceTree = "<group>";
@@ -166,6 +228,8 @@
 		8292A25B2BAC57940086A8C3 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				8292A25F2BAC6D180086A8C3 /* CalendarView.swift */,
+				8292A2602BAC6D180086A8C3 /* DayView.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -173,6 +237,7 @@
 		8292A25C2BAC58A90086A8C3 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				8292A2802BACA7E20086A8C3 /* Constants.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -193,6 +258,9 @@
 			dependencies = (
 			);
 			name = TurnosFGV;
+			packageProductDependencies = (
+				8292A27E2BAC8AAE0086A8C3 /* DateHelper */,
+			);
 			productName = TurnosFGV;
 			productReference = 823031A52BAC4D6C005B00EF /* TurnosFGV.app */;
 			productType = "com.apple.product-type.application";
@@ -221,6 +289,9 @@
 				Base,
 			);
 			mainGroup = 8230319C2BAC4D6C005B00EF;
+			packageReferences = (
+				8292A27D2BAC8AAE0086A8C3 /* XCRemoteSwiftPackageReference "DateHelper" */,
+			);
 			productRefGroup = 823031A62BAC4D6C005B00EF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -249,9 +320,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				823031AB2BAC4D6C005B00EF /* ContentView.swift in Sources */,
+				8292A2812BACA7E20086A8C3 /* Constants.swift in Sources */,
+				8292A2692BAC6D2D0086A8C3 /* NewRecordView.swift in Sources */,
+				8292A2622BAC6D180086A8C3 /* DayView.swift in Sources */,
+				8292A2612BAC6D180086A8C3 /* CalendarView.swift in Sources */,
+				8292A25E2BAC6CD80086A8C3 /* CalendarScreen.swift in Sources */,
+				8292A27C2BAC6F920086A8C3 /* WorkDay+Extensions.swift in Sources */,
 				823031A92BAC4D6C005B00EF /* TurnosFGVApp.swift in Sources */,
+				8292A2832BAD54F40086A8C3 /* View+Extensions.swift in Sources */,
 				8292A2502BAC4FE70086A8C3 /* ShiftsDataModel.swift in Sources */,
+				8292A2752BAC6DA20086A8C3 /* GroupBoxBackgroundModifier.swift in Sources */,
+				8292A2852BADB8E00086A8C3 /* Color+Extensions.swift in Sources */,
+				8292A26D2BAC6D430086A8C3 /* MonthYearHeader.swift in Sources */,
+				8292A2762BAC6DA20086A8C3 /* DisclosureGroupModifier.swift in Sources */,
+				8292A2732BAC6DA20086A8C3 /* ShiftTextModifier.swift in Sources */,
+				8292A26E2BAC6D430086A8C3 /* SaveButton.swift in Sources */,
+				8292A2872BADC0AA0086A8C3 /* Shift+Extensions.swift in Sources */,
+				8292A2682BAC6D2D0086A8C3 /* RecordDetailView.swift in Sources */,
+				8292A2892BAF28F70086A8C3 /* ShiftGroup+Extensions.swift in Sources */,
+				8292A2672BAC6D2D0086A8C3 /* RecordRowView.swift in Sources */,
+				8292A26A2BAC6D2D0086A8C3 /* RecordsView.swift in Sources */,
 				8292A24C2BAC4F900086A8C3 /* Date+Extensions.swift in Sources */,
+				8292A2742BAC6DA20086A8C3 /* DisclosureGroupLabelModifier.swift in Sources */,
+				8292A2782BAC6DD40086A8C3 /* VersionedSchemaV1.swift in Sources */,
+				8292A27A2BAC6F240086A8C3 /* Day.swift in Sources */,
 				8292A24E2BAC4F9F0086A8C3 /* TimeInterval+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -476,6 +568,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8292A27D2BAC8AAE0086A8C3 /* XCRemoteSwiftPackageReference "DateHelper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/melvitax/DateHelper.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8292A27E2BAC8AAE0086A8C3 /* DateHelper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8292A27D2BAC8AAE0086A8C3 /* XCRemoteSwiftPackageReference "DateHelper" */;
+			productName = DateHelper;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8230319D2BAC4D6C005B00EF /* Project object */;
 }

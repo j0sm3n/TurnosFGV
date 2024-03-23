@@ -8,10 +8,23 @@
 import Foundation
 
 extension Date {
-    init?(_ year: Int, _ month: Int, _ day: Int, _ hour: Int = 12, _ minute: Int = 0) {
-        guard let date = DateComponents(calendar: .current, year: year, month: month, day: day, hour: hour, minute: minute).date else {
-            return nil
+    static func -(lhs: Date, rhs: Date) -> TimeInterval {
+        lhs.timeIntervalSinceReferenceDate - rhs.timeIntervalSinceReferenceDate
+    }
+    
+    /// Week days starting by monday
+    static var weekdaySymbols: [String] {
+        Calendar.current.standaloneWeekdaySymbols.dropFirst() + [Calendar.current.standaloneWeekdaySymbols.first!]
+    }
+    
+    /// Current month
+    static var currentMonth: Date {
+        let calendar = Calendar.current
+        
+        guard let month = calendar.date(from: calendar.dateComponents([.year, .month], from: .now)) else {
+            return .now
         }
-        self = date
+        
+        return month
     }
 }
