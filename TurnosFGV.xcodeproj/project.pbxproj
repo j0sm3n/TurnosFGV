@@ -294,11 +294,11 @@
 			};
 			buildConfigurationList = 823031A02BAC4D6C005B00EF /* Build configuration list for PBXProject "TurnosFGV" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = es;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				es,
 			);
 			mainGroup = 8230319C2BAC4D6C005B00EF;
 			packageReferences = (
