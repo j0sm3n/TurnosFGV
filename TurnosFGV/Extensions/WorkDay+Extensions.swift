@@ -62,23 +62,29 @@ extension WorkDay {
     var nightTime: TimeInterval {
         var nightTime: TimeInterval = 0
         
-        if startDate.compare(.isEarlier(than: endDate)) {
-            // Night shift, shift ends next day
-            if startDate.compare(.isLater(than: nightStart)) && endDate.compare(.isEarlier(than: nightEnd)) {
-                nightTime = endDate - startDate
-            } else if startDate.compare(.isEarlier(than: nightStart)) && endDate.compare(.isEarlier(than: nightEnd)) {
-                nightTime = endDate - nightStart
-            } else if startDate.compare(.isLater(than: nightStart)) && endDate.compare(.isLater(than: nightEnd)) {
+        assert(startDate.compare(.isEarlier(than: endDate)), "Start date always has to be earlier than end date")
+        
+        // Work day start and end are in the same day
+        if startDate.compare(.isSameDay(as: endDate)) {
+            // Work day start before 6:00
+            if startDate.compare(.isEarlier(than: nightEnd)) && startDate.compare(.isSameDay(as: nightEnd)) {
                 nightTime = nightEnd - startDate
-            } else {
-                nightTime = nightEnd - nightStart
             }
-        } else if startDate.compare(.isEarlier(than: nightEnd)) {
-            // Morning shift
-            nightTime = nightEnd - startDate
-        } else if endDate.compare(.isLater(than: nightStart)) {
-            // Afternoon shift
-            nightTime = endDate - nightStart
+            // Work day end after 22:00
+            else if endDate.compare(.isLater(than: nightStart)) {
+                nightTime = endDate - nightStart
+            }
+        }
+        // Work day ends next day
+        else {
+            // Work day start after 22:00
+            if startDate.compare(.isLater(than: nightStart)) {
+                nightTime = endDate - startDate
+            }
+            // Work day start before 22:00
+            else {
+                nightTime = endDate - nightStart
+            }
         }
         
         return nightTime
