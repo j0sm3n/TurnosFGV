@@ -40,6 +40,7 @@
 		8292A28D2BAF37810086A8C3 /* OnboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A28A2BAF37810086A8C3 /* OnboardView.swift */; };
 		8292A28E2BAF37810086A8C3 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A28B2BAF37810086A8C3 /* CustomPicker.swift */; };
 		8292A28F2BAF37810086A8C3 /* OnboardStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A28C2BAF37810086A8C3 /* OnboardStepView.swift */; };
+		8292A2912BB0022C0086A8C3 /* WorkDayContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2902BB0022C0086A8C3 /* WorkDayContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		8292A28A2BAF37810086A8C3 /* OnboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardView.swift; sourceTree = "<group>"; };
 		8292A28B2BAF37810086A8C3 /* CustomPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
 		8292A28C2BAF37810086A8C3 /* OnboardStepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardStepView.swift; sourceTree = "<group>"; };
+		8292A2902BB0022C0086A8C3 /* WorkDayContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDayContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				823031AF2BAC4D6C005B00EF /* Preview Assets.xcassets */,
+				8292A2902BB0022C0086A8C3 /* WorkDayContainer.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				8292A2752BAC6DA20086A8C3 /* GroupBoxBackgroundModifier.swift in Sources */,
 				8292A2852BADB8E00086A8C3 /* Color+Extensions.swift in Sources */,
 				8292A26D2BAC6D430086A8C3 /* MonthYearHeader.swift in Sources */,
+				8292A2912BB0022C0086A8C3 /* WorkDayContainer.swift in Sources */,
 				8292A2762BAC6DA20086A8C3 /* DisclosureGroupModifier.swift in Sources */,
 				8292A2732BAC6DA20086A8C3 /* ShiftTextModifier.swift in Sources */,
 				8292A26E2BAC6D430086A8C3 /* SaveButton.swift in Sources */,
