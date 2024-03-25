@@ -61,7 +61,7 @@ struct RecordDetailView: View {
             Button("Borrar", role: .destructive, action: deleteRecord)
             Button("Cancelar", role: .cancel, action: {})
         } message: {
-            Text("¿Seguro que quieres borrar el turno del día \(String(describing: workDay.startDate.toString(format: .custom("dd MMM"))))?")
+            Text("¿Seguro que quieres borrar el turno del día \(String(describing: workDay.startDate.toString(format: .custom("dd MMM"))!))?")
         }
     }
 }
