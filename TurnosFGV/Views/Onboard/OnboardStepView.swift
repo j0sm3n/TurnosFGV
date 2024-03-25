@@ -32,19 +32,27 @@ struct OnboardStepView<T: PickerEnum>: View {
                     .foregroundStyle(.appWhite)
                     .padding(.vertical, 20)
                 
-                CustomPicker(selection: $item)
+                SegmentedControl(
+                    activeTab: $item,
+                    activeTint: .appWhite,
+                    inActiveTint: .gray) { size in
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(.appPurple)
+                            .frame(height: size.height)
+                            .padding(.horizontal, 0)
+                            .offset(y: 0)
+                            .frame(maxHeight: .infinity, alignment: .bottom)
+                    }
+                    .padding(.top, 0)
+                    .background {
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(.ultraThinMaterial)
+                            .ignoresSafeArea()
+                    }
+                    .padding(.horizontal, 15)
             }
             .padding(.horizontal, 40)
             .padding(.top, 100)
         }
     }
 }
-
-//#Preview {
-//    OnboardView<Category>(
-//        systemImageName: "person.fill.viewfinder",
-//        title: "Categoría",
-//        description: "Selecciona tu categoría para poder mostrar correctamente qué turnos puedes hacer.",
-//        item: .constant(Category.usi)
-//    )
-//}
