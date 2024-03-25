@@ -39,12 +39,3 @@ struct OnboardStepView<T: PickerEnum>: View {
         }
     }
 }
-
-//#Preview {
-//    OnboardView<Category>(
-//        systemImageName: "person.fill.viewfinder",
-//        title: "Categoría",
-//        description: "Selecciona tu categoría para poder mostrar correctamente qué turnos puedes hacer.",
-//        item: .constant(Category.usi)
-//    )
-//}
