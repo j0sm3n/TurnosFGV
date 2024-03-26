@@ -14,14 +14,19 @@ typealias WorkDay = VersionedSchemaV1.WorkDay
 @main
 struct TurnosFGVApp: App {
     @AppStorage(Constants.currentOnboardingVersion) private var hasSeenOnboardingView = false
-    let container: ModelContainer
     
-    init() {
+    @MainActor
+    var container: ModelContainer {
         do {
             #if DEBUG
-            self.container = WorkDay.preview
+            return WorkDay.preview
             #else
-            self .container = try ModelContainer(for: WorkDay.self)
+            let schema = Schema([WorkDay.self])
+            let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+            
+            let container = try ModelContainer(for: WorkDay.self, migrationPlan: MigrationPlan.self, configurations: config)
+            
+            return container
             #endif
         } catch {
             fatalError("Could not configure the container")

@@ -43,6 +43,7 @@
 		8292A2912BB0022C0086A8C3 /* WorkDayContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2902BB0022C0086A8C3 /* WorkDayContainer.swift */; };
 		8292A2B12BB1B5470086A8C3 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2B02BB1B5470086A8C3 /* SummaryView.swift */; };
 		8292A2B32BB2D3D40086A8C3 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2B22BB2D3D40086A8C3 /* ChartView.swift */; };
+		8292A2B62BB2E4ED0086A8C3 /* MigrationPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2B52BB2E4ED0086A8C3 /* MigrationPlan.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +84,8 @@
 		8292A2902BB0022C0086A8C3 /* WorkDayContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDayContainer.swift; sourceTree = "<group>"; };
 		8292A2B02BB1B5470086A8C3 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		8292A2B22BB2D3D40086A8C3 /* ChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		8292A2B52BB2E4ED0086A8C3 /* MigrationPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationPlan.swift; sourceTree = "<group>"; };
+		8292A2B72BB2E5D70086A8C3 /* TurnosFGV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TurnosFGV.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +119,7 @@
 		823031A72BAC4D6C005B00EF /* TurnosFGV */ = {
 			isa = PBXGroup;
 			children = (
+				8292A2B72BB2E5D70086A8C3 /* TurnosFGV.entitlements */,
 				8292A2532BAC52ED0086A8C3 /* Info.plist */,
 				8292A2512BAC51C50086A8C3 /* PrivacyInfo.xcprivacy */,
 				823031A82BAC4D6C005B00EF /* TurnosFGVApp.swift */,
@@ -156,7 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				8292A24F2BAC4FE70086A8C3 /* ShiftsDataModel.swift */,
-				8292A2772BAC6DD40086A8C3 /* VersionedSchemaV1.swift */,
+				8292A2B42BB2E4BE0086A8C3 /* SwiftData */,
 				8292A2792BAC6F240086A8C3 /* Day.swift */,
 			);
 			path = Models;
@@ -260,6 +264,15 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		8292A2B42BB2E4BE0086A8C3 /* SwiftData */ = {
+			isa = PBXGroup;
+			children = (
+				8292A2772BAC6DD40086A8C3 /* VersionedSchemaV1.swift */,
+				8292A2B52BB2E4ED0086A8C3 /* MigrationPlan.swift */,
+			);
+			path = SwiftData;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -345,6 +358,7 @@
 				8292A25E2BAC6CD80086A8C3 /* CalendarScreen.swift in Sources */,
 				8292A27C2BAC6F920086A8C3 /* WorkDay+Extensions.swift in Sources */,
 				823031A92BAC4D6C005B00EF /* TurnosFGVApp.swift in Sources */,
+				8292A2B62BB2E4ED0086A8C3 /* MigrationPlan.swift in Sources */,
 				8292A28F2BAF37810086A8C3 /* OnboardStepView.swift in Sources */,
 				8292A2832BAD54F40086A8C3 /* View+Extensions.swift in Sources */,
 				8292A2502BAC4FE70086A8C3 /* ShiftsDataModel.swift in Sources */,
@@ -499,6 +513,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TurnosFGV/TurnosFGV.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TurnosFGV/Preview Content\"";
@@ -537,6 +552,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TurnosFGV/TurnosFGV.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TurnosFGV/Preview Content\"";
