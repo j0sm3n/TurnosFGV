@@ -42,6 +42,7 @@
 		8292A28F2BAF37810086A8C3 /* OnboardStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A28C2BAF37810086A8C3 /* OnboardStepView.swift */; };
 		8292A2912BB0022C0086A8C3 /* WorkDayContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2902BB0022C0086A8C3 /* WorkDayContainer.swift */; };
 		8292A2B12BB1B5470086A8C3 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2B02BB1B5470086A8C3 /* SummaryView.swift */; };
+		8292A2B32BB2D3D40086A8C3 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2B22BB2D3D40086A8C3 /* ChartView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,7 @@
 		8292A28C2BAF37810086A8C3 /* OnboardStepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardStepView.swift; sourceTree = "<group>"; };
 		8292A2902BB0022C0086A8C3 /* WorkDayContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDayContainer.swift; sourceTree = "<group>"; };
 		8292A2B02BB1B5470086A8C3 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
+		8292A2B22BB2D3D40086A8C3 /* ChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 		8292A2572BAC57750086A8C3 /* Charts */ = {
 			isa = PBXGroup;
 			children = (
+				8292A2B22BB2D3D40086A8C3 /* ChartView.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				8292A2872BADC0AA0086A8C3 /* Shift+Extensions.swift in Sources */,
 				8292A2682BAC6D2D0086A8C3 /* RecordDetailView.swift in Sources */,
 				8292A2892BAF28F70086A8C3 /* ShiftGroup+Extensions.swift in Sources */,
+				8292A2B32BB2D3D40086A8C3 /* ChartView.swift in Sources */,
 				8292A2672BAC6D2D0086A8C3 /* RecordRowView.swift in Sources */,
 				8292A26A2BAC6D2D0086A8C3 /* RecordsView.swift in Sources */,
 				8292A28E2BAF37810086A8C3 /* CustomPicker.swift in Sources */,
