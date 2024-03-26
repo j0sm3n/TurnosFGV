@@ -31,8 +31,7 @@ struct ContentView: View {
             CalendarScreen(selectedDate: $currentDate, selectedMonth: $currentMonth)
                 .setUpTab(.calendar)
             
-//            SummaryView(selectedDate: $currentDate, selectedMonth: $currentMonth)
-            Text("Summary")
+            SummaryView(selectedDate: $currentDate, selectedMonth: $currentMonth)
                 .setUpTab(.summary)
             
 //            ChartView()
@@ -44,6 +43,7 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .modelContainer(WorkDay.preview)
 }
 
 extension View {
