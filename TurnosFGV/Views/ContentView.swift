@@ -42,7 +42,9 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+    #if DEBUG
         .modelContainer(WorkDay.preview)
+    #endif
 }
 
 extension View {

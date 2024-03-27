@@ -38,26 +38,30 @@ struct SummaryView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(WorkDay.preview)}
+#if DEBUG
+        .modelContainer(WorkDay.preview)
+#endif
+}
 
-// MARK: - Extracted vies
 extension SummaryView {
+    // MARK: - Extracted vies
     var PayrollDisclosureGroup: some View {
         DisclosureGroup(isExpanded: $showPayrollGroup) {
             VStack(spacing: 12) {
-                LabeledContent("Nocturnidad", value: nightTimeInMonth, format: .number.precision(.fractionLength(2)))
-                LabeledContent("Prima saturación maquinista", value: saturationInMonth, format: .number)
+                LabeledContent("Nocturnidad", value: nightTimeInMonth, format: .number.precision(.fractionLength(0)))
+                LabeledContent("Comp. Jor. Cont. Peculiares", value: noonRecordsCount, format: .number)
+                LabeledContent("Prima saturación maquinista", value: saturationInMonth, format: .number.precision(.fractionLength(0)))
                 LabeledContent("Indemnización Domingo/Festivo", value: sundaysOrWorkedHolidaysInMonth, format: .number)
                 LabeledContent("Indemnización descanso bocadillo", value: snackBreakCompensation, format: .number)
                 LabeledContent("Indemnización sábados", value: saturdaysInMonth, format: .number)
-                LabeledContent("Horas extras extructurales", value: 10.5, format: .number.precision(.fractionLength(2)))
-                LabeledContent("SPP", value: 6, format: .number.precision(.fractionLength(2)))
-                LabeledContent("Dietas", value: 1.9, format: .number.precision(.fractionLength(2)))
-                LabeledContent("Comp. Festivos Especiales", value: 1, format: .number)
+                LabeledContent("Horas extras extructurales", value: extraTimeInMonth, format: .number.precision(.fractionLength(2)))
+                LabeledContent("SPP", value: totalSPPHours, format: .number.precision(.fractionLength(2)))
+                LabeledContent("Dietas", value: numberOfAllowance, format: .number.precision(.fractionLength(2)))
+                LabeledContent("Comp. Festivos Especiales", value: numberOfSpecialWorkedHolidays, format: .number)
             }
             .padding(.bottom)
         } label: {
-            Label("Nómina \(selectedMonth.toString(format: .custom("MMMM"))!) \(selectedMonth.toString(format: .isoYear)!)", systemImage: "doc.text.magnifyingglass")
+            Label("Nómina \(selectedMonth.toString(format: .custom("MMMM yyyy"))!)", systemImage: "doc.text.magnifyingglass")
                 .disclosureGroupLabelStyle()
         }
         .disclosureGroupBackgroundStyle()
@@ -102,24 +106,21 @@ extension SummaryView {
         }
         .disclosureGroupBackgroundStyle()
     }
-}
-// MARK: - Computed properties and functions
-extension SummaryView {
+
+    // MARK: - Computed properties and functions
     func recordsByType(_ records: [WorkDay], _ typeOfShift: TypeOfShift) -> (hours: Double, days: Int) {
         let filteredRecords = records.filter { $0.typeOfShift == typeOfShift }
         let minutes = filteredRecords.reduce(0) { $0 + $1.workedMinutes }
-        let hours = Double(minutes) / 60
+        let hours = minutes.minutesInHours
         return (hours, filteredRecords.count)
     }
     
     func workedHoursIn(records: [WorkDay]) -> Double {
         let minutes = records.reduce(0) { $0 + $1.workedMinutes }
-        return Double(minutes) / 60
+        return minutes.minutesInHours
     }
-}
 
-// MARK: - Month computed properties
-extension SummaryView {
+    // MARK: - Month computed properties
     var recordsInMonth: [WorkDay] {
         let startDateOfMonth = selectedDate.adjust(for: .startOfMonth)!
         let endDateOfMonth = selectedDate.adjust(for: .endOfMonth)!
@@ -129,6 +130,10 @@ extension SummaryView {
     
     var notSickRecordsInMonth: [WorkDay] {
         recordsInMonth.filter { $0.isSickLeave == false && $0.isWorkAccident == false }
+    }
+    
+    var sppRecordsInMonth: [WorkDay] {
+        recordsInMonth.filter { $0.isSPP }
     }
     
     var monthWorkedHours: Double {
@@ -148,6 +153,10 @@ extension SummaryView {
         return totalSeconds / 3600
     }
     
+    var noonRecordsCount: Int {
+        recordsInMonth.filter { $0.typeOfShift == .noon }.count
+    }
+    
     var saturationInMonth: Double {
         notSickRecordsInMonth.reduce(0) { partialResult, record in
             guard let saturation = record.saturation else {
@@ -164,10 +173,25 @@ extension SummaryView {
     var saturdaysInMonth: Int {
         notSickRecordsInMonth.filter({ $0.startDate.component(.weekday) == 7 }).count
     }
-}
+    
+    var extraTimeInMonth: Double {
+        recordsInMonth.reduce(0) { $0 + $1.extraTime }.minutesInHours
+    }
+    
+    var totalSPPHours: Double {
+        sppRecordsInMonth.reduce(0) { $0 + $1.sppMinutes }.minutesInHours
+    }
+    
+    var numberOfAllowance: Double {
+        let allowanceDays = notSickRecordsInMonth.filter { $0.isAllowance }.count
+        return Double(allowanceDays) * Constants.allowanceValue
+    }
+    
+    var numberOfSpecialWorkedHolidays: Int {
+        notSickRecordsInMonth.filter { $0.isSpecialWorkedHoliday }.count
+    }
 
-// MARK: - Year computed properties
-extension SummaryView {
+    // MARK: - Year computed properties
     var recorsInYear: [WorkDay] {
         let firstDayOfYear = selectedDate.adjust(for: .startOfYear)!
         let lastDayOfYear = selectedDate.adjust(for: .endOfYear)!
