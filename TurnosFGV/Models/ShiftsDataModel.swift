@@ -66,9 +66,9 @@ struct Shift: Identifiable {
 
 // Data Model
 struct ShiftsDataModel {
-    let shiftGroups = {
+    let shiftGroups = [
         // Maquinista Benidorm
-        let maquinistasB = ShiftGroup(validFrom: .init(fromString: "2023-07-14", format: .isoDate)!, role: .maquinista, location: .benidorm, shifts: [
+        ShiftGroup(validFrom: .init(fromString: "2023-07-14", format: .isoDate)!, role: .maquinista, location: .benidorm, shifts: [
             .init(name: "1", startTime: TimeInterval(hour: 5, minute: 27), duration: TimeInterval(hour: 8, minute: 9), saturation: 71.2),
             .init(name: "2", startTime: TimeInterval(hour: 6, minute: 27), duration: TimeInterval(hour: 8, minute: 9), saturation: 71.2),
             .init(name: "3", startTime: TimeInterval(hour: 11, minute: 52), duration: TimeInterval(hour: 7, minute: 44), saturation: 55.3),
@@ -78,10 +78,20 @@ struct ShiftsDataModel {
             .init(name: "9", startTime: TimeInterval(hour: 13, minute: 45), duration: TimeInterval(hour: 7, minute: 15), saturation: 62.82),
             .init(name: "STDR", startTime: TimeInterval(hour: 7), duration: TimeInterval(hour: 7, minute: 49)),
             .init(name: "A1", startTime: TimeInterval(hour: 23, minute: 30), duration: TimeInterval(hour: 6), saturation: 57.14)
-        ])
+        ]),
+        
+        ShiftGroup(validFrom: .init(fromString: "2024-04-09", format: .isoDate)!, role: .maquinista, location: .benidorm, shifts: [
+            .init(name: "1", startTime: TimeInterval(hour: 5, minute: 20), duration: TimeInterval(hour: 8, minute: 34), saturation: 40.09),
+            .init(name: "2", startTime: TimeInterval(hour: 6, minute: 20), duration: TimeInterval(hour: 8, minute: 34), saturation: 40.09),
+            .init(name: "3", startTime: TimeInterval(hour: 13, minute: 45), duration: TimeInterval(hour: 9, minute: 8), saturation: 42.39),
+            .init(name: "4", startTime: TimeInterval(hour: 14, minute: 45), duration: TimeInterval(hour: 8, minute: 31), saturation: 41.01),
+            .init(name: "8", startTime: TimeInterval(hour: 5, minute: 45), duration: TimeInterval(hour: 6, minute: 45), saturation: 40.90),
+            .init(name: "9", startTime: TimeInterval(hour: 13, minute: 45), duration: TimeInterval(hour: 6, minute: 45), saturation: 40.90),
+            .init(name: "STDR", startTime: TimeInterval(hour: 7), duration: TimeInterval(hour: 7, minute: 49)),
+        ]),
         
         // Maquinista Denia
-        let maquinistasD = ShiftGroup(validFrom: .init(fromString: "2023-07-14", format: .isoDate)!, role: .maquinista, location: .denia, shifts: [
+        ShiftGroup(validFrom: .init(fromString: "2023-07-14", format: .isoDate)!, role: .maquinista, location: .denia, shifts: [
             .init(name: "21", startTime: TimeInterval(hour: 5, minute: 5), duration: TimeInterval(hour: 7, minute: 52), saturation: 59.25),
             .init(name: "22", startTime: TimeInterval(hour: 5, minute: 20), duration: TimeInterval(hour: 8, minute: 37), saturation: 64.41),
             .init(name: "23", startTime: TimeInterval(hour: 9, minute: 35), duration: TimeInterval(hour: 7, minute: 22), saturation: 66.26),
@@ -89,17 +99,27 @@ struct ShiftsDataModel {
             .init(name: "25", startTime: TimeInterval(hour: 16, minute: 35), duration: TimeInterval(hour: 6, minute: 36), saturation: 58.20),
             .init(name: "26", startTime: TimeInterval(hour: 5, minute: 15), duration: TimeInterval(hour: 7, minute: 15), saturation: 60.72),
             .init(name: "27", startTime: TimeInterval(hour: 14, minute: 45), duration: TimeInterval(hour: 7), saturation: 60.72)
-        ])
+        ]),
         
-        return [maquinistasB, maquinistasD]
-    }()
+        ShiftGroup(validFrom: .init(fromString: "2024-04-09", format: .isoDate)!, role: .maquinista, location: .denia, shifts: [
+            .init(name: "21", startTime: TimeInterval(hour: 5, minute: 5), duration: TimeInterval(hour: 7, minute: 2), saturation: 64.03),
+            .init(name: "22", startTime: TimeInterval(hour: 5, minute: 20), duration: TimeInterval(hour: 7, minute: 47), saturation: 66.26),
+            .init(name: "23", startTime: TimeInterval(hour: 8, minute: 35), duration: TimeInterval(hour: 7, minute: 32), saturation: 66.26),
+            .init(name: "24", startTime: TimeInterval(hour: 12, minute: 35), duration: TimeInterval(hour: 7, minute: 32), saturation: 66.26),
+            .init(name: "25", startTime: TimeInterval(hour: 15, minute: 35), duration: TimeInterval(hour: 7, minute: 32), saturation: 66.26),
+            .init(name: "26", startTime: TimeInterval(hour: 16, minute: 35), duration: TimeInterval(hour: 6, minute: 46), saturation: 63.93),
+            .init(name: "27", startTime: TimeInterval(hour: 5, minute: 5), duration: TimeInterval(hour: 8, minute: 10), saturation: 65.50),
+            .init(name: "28", startTime: TimeInterval(hour: 13, minute: 30), duration: TimeInterval(hour: 8, minute: 15), saturation: 65.50),
+        ]),
+    ]
     
     func shiftsGroupsValidsTo(_ date: Date) -> [ShiftGroup] {
         guard let role = UserDefaults.standard.string(forKey: "role") else { return [] }
+        let sortedShiftGroups = shiftGroups.sorted().reversed()
         var actualShiftGroups: [ShiftGroup] = []
         
         for location in Location.allCases {
-            if let shiftGroup = shiftGroups.first(where: { $0.validFrom <= date && $0.role.rawValue == role && $0.location == location }) {
+            if let shiftGroup = sortedShiftGroups.first(where: { $0.validFrom <= date && $0.role.rawValue == role && $0.location == location }) {
                 actualShiftGroups.append(shiftGroup)
             }
         }

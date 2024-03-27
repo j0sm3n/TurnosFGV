@@ -7,6 +7,12 @@
 
 import Foundation
 
-extension ShiftGroup {
+extension ShiftGroup: Comparable {
+    static func < (lhs: ShiftGroup, rhs: ShiftGroup) -> Bool {
+        lhs.validFrom < rhs.validFrom
+    }
     
+    static func == (lhs: ShiftGroup, rhs: ShiftGroup) -> Bool {
+        lhs.id == rhs.id
+    }
 }
