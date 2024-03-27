@@ -55,9 +55,13 @@ extension SummaryView {
                 LabeledContent("Indemnización descanso bocadillo", value: snackBreakCompensation, format: .number)
                 LabeledContent("Indemnización sábados", value: saturdaysInMonth, format: .number)
                 LabeledContent("Horas extras extructurales", value: extraTimeInMonth, format: .number.precision(.fractionLength(2)))
+                    .hide(if: extraTimeInMonth == 0)
                 LabeledContent("SPP", value: totalSPPHours, format: .number.precision(.fractionLength(2)))
+                    .hide(if: totalSPPHours == 0)
                 LabeledContent("Dietas", value: numberOfAllowance, format: .number.precision(.fractionLength(2)))
+                    .hide(if: numberOfAllowance == 0)
                 LabeledContent("Comp. Festivos Especiales", value: numberOfSpecialWorkedHolidays, format: .number)
+                    .hide(if: numberOfSpecialWorkedHolidays == 0)
             }
             .padding(.bottom)
         } label: {
@@ -129,7 +133,7 @@ extension SummaryView {
     }
     
     var notSickRecordsInMonth: [WorkDay] {
-        recordsInMonth.filter { $0.isSickLeave == false && $0.isWorkAccident == false }
+        recordsInMonth.filter { !$0.isSickLeave && !$0.isWorkAccident }
     }
     
     var sppRecordsInMonth: [WorkDay] {
@@ -145,7 +149,7 @@ extension SummaryView {
     }
     
     var snackBreakCompensation: Int {
-        notSickRecordsInMonth.filter({ $0.isStandardShift == false }).count
+        notSickRecordsInMonth.filter({ !$0.isStandardShift && !$0.isSPP }).count
     }
     
     var nightTimeInMonth: Double {

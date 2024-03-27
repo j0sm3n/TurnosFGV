@@ -45,6 +45,7 @@
 		8292A2B32BB2D3D40086A8C3 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2B22BB2D3D40086A8C3 /* ChartView.swift */; };
 		8292A2B62BB2E4ED0086A8C3 /* MigrationPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2B52BB2E4ED0086A8C3 /* MigrationPlan.swift */; };
 		8292A2D52BB45B450086A8C3 /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2D42BB45B450086A8C3 /* Int+Extensions.swift */; };
+		8292A2D72BB48E1E0086A8C3 /* HideViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2D62BB48E1E0086A8C3 /* HideViewModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,7 @@
 		8292A2B52BB2E4ED0086A8C3 /* MigrationPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationPlan.swift; sourceTree = "<group>"; };
 		8292A2B72BB2E5D70086A8C3 /* TurnosFGV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TurnosFGV.entitlements; sourceTree = "<group>"; };
 		8292A2D42BB45B450086A8C3 /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
+		8292A2D62BB48E1E0086A8C3 /* HideViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideViewModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,14 +149,14 @@
 		8292A2482BAC4F5C0086A8C3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				8292A27B2BAC6F920086A8C3 /* WorkDay+Extensions.swift */,
+				8292A2842BADB8E00086A8C3 /* Color+Extensions.swift */,
+				8292A24B2BAC4F900086A8C3 /* Date+Extensions.swift */,
+				8292A2D42BB45B450086A8C3 /* Int+Extensions.swift */,
 				8292A2862BADC0AA0086A8C3 /* Shift+Extensions.swift */,
 				8292A2882BAF28F70086A8C3 /* ShiftGroup+Extensions.swift */,
-				8292A24B2BAC4F900086A8C3 /* Date+Extensions.swift */,
 				8292A24D2BAC4F9F0086A8C3 /* TimeInterval+Extensions.swift */,
 				8292A2822BAD54F40086A8C3 /* View+Extensions.swift */,
-				8292A2842BADB8E00086A8C3 /* Color+Extensions.swift */,
-				8292A2D42BB45B450086A8C3 /* Int+Extensions.swift */,
+				8292A27B2BAC6F920086A8C3 /* WorkDay+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -189,6 +191,7 @@
 				8292A2702BAC6DA20086A8C3 /* DisclosureGroupLabelModifier.swift */,
 				8292A2722BAC6DA20086A8C3 /* DisclosureGroupModifier.swift */,
 				8292A2712BAC6DA20086A8C3 /* GroupBoxBackgroundModifier.swift */,
+				8292A2D62BB48E1E0086A8C3 /* HideViewModifier.swift */,
 				8292A26F2BAC6DA20086A8C3 /* ShiftTextModifier.swift */,
 			);
 			path = Modifiers;
@@ -378,6 +381,7 @@
 				8292A2872BADC0AA0086A8C3 /* Shift+Extensions.swift in Sources */,
 				8292A2682BAC6D2D0086A8C3 /* RecordDetailView.swift in Sources */,
 				8292A2892BAF28F70086A8C3 /* ShiftGroup+Extensions.swift in Sources */,
+				8292A2D72BB48E1E0086A8C3 /* HideViewModifier.swift in Sources */,
 				8292A2B32BB2D3D40086A8C3 /* ChartView.swift in Sources */,
 				8292A2672BAC6D2D0086A8C3 /* RecordRowView.swift in Sources */,
 				8292A26A2BAC6D2D0086A8C3 /* RecordsView.swift in Sources */,
