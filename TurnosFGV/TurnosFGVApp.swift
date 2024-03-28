@@ -5,6 +5,7 @@
 //  Created by Jose Antonio Mendoza on 21/3/24.
 //
 
+import CloudStorage
 import SwiftData
 import SwiftUI
 
@@ -13,7 +14,7 @@ typealias WorkDay = VersionedSchemaV1.WorkDay
 
 @main
 struct TurnosFGVApp: App {
-    @AppStorage(Constants.currentOnboardingVersion) private var hasSeenOnboardingView = false
+    @CloudStorage(Constants.currentOnboardingVersion) private var hasSeenOnboardingView = false
     
     @MainActor
     var container: ModelContainer {

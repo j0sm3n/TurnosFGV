@@ -5,9 +5,10 @@
 //  Created by Jose Antonio Mendoza on 17/2/24.
 //
 
+import CloudStorage
+import DateHelper
 import SwiftData
 import SwiftUI
-import DateHelper
 
 struct NewRecordView: View {
     // Environment properties
@@ -17,8 +18,8 @@ struct NewRecordView: View {
     // Shifts Data Model
     let shiftGroups = ShiftsDataModel()
     
-    // AppStorage properties
-    @AppStorage("location") var location: String = ""
+    // CloudStorage properties
+    @CloudStorage("location") var location: String = ""
 
     // View properties
     @State private var shiftsByLocation: [String: [Shift]] = [:]

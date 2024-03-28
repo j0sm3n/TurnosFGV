@@ -5,17 +5,18 @@
 //  Created by Jose Antonio Mendoza on 16/2/24.
 //
 
+import CloudStorage
+import DateHelper
 import SwiftData
 import SwiftUI
-import DateHelper
 
 struct RecordDetailView: View {
     // Environment properties
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     
-    // AppStorage properties
-    @AppStorage("location") var location: String = ""
+    // CloudStorage properties
+    @CloudStorage("location") var location: String = ""
     
     // View properties
     @State private var isLicense: Bool = false
