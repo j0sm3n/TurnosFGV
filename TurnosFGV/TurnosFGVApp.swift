@@ -18,16 +18,16 @@ struct TurnosFGVApp: App {
     @MainActor
     var container: ModelContainer {
         do {
-            #if DEBUG
-            return WorkDay.preview
-            #else
+//            #if DEBUG
+//            return WorkDay.preview
+//            #else
             let schema = Schema([WorkDay.self])
             let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
             
             let container = try ModelContainer(for: WorkDay.self, migrationPlan: MigrationPlan.self, configurations: config)
             
             return container
-            #endif
+//            #endif
         } catch {
             fatalError("Could not configure the container")
         }

@@ -38,9 +38,11 @@ struct SummaryView: View {
 
 #Preview {
     ContentView()
-#if DEBUG
-        .modelContainer(WorkDay.preview)
-#endif
+//#if DEBUG
+//        .modelContainer(WorkDay.preview)
+//#else
+    .modelContainer(for: WorkDay.self)
+//#endif
 }
 
 extension SummaryView {
@@ -126,8 +128,8 @@ extension SummaryView {
 
     // MARK: - Month computed properties
     var recordsInMonth: [WorkDay] {
-        let startDateOfMonth = selectedDate.adjust(for: .startOfMonth)!
-        let endDateOfMonth = selectedDate.adjust(for: .endOfMonth)!
+        let startDateOfMonth = selectedDate.adjust(for: .startOfMonth)!.adjust(for: .startOfDay)!
+        let endDateOfMonth = selectedDate.adjust(for: .endOfMonth)!.adjust(for: .endOfDay)!
         let monthRecords = workDays.filter { $0.startDate >= startDateOfMonth && $0.startDate <= endDateOfMonth}
         return monthRecords
     }
