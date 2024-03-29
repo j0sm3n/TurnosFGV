@@ -11,6 +11,7 @@
 		823031AB2BAC4D6C005B00EF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823031AA2BAC4D6C005B00EF /* ContentView.swift */; };
 		823031AD2BAC4D6C005B00EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 823031AC2BAC4D6C005B00EF /* Assets.xcassets */; };
 		823031B02BAC4D6C005B00EF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 823031AF2BAC4D6C005B00EF /* Preview Assets.xcassets */; };
+		824E68252BB6B3070022B2DB /* CloudStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 824E68242BB6B3070022B2DB /* CloudStorage */; };
 		8292A24C2BAC4F900086A8C3 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A24B2BAC4F900086A8C3 /* Date+Extensions.swift */; };
 		8292A24E2BAC4F9F0086A8C3 /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A24D2BAC4F9F0086A8C3 /* TimeInterval+Extensions.swift */; };
 		8292A2502BAC4FE70086A8C3 /* ShiftsDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A24F2BAC4FE70086A8C3 /* ShiftsDataModel.swift */; };
@@ -97,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				824E68252BB6B3070022B2DB /* CloudStorage in Frameworks */,
 				8292A27F2BAC8AAE0086A8C3 /* DateHelper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,6 +299,7 @@
 			name = TurnosFGV;
 			packageProductDependencies = (
 				8292A27E2BAC8AAE0086A8C3 /* DateHelper */,
+				824E68242BB6B3070022B2DB /* CloudStorage */,
 			);
 			productName = TurnosFGV;
 			productReference = 823031A52BAC4D6C005B00EF /* TurnosFGV.app */;
@@ -328,6 +331,7 @@
 			mainGroup = 8230319C2BAC4D6C005B00EF;
 			packageReferences = (
 				8292A27D2BAC8AAE0086A8C3 /* XCRemoteSwiftPackageReference "DateHelper" */,
+				824E68232BB6B3070022B2DB /* XCRemoteSwiftPackageReference "CloudStorage" */,
 			);
 			productRefGroup = 823031A62BAC4D6C005B00EF /* Products */;
 			projectDirPath = "";
@@ -523,7 +527,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TurnosFGV/TurnosFGV.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"TurnosFGV/Preview Content\"";
 				DEVELOPMENT_TEAM = F259VZ645X;
 				ENABLE_PREVIEWS = YES;
@@ -562,7 +566,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TurnosFGV/TurnosFGV.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"TurnosFGV/Preview Content\"";
 				DEVELOPMENT_TEAM = F259VZ645X;
 				ENABLE_PREVIEWS = YES;
@@ -618,6 +622,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		824E68232BB6B3070022B2DB /* XCRemoteSwiftPackageReference "CloudStorage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nonstrict-hq/CloudStorage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
+			};
+		};
 		8292A27D2BAC8AAE0086A8C3 /* XCRemoteSwiftPackageReference "DateHelper" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/melvitax/DateHelper.git";
@@ -629,6 +641,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		824E68242BB6B3070022B2DB /* CloudStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 824E68232BB6B3070022B2DB /* XCRemoteSwiftPackageReference "CloudStorage" */;
+			productName = CloudStorage;
+		};
 		8292A27E2BAC8AAE0086A8C3 /* DateHelper */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8292A27D2BAC8AAE0086A8C3 /* XCRemoteSwiftPackageReference "DateHelper" */;

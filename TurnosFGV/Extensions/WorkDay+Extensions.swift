@@ -39,70 +39,21 @@ extension WorkDay {
         return Calendar.current.dateComponents([.minute], from: startDate, to: endDate).minute!
     }
     
-    var morningStart: Date {
-        startDate.adjust(hour: 4, minute: 0, second: 0)!
+    var extraTimeTimeInterval: TimeInterval {
+        Double(extraTime * 60)
     }
     
-    var maxMorningStart: Date {
-        startDate.adjust(hour: 12, minute: 30, second: 0)!
-    }
-    
-    var maxMorningEnd: Date {
-        startDate.adjust(hour: 15, minute: 45, second: 0)!
-    }
-    
-    var nightStart: Date {
-        startDate.adjust(hour: 22, minute: 0, second: 0)!
-    }
-    
-    var nightEnd: Date {
-        endDate.adjust(hour: 6, minute: 0, second: 0)!
-    }
-    
-    var nightTime: TimeInterval {
-        var nightTime: TimeInterval = 0
-        
-        assert(startDate.compare(.isEarlier(than: endDate)), "Start date always has to be earlier than end date")
-        
-        // Work day start and end are in the same day
-        if startDate.compare(.isSameDay(as: endDate)) {
-            // Work day start before 6:00
-            if startDate.compare(.isEarlier(than: nightEnd)) && startDate.compare(.isSameDay(as: nightEnd)) {
-                nightTime = nightEnd - startDate
-            }
-            // Work day end after 22:00
-            else if endDate.compare(.isLater(than: nightStart)) {
-                nightTime = endDate - nightStart
-            }
-        }
-        // Work day ends next day
-        else {
-            // Work day start after 22:00
-            if startDate.compare(.isLater(than: nightStart)) {
-                nightTime = endDate - startDate
-            }
-            // Work day start before 22:00
-            else {
-                nightTime = endDate - nightStart
-            }
-        }
-        
-        return nightTime
+    var workDayNightTime: TimeInterval {
+        guard startDate < endDate.addingTimeInterval(extraTimeTimeInterval) else { return 0 }
+        return Date().nightTime(startDate: startDate, endDate: endDate.addingTimeInterval(extraTimeTimeInterval))
     }
     
     var nightTimeString: String {
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.day, .hour, .minute]
-        formatter.unitsStyle = .abbreviated
-        return formatter.string(from: nightTime) ?? ""
+        workDayNightTime.timeString
     }
     
     var workingHours: String {
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.day, .hour, .minute]
-        formatter.unitsStyle = .abbreviated
-        let workingHours = endDate - startDate
-        return formatter.string(from: workingHours) ?? ""
+        (endDate.addingTimeInterval(extraTimeTimeInterval) - startDate).timeString
     }
     
     var isStandardShift: Bool {
@@ -110,8 +61,8 @@ extension WorkDay {
     }
     
     var typeOfShift: TypeOfShift {
-        if startDate > morningStart && startDate < maxMorningStart && endDate < maxMorningEnd { return .morning }
-        else if startDate < maxMorningStart && endDate > maxMorningEnd { return .noon }
+        if startDate > startDate.morningStart && startDate < startDate.maxMorningStart && endDate < startDate.maxMorningEnd { return .morning }
+        else if startDate < startDate.maxMorningStart && endDate > startDate.maxMorningEnd { return .noon }
         else { return .afternoon }
     }
     

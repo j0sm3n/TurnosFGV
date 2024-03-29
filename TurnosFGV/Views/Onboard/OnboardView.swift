@@ -5,11 +5,12 @@
 //  Created by Jose Antonio Mendoza on 31/1/24.
 //
 
+import CloudStorage
 import SwiftUI
 
 struct OnboardView: View {
-    @AppStorage("role") var roleString: String = ""
-    @AppStorage("location") var locationString: String = ""
+    @CloudStorage("role") var roleString: String = ""
+    @CloudStorage("location") var locationString: String = ""
     
     @State private var role: Role = .maquinista
     @State private var location: Location = .benidorm
@@ -17,7 +18,7 @@ struct OnboardView: View {
     @State private var selectedView = 1
     let maxNumberOfScreens = 2
     
-    @AppStorage(Constants.currentOnboardingVersion) private var hasSeenOnboardingView = false
+    @CloudStorage(Constants.currentOnboardingVersion) private var hasSeenOnboardingView = false
 
     var body: some View {
         VStack {
@@ -42,13 +43,7 @@ struct OnboardView: View {
             .indexViewStyle(.page(backgroundDisplayMode: .always))
             
             Button {
-                if selectedView == maxNumberOfScreens {
-                    roleString = role.rawValue
-                    locationString = location.rawValue
-                    hasSeenOnboardingView = true
-                } else {
-                    selectedView += 1
-                }
+                selectedView == maxNumberOfScreens ? saveSettings() : nextView()
             } label: {
                 Text(selectedView ==  maxNumberOfScreens ? "Guardar" : "Siguiente")
             }
@@ -62,4 +57,16 @@ struct OnboardView: View {
 
 #Preview {
     OnboardView()
+}
+
+extension OnboardView {
+    private func saveSettings() {
+        roleString = role.rawValue
+        locationString = location.rawValue
+        hasSeenOnboardingView = true
+    }
+    
+    private func nextView() {
+        selectedView += 1
+    }
 }

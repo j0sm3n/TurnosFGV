@@ -38,9 +38,7 @@ struct SummaryView: View {
 
 #Preview {
     ContentView()
-#if DEBUG
-        .modelContainer(WorkDay.preview)
-#endif
+        .modelContainer(for: WorkDay.self, inMemory: true)
 }
 
 extension SummaryView {
@@ -153,7 +151,7 @@ extension SummaryView {
     }
     
     var nightTimeInMonth: Double {
-        let totalSeconds = notSickRecordsInMonth.reduce(0) { $0 + $1.nightTime }
+        let totalSeconds = notSickRecordsInMonth.reduce(0) { $0 + $1.workDayNightTime }
         return totalSeconds / 3600
     }
     

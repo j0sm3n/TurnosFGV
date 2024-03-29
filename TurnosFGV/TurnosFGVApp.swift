@@ -5,6 +5,7 @@
 //  Created by Jose Antonio Mendoza on 21/3/24.
 //
 
+import CloudStorage
 import SwiftData
 import SwiftUI
 
@@ -13,21 +14,14 @@ typealias WorkDay = VersionedSchemaV1.WorkDay
 
 @main
 struct TurnosFGVApp: App {
-    @AppStorage(Constants.currentOnboardingVersion) private var hasSeenOnboardingView = false
+    @CloudStorage(Constants.currentOnboardingVersion) private var hasSeenOnboardingView = false
+    let container: ModelContainer
     
-    @MainActor
-    var container: ModelContainer {
+    init() {
         do {
-            #if DEBUG
-            return WorkDay.preview
-            #else
             let schema = Schema([WorkDay.self])
             let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-            
-            let container = try ModelContainer(for: WorkDay.self, migrationPlan: MigrationPlan.self, configurations: config)
-            
-            return container
-            #endif
+            self.container = try ModelContainer(for: WorkDay.self, migrationPlan: MigrationPlan.self, configurations: config)
         } catch {
             fatalError("Could not configure the container")
         }

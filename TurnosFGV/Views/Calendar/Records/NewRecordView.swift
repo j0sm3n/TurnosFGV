@@ -5,24 +5,24 @@
 //  Created by Jose Antonio Mendoza on 17/2/24.
 //
 
+import CloudStorage
+import DateHelper
 import SwiftData
 import SwiftUI
-import DateHelper
 
 struct NewRecordView: View {
     // Environment properties
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     
-    // Shifts Data Model
-    let shiftGroups = ShiftsDataModel()
-    
-    // AppStorage properties
-    @AppStorage("location") var location: String = ""
+    // CloudStorage properties
+    @CloudStorage("location") var location: String = ""
 
     // View properties
     @State private var shiftsByLocation: [String: [Shift]] = [:]
     @State private var selectedShift: Shift?
+    @State private var isLicense: Bool = false
+    @State private var isSick: Bool = false
     
     // New record properties
     @State private var saturation: Double? = nil
@@ -32,13 +32,15 @@ struct NewRecordView: View {
     @State private var isSpecialWorkedHoliday: Bool = false
     @State private var isMentoring: Bool = false
     @State private var isSPP: Bool = false
-    @State private var isLicense: Bool = false
     @State private var isFreeLicense: Bool = false
     @State private var isPaidLicense: Bool = false
-    @State private var isLeave: Bool = false
     @State private var isSickLeave: Bool = false
     @State private var isWorkAccident: Bool = false
     
+    // Shifts Data Model
+    let shiftGroups = ShiftsDataModel()
+    
+    // Selected date
     let date: Date
     
     var body: some View {
@@ -59,7 +61,7 @@ struct NewRecordView: View {
         }
         .padding(15)
         .background(.appBackground)
-        .task(id: date) {
+        .task {
             shiftsByLocation = shiftGroups.getActualShiftsByLocation(date)
         }
         .onChange(of: selectedShift) {
@@ -80,8 +82,8 @@ struct NewRecordView: View {
     NewRecordView(date: .init(fromString: "2024-02-01", format: .isoDate)!)
 }
 
-// MARK: - Extracted views
 extension NewRecordView {
+    // MARK: - Extracted views
     @ViewBuilder
     var CloseButton: some View {
         Button {
@@ -144,38 +146,40 @@ extension NewRecordView {
             LabeledContent("Dieta") {
                 Toggle("", isOn: $isAllowance)
             }
+            
             LabeledContent("Día festivo") {
                 Toggle("", isOn: $isWorkedHoliday)
             }
+            
             LabeledContent("Festivo especial") {
                 Toggle("", isOn: $isSpecialWorkedHoliday)
             }
+            
             LabeledContent("Práctica") {
                 Toggle("", isOn: $isMentoring)
             }
+            
             LabeledContent("SPP") {
                 Toggle("", isOn: $isSPP)
             }
-            LabeledContent("Licencia") {
-                Toggle("", isOn: $isLicense.animation(.bouncy))
-            }
-            if isLicense {
+            
+            DisclosureGroup("Licencia", isExpanded: $isLicense) {
                 Group {
-                    LabeledContent("Licencia sin sueldo") {
+                    LabeledContent("Sin sueldo") {
                         Toggle("", isOn: $isFreeLicense)
                     }
-                    LabeledContent("Licencia con sueldo") {
+                    LabeledContent("Con sueldo") {
                         Toggle("", isOn: $isPaidLicense)
                     }
                 }
                 .padding(.leading)
+                .padding(.trailing, 2)
             }
-            LabeledContent("Baja") {
-                Toggle("", isOn: $isLeave.animation(.bouncy))
-            }
-            if isLeave {
+            .foregroundStyle(.white)
+            
+            DisclosureGroup("Baja", isExpanded: $isSick) {
                 Group {
-                    LabeledContent("Baja por enfermedad") {
+                    LabeledContent("Por enfermedad") {
                         Toggle("", isOn: $isSickLeave)
                     }
                     LabeledContent("Accidente laboral") {
@@ -183,15 +187,15 @@ extension NewRecordView {
                     }
                 }
                 .padding(.leading)
+                .padding(.trailing, 2)
             }
+            .foregroundStyle(.white)
         }
         .tint(selectedShift?.color ?? .appYellow)
         .groupBoxBackGroundStyle()
     }
-}
 
-// MARK: - Computed properties and functions
-extension NewRecordView {
+    // MARK: - Computed properties and functions
     var start: Date {
         guard let selectedShift else { return date }
         return date.adjust(for: .startOfDay)!.addingTimeInterval(selectedShift.startTime)
