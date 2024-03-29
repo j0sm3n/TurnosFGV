@@ -5,8 +5,8 @@
 //  Created by Jose Antonio Mendoza on 21/3/24.
 //
 
-import SwiftUI
 import DateHelper
+import SwiftUI
 
 enum TypeOfShift: String, CaseIterable, Identifiable {
     case morning = "Mañana"
@@ -114,7 +114,7 @@ struct ShiftsDataModel {
     ]
     
     func shiftsGroupsValidsTo(_ date: Date) -> [ShiftGroup] {
-        guard let role = UserDefaults.standard.string(forKey: "role") else { return [] }
+        let role = NSUbiquitousKeyValueStore.default.string(forKey: "role") ?? ""
         let sortedShiftGroups = shiftGroups.sorted().reversed()
         var actualShiftGroups: [ShiftGroup] = []
         
@@ -141,5 +141,10 @@ struct ShiftsDataModel {
     
     func shiftGroup(for shiftId: Shift.ID) -> ShiftGroup? {
         shiftGroups.first(where: { $0.shifts.contains(where: { $0.id == shiftId }) })
+    }
+    
+    func shiftLocation(for shiftId: Shift.ID) -> Location? {
+        let shiftGroup = shiftGroup(for: shiftId)
+        return shiftGroup?.location
     }
 }

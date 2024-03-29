@@ -43,13 +43,7 @@ struct OnboardView: View {
             .indexViewStyle(.page(backgroundDisplayMode: .always))
             
             Button {
-                if selectedView == maxNumberOfScreens {
-                    roleString = role.rawValue
-                    locationString = location.rawValue
-                    hasSeenOnboardingView = true
-                } else {
-                    selectedView += 1
-                }
+                selectedView == maxNumberOfScreens ? saveSettings() : nextView()
             } label: {
                 Text(selectedView ==  maxNumberOfScreens ? "Guardar" : "Siguiente")
             }
@@ -63,4 +57,16 @@ struct OnboardView: View {
 
 #Preview {
     OnboardView()
+}
+
+extension OnboardView {
+    private func saveSettings() {
+        roleString = role.rawValue
+        locationString = location.rawValue
+        hasSeenOnboardingView = true
+    }
+    
+    private func nextView() {
+        selectedView += 1
+    }
 }

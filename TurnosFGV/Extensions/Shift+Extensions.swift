@@ -16,12 +16,28 @@ extension Shift {
         Date.now.adjust(for: .startOfDay)!.addingTimeInterval(startTime)
     }
     
+    private var endDate: Date {
+        startDate.addingTimeInterval(duration)
+    }
+    
     var viewStartString: String {
         startDate.formatted(date: .omitted, time: .shortened)
     }
     
     var viewEndString: String {
         startDate.addingTimeInterval(duration).formatted(date: .omitted, time: .shortened)
+    }
+    
+    var shiftNightTime: TimeInterval {
+        Date().nightTime(startDate: startDate, endDate: endDate)
+    }
+    
+    var nightTimeString: String {
+        shiftNightTime.timeString
+    }
+    
+    var workingHours: String {
+        duration.timeString
     }
     
     var typeOfShift: TypeOfShift {

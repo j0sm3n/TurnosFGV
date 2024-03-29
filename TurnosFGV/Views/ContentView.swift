@@ -42,11 +42,7 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-//    #if DEBUG
-//        .modelContainer(WorkDay.preview)
-//    #else
-        .modelContainer(for: WorkDay.self)
-//    #endif
+        .modelContainer(for: WorkDay.self, inMemory: true)
 }
 
 extension View {
