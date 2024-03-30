@@ -21,8 +21,6 @@ struct NewRecordView: View {
     // View properties
     @State private var shiftsByLocation: [String: [Shift]] = [:]
     @State private var selectedShift: Shift?
-    @State private var isLicense: Bool = false
-    @State private var isSick: Bool = false
     
     // New record properties
     @State private var saturation: Double? = nil
@@ -163,7 +161,7 @@ extension NewRecordView {
                 Toggle("", isOn: $isSPP)
             }
             
-            DisclosureGroup("Licencia", isExpanded: $isLicense) {
+            DisclosureGroup("Licencia") {
                 Group {
                     LabeledContent("Sin sueldo") {
                         Toggle("", isOn: $isFreeLicense)
@@ -177,7 +175,7 @@ extension NewRecordView {
             }
             .foregroundStyle(.white)
             
-            DisclosureGroup("Baja", isExpanded: $isSick) {
+            DisclosureGroup("Baja") {
                 Group {
                     LabeledContent("Por enfermedad") {
                         Toggle("", isOn: $isSickLeave)
