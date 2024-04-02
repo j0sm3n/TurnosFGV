@@ -83,12 +83,14 @@ extension RecordsView {
                                 }
                         }
                         .tint(.white)
+                        .scrollTargetLayout()
                     }
                 }
                 .padding(.horizontal)
                 .scrollTargetLayout()
             }
             .scrollIndicators(.hidden)
+            .scrollTargetBehavior(.viewAligned)
             .onChange(of: selectedDate) {
                 if let record = getRecordOfDay(selectedDate) {
                     withAnimation {
