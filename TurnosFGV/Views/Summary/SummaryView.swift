@@ -156,7 +156,7 @@ extension SummaryView {
     }
     
     var noonRecordsCount: Int {
-        recordsInMonth.filter { $0.typeOfShift == .noon }.count
+        notSickRecordsInMonth.filter { $0.typeOfShift == .noon }.count
     }
     
     var saturationInMonth: Double {
