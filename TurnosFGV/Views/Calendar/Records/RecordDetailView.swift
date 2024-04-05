@@ -106,6 +106,7 @@ struct RecordDetailView: View {
     container.mainContext.insert(workDay)
     
     return RecordDetailView(workDay: workDay)
+        .modelContainer(for: WorkDay.self, inMemory: true)
 }
 
 extension RecordDetailView {

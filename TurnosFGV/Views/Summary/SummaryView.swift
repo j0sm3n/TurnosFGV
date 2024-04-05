@@ -37,8 +37,8 @@ struct SummaryView: View {
 }
 
 #Preview {
-    ContentView()
-        .modelContainer(for: WorkDay.self, inMemory: true)
+    SummaryView(selectedDate: .constant(.now), selectedMonth: .constant(.currentMonth))
+        .modelContainer(WorkDay.preview)
 }
 
 extension SummaryView {

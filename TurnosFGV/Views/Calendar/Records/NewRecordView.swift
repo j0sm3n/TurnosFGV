@@ -77,7 +77,8 @@ struct NewRecordView: View {
 }
 
 #Preview {
-    NewRecordView(date: .init(fromString: "2024-02-01", format: .isoDate)!)
+    NewRecordView(date: .now)
+        .modelContainer(for: WorkDay.self, inMemory: true)
 }
 
 extension NewRecordView {

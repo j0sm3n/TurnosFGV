@@ -38,3 +38,17 @@ struct RecordRowView: View {
     }
 }
 
+#Preview {
+    RecordRowView(
+        workDay: WorkDay(shift: "1",
+        startDate: .init(fromString: "2024-02-04T05:27:00+01:00",
+        format: .isoDateTime)!,
+        endDate: .init(fromString: "2024-02-04T13:36:00+01:00",
+        format: .isoDateTime)!,
+        saturation: 72.1,
+        extraTime: 8,
+        isAllowance: true),
+        selectedWorkDay: true
+    )
+}
+
