@@ -34,7 +34,7 @@ struct ContentView: View {
             SummaryView(selectedDate: $currentDate, selectedMonth: $currentMonth)
                 .setUpTab(.summary)
             
-            ChartView()
+            ChartView(selectedDate: $currentDate)
                 .setUpTab(.chart)
         }
     }

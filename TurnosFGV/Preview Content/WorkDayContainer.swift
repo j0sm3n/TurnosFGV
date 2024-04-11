@@ -19,8 +19,7 @@ extension WorkDay {
         
         let shiftGroups = ShiftsDataModel()
         
-//        for month in 1...12 {
-        let month = Calendar.current.component(.month, from: .now)
+        for month in 1...12 {
             // The number of worked days in month
             var workedDays: Set<Int> = []
             
@@ -45,7 +44,7 @@ extension WorkDay {
                     container.mainContext.insert(workDay)
                 }
             }
-//        }
+        }
         
         return container
     }
