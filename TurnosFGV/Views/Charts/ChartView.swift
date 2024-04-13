@@ -55,7 +55,9 @@ struct ChartView: View {
 
 #Preview {
     ChartView(selectedDate: .constant(.now))
+    #if DEBUG
         .modelContainer(WorkDay.preview)
+    #endif
 }
 
 extension ChartView {
@@ -243,7 +245,7 @@ extension ChartView {
             let workedDays = try? modelContext.fetch(descriptor)
             var workedHours = 0.0
             if let workedDays {
-                workedHours = workedDays.reduce(0) { $0 + $1.workedMinutes }.minutesInHours
+                workedHours = workedDays.reduce(0) { $0 + $1.workedTimeInHours }
             }
             let chartData = ChartData(date: firstMonthDay, workedHours: workedHours)
             
@@ -268,8 +270,7 @@ extension ChartView {
         for typeOfShift in TypeOfShift.allCases {
             let workedHours = workedDaysInYear
                 .filter { $0.typeOfShift == typeOfShift }
-                .reduce(0) { $0 + $1.workedMinutes }
-                .minutesInHours
+                .reduce(0) { $0 + $1.workedTimeInHours }
             let chartData = ChartData(workedHours: workedHours, type: typeOfShift.rawValue)
             data.append(chartData)        }
         
@@ -285,7 +286,7 @@ extension ChartView {
     
     private func getSelectedType(value: Double) {
         var cumulativeTotal = 0.0
-        let type = pieChartData.first { dataPoint in
+        let _ = pieChartData.first { dataPoint in
             cumulativeTotal += dataPoint.workedHours
             if value <= cumulativeTotal {
                 selectedType = dataPoint

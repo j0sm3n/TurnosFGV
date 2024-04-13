@@ -23,14 +23,16 @@ extension WorkDay {
         return "De \(startTime) a \(endTime)"
     }
     
-    var workedMinutes: Int {
+    var workedTimeInHours: Double {
         if isSPP {
             return 0
         } else if isSickLeave {
-            return Constants.standardWorkDayMinutes
+            let minutes = Constants.standardWorkDayMinutes
+            return minutes.minutesInHours
         } else {
             // Extratime does not count for the total time worked, it only appears in the monthly payroll
-            return Calendar.current.dateComponents([.minute], from: startDate, to: endDate).minute! // + extraTime
+            let minutes = Calendar.current.dateComponents([.minute], from: startDate, to: endDate).minute! // + extraTime
+            return minutes.minutesInHours
         }
     }
     

@@ -38,7 +38,9 @@ struct SummaryView: View {
 
 #Preview {
     SummaryView(selectedDate: .constant(.now), selectedMonth: .constant(.currentMonth))
+    #if DEBUG
         .modelContainer(WorkDay.preview)
+    #endif
 }
 
 extension SummaryView {
@@ -112,14 +114,12 @@ extension SummaryView {
     // MARK: - Computed properties and functions
     func recordsByType(_ records: [WorkDay], _ typeOfShift: TypeOfShift) -> (hours: Double, days: Int) {
         let filteredRecords = records.filter { $0.typeOfShift == typeOfShift }
-        let minutes = filteredRecords.reduce(0) { $0 + $1.workedMinutes }
-        let hours = minutes.minutesInHours
+        let hours = filteredRecords.reduce(0) { $0 + $1.workedTimeInHours }
         return (hours, filteredRecords.count)
     }
     
     func workedHoursIn(records: [WorkDay]) -> Double {
-        let minutes = records.reduce(0) { $0 + $1.workedMinutes }
-        return minutes.minutesInHours
+        records.reduce(0) { $0 + $1.workedTimeInHours }
     }
 
     // MARK: - Month computed properties
