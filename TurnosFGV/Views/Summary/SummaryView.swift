@@ -9,10 +9,11 @@ import SwiftUI
 import SwiftData
 
 struct SummaryView: View {
+    @Environment(\.modelContext) private var modelContext
     @Binding var selectedDate: Date
     @Binding var selectedMonth: Date
     @State private var showPayrollGroup: Bool = true
-    @Query private var workDays: [WorkDay]
+    @State private var workDays: [WorkDay] = []
 
     var body: some View {
         NavigationStack {
@@ -32,6 +33,11 @@ struct SummaryView: View {
                 .scrollIndicators(.hidden)
             }
             .background(.appBackground)
+            .task {
+                if let workDays = try? modelContext.fetch(WorkDay.allWorkDaysDescriptor()) {
+                    self.workDays = workDays
+                }
+            }
         }
     }
 }

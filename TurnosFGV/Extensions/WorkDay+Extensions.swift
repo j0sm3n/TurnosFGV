@@ -5,16 +5,33 @@
 //  Created by Jose Antonio Mendoza on 21/3/24.
 //
 
-import SwiftUI
 import DateHelper
+import SwiftData
+import SwiftUI
 
 extension WorkDay {
-    static func monthPredicate(month: Date) -> Predicate<WorkDay> {
-        // Get the current month, the previous two and the next two
-        let firstDay = month.offset(.month, value: -2)!
-        let lastDay = month.offset(.month, value: 2)!
+//    static func monthPredicate(month: Date) -> Predicate<WorkDay> {
+//        // Get the current month, the previous two and the next two
+//        let firstDay = month.offset(.month, value: -2)!
+//        let lastDay = month.offset(.month, value: 2)!
+//        
+//        return #Predicate<WorkDay> { $0.startDate >= firstDay && $0.startDate < lastDay }
+//    }
+    
+    static func monthDescriptor(month: Date) -> FetchDescriptor<WorkDay> {
+        let firstDay = month.adjust(for: .startOfMonth)!.adjust(for: .startOfWeek)!.adjust(for: .startOfDay)!
+        var lastDay = month.adjust(for: .endOfMonth)!.adjust(for: .endOfWeek)!.adjust(for: .endOfDay)!
+        if lastDay.since(firstDay, in: .day)! < 42 {
+            lastDay = lastDay.offset(.week, value: 1)!
+        }
         
-        return #Predicate<WorkDay> { $0.startDate >= firstDay && $0.startDate < lastDay }
+        return FetchDescriptor(predicate: #Predicate<WorkDay> {
+            $0.startDate > firstDay && $0.startDate < lastDay
+        })
+    }
+    
+    static func allWorkDaysDescriptor() -> FetchDescriptor<WorkDay> {
+        FetchDescriptor(sortBy: [SortDescriptor(\.startDate, order: .reverse)])
     }
     
     var viewRecordDuration: String {

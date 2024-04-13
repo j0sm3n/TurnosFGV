@@ -10,17 +10,11 @@ import SwiftUI
 import DateHelper
 
 struct CalendarView: View {
+    @Environment(\.modelContext) private var modelContext
     @Binding var selectedDate: Date
     @Binding var selectedMonth: Date
     @State private var monthDays: [Day] = []
-    @Query var workDays: [WorkDay]
-    
-    init(selectedDate: Binding<Date>, selectedMonth: Binding<Date>) {
-        self._selectedDate = selectedDate
-        self._selectedMonth = selectedMonth
-        self.monthDays = monthDays
-        _workDays = Query(filter: WorkDay.monthPredicate(month: selectedDate.wrappedValue))
-    }
+    @State private var workDays: [WorkDay] = []
     
     var body: some View {
         VStack(spacing: 0) {
@@ -56,7 +50,7 @@ struct CalendarView: View {
             .redacted(reason: monthDays.isEmpty ? .placeholder : [])
         }
         .task(id: selectedMonth) {
-            monthDays = extractDates(selectedMonth)
+            fetchData()
         }
     }
 }
@@ -67,7 +61,18 @@ struct CalendarView: View {
 }
 
 extension CalendarView {
-    func colorOfWorkedDay(_ date: Date) -> Color? {
+    private func colorOfWorkedDay(_ date: Date) -> Color? {
         workDays.first(where: { $0.startDate.compare(.isSameDay(as: date)) })?.color
+    }
+    
+    private func fetchData() {
+        monthDays = extractDates(selectedMonth)
+        getMonthWorkDays()
+    }
+    
+    private func getMonthWorkDays() {
+        if let workDays = try? modelContext.fetch(WorkDay.monthDescriptor(month: selectedMonth)) {
+            self.workDays = workDays
+        }
     }
 }
