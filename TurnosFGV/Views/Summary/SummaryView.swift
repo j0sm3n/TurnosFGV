@@ -120,12 +120,12 @@ extension SummaryView {
     // MARK: - Computed properties and functions
     func recordsByType(_ records: [WorkDay], _ typeOfShift: TypeOfShift) -> (hours: Double, days: Int) {
         let filteredRecords = records.filter { $0.typeOfShift == typeOfShift }
-        let hours = filteredRecords.reduce(0) { $0 + $1.workedTimeInHours }
+        let hours = filteredRecords.map(\.workedTimeInHours).reduce(0, +)
         return (hours, filteredRecords.count)
     }
     
     func workedHoursIn(records: [WorkDay]) -> Double {
-        records.reduce(0) { $0 + $1.workedTimeInHours }
+        records.map(\.workedTimeInHours).reduce(0, +)
     }
 
     // MARK: - Month computed properties
@@ -157,7 +157,7 @@ extension SummaryView {
     }
     
     var nightTimeInMonth: Double {
-        let totalSeconds = notSickRecordsInMonth.reduce(0) { $0 + $1.workDayNightTime }
+        let totalSeconds = notSickRecordsInMonth.map(\.workedTimeInHours).reduce(0, +)
         return totalSeconds / 3600
     }
     
@@ -183,11 +183,11 @@ extension SummaryView {
     }
     
     var extraTimeInMonth: Double {
-        recordsInMonth.reduce(0) { $0 + $1.extraTime }.minutesInHours
+        recordsInMonth.map(\.extraTime).reduce(0, +).minutesInHours
     }
     
     var totalSPPHours: Double {
-        sppRecordsInMonth.reduce(0) { $0 + $1.sppMinutes }.minutesInHours
+        sppRecordsInMonth.map(\.sppMinutes).reduce(0, +).minutesInHours
     }
     
     var numberOfAllowance: Double {

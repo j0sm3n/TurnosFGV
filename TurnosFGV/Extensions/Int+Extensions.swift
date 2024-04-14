@@ -9,6 +9,6 @@ import Foundation
 
 extension Int {
     var minutesInHours: Double {
-        Double(self) / 60
+        (Double(self) / 60).roundToDecimal(2)
     }
 }

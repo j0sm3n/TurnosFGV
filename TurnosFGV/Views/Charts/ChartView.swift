@@ -223,7 +223,7 @@ extension ChartView {
     
     // MARK: - Computed properties and functions
     private var totalWorkedHours: Double {
-        barChartData.reduce(0) { $0 + $1.workedHours }
+        barChartData.map(\.workedHours).reduce(0, +)
     }
     
     private func createData() {
@@ -245,7 +245,7 @@ extension ChartView {
             let workedDays = try? modelContext.fetch(descriptor)
             var workedHours = 0.0
             if let workedDays {
-                workedHours = workedDays.reduce(0) { $0 + $1.workedTimeInHours }
+                workedHours = workedDays.map(\.workedTimeInHours).reduce(0, +)
             }
             let chartData = ChartData(date: firstMonthDay, workedHours: workedHours)
             
@@ -269,8 +269,7 @@ extension ChartView {
         
         for typeOfShift in TypeOfShift.allCases {
             let workedHours = workedDaysInYear
-                .filter { $0.typeOfShift == typeOfShift }
-                .reduce(0) { $0 + $1.workedTimeInHours }
+                .filter { $0.typeOfShift == typeOfShift }.map(\.workedTimeInHours).reduce(0, +)
             let chartData = ChartData(workedHours: workedHours, type: typeOfShift.rawValue)
             data.append(chartData)        }
         

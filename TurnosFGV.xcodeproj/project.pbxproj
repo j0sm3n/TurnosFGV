@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		82277C5C2BCC2CB100C42B0E /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82277C5B2BCC2CB100C42B0E /* Double+Extensions.swift */; };
 		823031A92BAC4D6C005B00EF /* TurnosFGVApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823031A82BAC4D6C005B00EF /* TurnosFGVApp.swift */; };
 		823031AB2BAC4D6C005B00EF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823031AA2BAC4D6C005B00EF /* ContentView.swift */; };
 		823031AD2BAC4D6C005B00EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 823031AC2BAC4D6C005B00EF /* Assets.xcassets */; };
@@ -50,6 +51,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		82277C5B2BCC2CB100C42B0E /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		823031A52BAC4D6C005B00EF /* TurnosFGV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TurnosFGV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		823031A82BAC4D6C005B00EF /* TurnosFGVApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnosFGVApp.swift; sourceTree = "<group>"; };
 		823031AA2BAC4D6C005B00EF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			children = (
 				8292A2842BADB8E00086A8C3 /* Color+Extensions.swift */,
 				8292A24B2BAC4F900086A8C3 /* Date+Extensions.swift */,
+				82277C5B2BCC2CB100C42B0E /* Double+Extensions.swift */,
 				8292A2D42BB45B450086A8C3 /* Int+Extensions.swift */,
 				8292A2862BADC0AA0086A8C3 /* Shift+Extensions.swift */,
 				8292A2882BAF28F70086A8C3 /* ShiftGroup+Extensions.swift */,
@@ -372,6 +375,7 @@
 				8292A2B62BB2E4ED0086A8C3 /* MigrationPlan.swift in Sources */,
 				8292A28F2BAF37810086A8C3 /* OnboardStepView.swift in Sources */,
 				8292A2832BAD54F40086A8C3 /* View+Extensions.swift in Sources */,
+				82277C5C2BCC2CB100C42B0E /* Double+Extensions.swift in Sources */,
 				8292A2502BAC4FE70086A8C3 /* ShiftsDataModel.swift in Sources */,
 				8292A28D2BAF37810086A8C3 /* OnboardView.swift in Sources */,
 				8292A2752BAC6DA20086A8C3 /* GroupBoxBackgroundModifier.swift in Sources */,
@@ -527,7 +531,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TurnosFGV/TurnosFGV.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"TurnosFGV/Preview Content\"";
 				DEVELOPMENT_TEAM = F259VZ645X;
 				ENABLE_PREVIEWS = YES;
@@ -566,7 +570,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TurnosFGV/TurnosFGV.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"TurnosFGV/Preview Content\"";
 				DEVELOPMENT_TEAM = F259VZ645X;
 				ENABLE_PREVIEWS = YES;
