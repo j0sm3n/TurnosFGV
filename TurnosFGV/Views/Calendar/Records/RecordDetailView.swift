@@ -82,6 +82,12 @@ struct RecordDetailView: View {
                 }
                 .tint(.red)
             }
+            
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancelar") {
+                    dismiss()
+                }
+            }
         }
         .alert("Borrar turno \(shift?.name ?? "")", isPresented: $showDeleteAlert) {
             Button("Borrar", role: .destructive, action: deleteRecord)

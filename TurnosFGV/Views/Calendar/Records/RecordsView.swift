@@ -16,6 +16,7 @@ struct RecordsView: View {
     // View properties
     @State private var showNewRecordView: Bool = false
     @State private var showWorkedDayAlert: Bool = false
+    @State private var selectedWorkDay: WorkDay?
     
     // SwiftData query
     @Query(sort: \WorkDay.startDate, order: .reverse) private var workDays: [WorkDay]
@@ -71,8 +72,8 @@ extension RecordsView {
             ScrollView {
                 LazyVStack {
                     ForEach(workDays) { workDay in
-                        NavigationLink {
-                            RecordDetailView(workDay: workDay)
+                        Button {
+                            selectedWorkDay = workDay
                         } label: {
                             RecordRowView(workDay: workDay, selectedWorkDay: workDay.startDate.compare(.isSameDay(as: selectedDate)))
                                 .id(workDay.id)
@@ -108,6 +109,11 @@ extension RecordsView {
             }, content: {
                 NewRecordView(date: selectedDate)
             })
+            .sheet(item: $selectedWorkDay) { workDay in
+                NavigationStack {
+                    RecordDetailView(workDay: workDay)
+                }
+            }
         }
     }
     
