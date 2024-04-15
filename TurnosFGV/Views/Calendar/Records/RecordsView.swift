@@ -9,9 +9,6 @@ import SwiftData
 import SwiftUI
 
 struct RecordsView: View {
-    // SwiftData modelContext
-    @Environment(\.modelContext) private var modelContext
-
     // Binding month and date
     @Binding var selectedDate: Date
     @Binding var selectedMonth: Date
@@ -19,17 +16,14 @@ struct RecordsView: View {
     // View properties
     @State private var showNewRecordView: Bool = false
     @State private var showWorkedDayAlert: Bool = false
-    @State private var workDays: [WorkDay] = []
+    
+    // SwiftData query
+    @Query(sort: \WorkDay.startDate, order: .reverse) private var workDays: [WorkDay]
     
     var body: some View {
         VStack {
             RecordsHeader
             RecordsScrollView
-        }
-        .task {
-            if let workDays = try? modelContext.fetch(WorkDay.allWorkDaysDescriptor()) {
-                self.workDays = workDays
-            }
         }
     }
 }

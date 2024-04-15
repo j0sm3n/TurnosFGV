@@ -157,7 +157,7 @@ extension SummaryView {
     }
     
     var nightTimeInMonth: Double {
-        let totalSeconds = notSickRecordsInMonth.map(\.workedTimeInHours).reduce(0, +)
+        let totalSeconds = notSickRecordsInMonth.map(\.workDayNightTime).reduce(0, +)
         return totalSeconds / 3600
     }
     
