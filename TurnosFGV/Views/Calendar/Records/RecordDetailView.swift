@@ -138,7 +138,7 @@ extension RecordDetailView {
                     Text(shift?.name ?? "")
                         .shiftTextModifier(color: updateWorkDay.color)
                 }
-                .onChange(of: shift) { shiftChanged() }
+                .onChange(of: shift, initial: false) { shiftChanged() }
             }
         }
         .groupBoxBackGroundStyle()
@@ -266,8 +266,9 @@ extension RecordDetailView {
     }
     
     func shiftChanged() {
-        if let shift,
-           let shiftLocation = shiftGroups.shiftLocation(for: shift.id) {
+        guard let shift, updateWorkDay.shift != shift.name else { return }
+
+        if let shiftLocation = shiftGroups.shiftLocation(for: shift.id) {
             updateWorkDay.shift = shift.name
             updateWorkDay.startDate = updateWorkDay.startDate.adjust(for: .startOfDay)!.addingTimeInterval(shift.startTime)
             updateWorkDay.endDate = updateWorkDay.startDate.addingTimeInterval(shift.duration)
