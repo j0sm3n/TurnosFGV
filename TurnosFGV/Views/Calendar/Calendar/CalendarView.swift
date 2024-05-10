@@ -32,28 +32,19 @@ struct CalendarView: View {
                         .foregroundStyle(.secondary)
                 }
             }
-            .frame(height: 18, alignment: .bottom)
+            .frame(height: 24, alignment: .top)
             
             // Calendar grid
-            LazyVGrid(columns: Array(repeating: GridItem(spacing: 0), count: 7), spacing: 0) {
+            LazyVGrid(columns: Array(repeating: GridItem(spacing: 4), count: 7), spacing: 4) {
                 ForEach(monthDays) { day in
-                    DayView(day: day, color: colorOfWorkedDay(day.date), selectedDate: $selectedDate)
-                        .overlay {
-                            if day.date.compare(.isSameDay(as: selectedDate)) {
-                                RoundedRectangle(cornerRadius: 20)
-                                    .inset(by: 8)
-                                    .stroke(.appPurple, lineWidth: 1)
-                                    .offset(y: 9)
-                                    .frame(width: 60, height: 70)
-                            }
-                        }
+                    DayView(day: day)
+                        .containerRelativeFrame(.vertical, count: 7, span: 1, spacing: 0)
                 }
             }
-            .frame(height: 304, alignment: .top)
-            .contentShape(.rect)
-            .clipped()
             .redacted(reason: monthDays.isEmpty ? .placeholder : [])
         }
+        .padding(.horizontal, 6)
+        .frame(maxHeight: .infinity)
         .task(id: selectedMonth) {
             monthDays = extractDates(selectedMonth)
         }
@@ -66,7 +57,41 @@ struct CalendarView: View {
 }
 
 extension CalendarView {
-    private func colorOfWorkedDay(_ date: Date) -> Color? {
-        workDays.first(where: { $0.startDate.compare(.isSameDay(as: date)) })?.color
+    private func workedDayOn(_ date: Date) -> WorkDay? {
+        workDays.first(where: { $0.startDate.compare(.isSameDay(as: date)) })
+    }
+    
+    private func DayView(day: Day) -> some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 8)
+                .fill(.appBlue.opacity(0.1).shadow(day.date.compare(.isSameDay(as: selectedDate))
+                                                   ? .inner(color: .white, radius: 3)
+                                                   : .drop(color: .white, radius: 1))
+                )
+            
+            VStack(spacing: 20) {
+                Text(day.shortSymbol)
+                    .foregroundStyle(day.ignored ? .secondary : .primary)
+                    .fontWeight(day.date.compare(.isSameDay(as: .now)) ? .bold : .regular)
+                    .vSpacing(.top)
+                    .hSpacing(.leading)
+                    .padding(.top, 5)
+                    .padding(.leading, 5)
+                    .overlay(alignment: .center) {
+                        if let workedDay = workedDayOn(day.date) {
+                            Text(workedDay.shift)
+                                .font(.system(size: workedDay.shift.count > 2 ? 18 : 32, weight: .semibold, design: .rounded))
+                                .fontWidth(.compressed)
+                                .foregroundStyle(workedDay.color)
+                                .vSpacing(.center)
+                        }
+                    }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .contentShape(.rect)
+            .onTapGesture {
+                selectedDate = day.date
+            }
+        }
     }
 }
