@@ -43,8 +43,6 @@ struct NewRecordView: View {
     
     var body: some View {
         VStack {
-            CloseButton
-            
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     ShiftPicker
@@ -73,6 +71,13 @@ struct NewRecordView: View {
                 }
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancelar") {
+                    dismiss()
+                }
+            }
+        }
     }
 }
 
@@ -83,20 +88,6 @@ struct NewRecordView: View {
 
 extension NewRecordView {
     // MARK: - Extracted views
-    @ViewBuilder
-    var CloseButton: some View {
-        Button {
-            dismiss()
-        } label: {
-            Image(systemName: "xmark.circle.fill")
-                .font(.title)
-                .tint(.red)
-                .foregroundStyle(.appWhite.opacity(0.3))
-        }
-        .hSpacing(.leading)
-        .padding(.bottom)
-    }
-    
     @ViewBuilder
     var ShiftPicker: some View {
         GroupBox {

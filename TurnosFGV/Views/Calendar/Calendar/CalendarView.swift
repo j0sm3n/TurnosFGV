@@ -12,8 +12,12 @@ import DateHelper
 struct CalendarView: View {
     @Binding var selectedDate: Date
     @Binding var selectedMonth: Date
+    
     @State private var monthDays: [Day] = []
     @Query private var workDays: [WorkDay]
+    
+    @State private var showNewRecordView: Bool = false
+    @State private var selectedWorkDay: WorkDay?
     
     init(selectedDate: Binding<Date>, selectedMonth: Binding<Date>) {
         self._selectedDate = selectedDate
@@ -47,6 +51,16 @@ struct CalendarView: View {
         .frame(maxHeight: .infinity)
         .task(id: selectedMonth) {
             monthDays = extractDates(selectedMonth)
+        }
+        .sheet(isPresented: $showNewRecordView) {
+            NavigationStack {
+                NewRecordView(date: selectedDate)
+            }
+        }
+        .sheet(item: $selectedWorkDay) { workedDay in
+            NavigationStack {
+                RecordDetailView(workDay: workedDay)
+            }
         }
     }
 }
@@ -91,6 +105,11 @@ extension CalendarView {
             .contentShape(.rect)
             .onTapGesture {
                 selectedDate = day.date
+                if let workedDay = workedDayOn(selectedDate) {
+                    selectedWorkDay = workedDay
+                } else {
+                    showNewRecordView = true
+                }
             }
         }
     }
