@@ -19,7 +19,6 @@
 		8292A2522BAC51C50086A8C3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8292A2512BAC51C50086A8C3 /* PrivacyInfo.xcprivacy */; };
 		8292A25E2BAC6CD80086A8C3 /* CalendarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A25D2BAC6CD80086A8C3 /* CalendarScreen.swift */; };
 		8292A2612BAC6D180086A8C3 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A25F2BAC6D180086A8C3 /* CalendarView.swift */; };
-		8292A2622BAC6D180086A8C3 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2602BAC6D180086A8C3 /* DayView.swift */; };
 		8292A2672BAC6D2D0086A8C3 /* RecordRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2632BAC6D2D0086A8C3 /* RecordRowView.swift */; };
 		8292A2682BAC6D2D0086A8C3 /* RecordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2642BAC6D2D0086A8C3 /* RecordDetailView.swift */; };
 		8292A2692BAC6D2D0086A8C3 /* NewRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2652BAC6D2D0086A8C3 /* NewRecordView.swift */; };
@@ -64,7 +63,6 @@
 		8292A2532BAC52ED0086A8C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8292A25D2BAC6CD80086A8C3 /* CalendarScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarScreen.swift; sourceTree = "<group>"; };
 		8292A25F2BAC6D180086A8C3 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
-		8292A2602BAC6D180086A8C3 /* DayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
 		8292A2632BAC6D2D0086A8C3 /* RecordRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordRowView.swift; sourceTree = "<group>"; };
 		8292A2642BAC6D2D0086A8C3 /* RecordDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordDetailView.swift; sourceTree = "<group>"; };
 		8292A2652BAC6D2D0086A8C3 /* NewRecordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewRecordView.swift; sourceTree = "<group>"; };
@@ -262,7 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				8292A25F2BAC6D180086A8C3 /* CalendarView.swift */,
-				8292A2602BAC6D180086A8C3 /* DayView.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -367,7 +364,6 @@
 				8292A2812BACA7E20086A8C3 /* Constants.swift in Sources */,
 				8292A2692BAC6D2D0086A8C3 /* NewRecordView.swift in Sources */,
 				8292A2D52BB45B450086A8C3 /* Int+Extensions.swift in Sources */,
-				8292A2622BAC6D180086A8C3 /* DayView.swift in Sources */,
 				8292A2612BAC6D180086A8C3 /* CalendarView.swift in Sources */,
 				8292A25E2BAC6CD80086A8C3 /* CalendarScreen.swift in Sources */,
 				8292A27C2BAC6F920086A8C3 /* WorkDay+Extensions.swift in Sources */,

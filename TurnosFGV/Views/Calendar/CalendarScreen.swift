@@ -17,7 +17,6 @@ struct CalendarScreen: View {
             VStack {
                 MonthYearHeader(selectedDate: $selectedDate, selectedMonth: $selectedMonth)
                 CalendarView(selectedDate: $selectedDate, selectedMonth: $selectedMonth)
-                RecordsView(selectedDate: $selectedDate, selectedMonth: $selectedMonth)
             }
             .background(.appBackground)
         }
@@ -26,4 +25,7 @@ struct CalendarScreen: View {
 
 #Preview {
     ContentView()
+#if DEBUG
+        .modelContainer(WorkDay.preview)
+#endif
 }
