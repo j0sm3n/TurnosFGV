@@ -28,6 +28,10 @@ extension Date {
         return month
     }
     
+    var year: Int {
+        Calendar.current.component(.year, from: self)
+    }
+    
     var morningStart: Date {
         self.adjust(hour: 4, minute: 0, second: 0)!
     }

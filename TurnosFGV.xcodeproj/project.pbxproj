@@ -19,10 +19,8 @@
 		8292A2522BAC51C50086A8C3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8292A2512BAC51C50086A8C3 /* PrivacyInfo.xcprivacy */; };
 		8292A25E2BAC6CD80086A8C3 /* CalendarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A25D2BAC6CD80086A8C3 /* CalendarScreen.swift */; };
 		8292A2612BAC6D180086A8C3 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A25F2BAC6D180086A8C3 /* CalendarView.swift */; };
-		8292A2672BAC6D2D0086A8C3 /* RecordRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2632BAC6D2D0086A8C3 /* RecordRowView.swift */; };
 		8292A2682BAC6D2D0086A8C3 /* RecordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2642BAC6D2D0086A8C3 /* RecordDetailView.swift */; };
 		8292A2692BAC6D2D0086A8C3 /* NewRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2652BAC6D2D0086A8C3 /* NewRecordView.swift */; };
-		8292A26A2BAC6D2D0086A8C3 /* RecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2662BAC6D2D0086A8C3 /* RecordsView.swift */; };
 		8292A26D2BAC6D430086A8C3 /* MonthYearHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A26B2BAC6D430086A8C3 /* MonthYearHeader.swift */; };
 		8292A26E2BAC6D430086A8C3 /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A26C2BAC6D430086A8C3 /* SaveButton.swift */; };
 		8292A2732BAC6DA20086A8C3 /* ShiftTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A26F2BAC6DA20086A8C3 /* ShiftTextModifier.swift */; };
@@ -63,10 +61,8 @@
 		8292A2532BAC52ED0086A8C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8292A25D2BAC6CD80086A8C3 /* CalendarScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarScreen.swift; sourceTree = "<group>"; };
 		8292A25F2BAC6D180086A8C3 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
-		8292A2632BAC6D2D0086A8C3 /* RecordRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordRowView.swift; sourceTree = "<group>"; };
 		8292A2642BAC6D2D0086A8C3 /* RecordDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordDetailView.swift; sourceTree = "<group>"; };
 		8292A2652BAC6D2D0086A8C3 /* NewRecordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewRecordView.swift; sourceTree = "<group>"; };
-		8292A2662BAC6D2D0086A8C3 /* RecordsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordsView.swift; sourceTree = "<group>"; };
 		8292A26B2BAC6D430086A8C3 /* MonthYearHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthYearHeader.swift; sourceTree = "<group>"; };
 		8292A26C2BAC6D430086A8C3 /* SaveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
 		8292A26F2BAC6DA20086A8C3 /* ShiftTextModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShiftTextModifier.swift; sourceTree = "<group>"; };
@@ -240,26 +236,16 @@
 			children = (
 				8292A25D2BAC6CD80086A8C3 /* CalendarScreen.swift */,
 				8292A25B2BAC57940086A8C3 /* Calendar */,
-				8292A25A2BAC578E0086A8C3 /* Records */,
 			);
 			path = Calendar;
-			sourceTree = "<group>";
-		};
-		8292A25A2BAC578E0086A8C3 /* Records */ = {
-			isa = PBXGroup;
-			children = (
-				8292A2652BAC6D2D0086A8C3 /* NewRecordView.swift */,
-				8292A2642BAC6D2D0086A8C3 /* RecordDetailView.swift */,
-				8292A2632BAC6D2D0086A8C3 /* RecordRowView.swift */,
-				8292A2662BAC6D2D0086A8C3 /* RecordsView.swift */,
-			);
-			path = Records;
 			sourceTree = "<group>";
 		};
 		8292A25B2BAC57940086A8C3 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
 				8292A25F2BAC6D180086A8C3 /* CalendarView.swift */,
+				8292A2652BAC6D2D0086A8C3 /* NewRecordView.swift */,
+				8292A2642BAC6D2D0086A8C3 /* RecordDetailView.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -387,8 +373,6 @@
 				8292A2892BAF28F70086A8C3 /* ShiftGroup+Extensions.swift in Sources */,
 				8292A2D72BB48E1E0086A8C3 /* HideViewModifier.swift in Sources */,
 				8292A2B32BB2D3D40086A8C3 /* ChartView.swift in Sources */,
-				8292A2672BAC6D2D0086A8C3 /* RecordRowView.swift in Sources */,
-				8292A26A2BAC6D2D0086A8C3 /* RecordsView.swift in Sources */,
 				8292A28E2BAF37810086A8C3 /* CustomPicker.swift in Sources */,
 				8292A24C2BAC4F900086A8C3 /* Date+Extensions.swift in Sources */,
 				8292A2742BAC6DA20086A8C3 /* DisclosureGroupLabelModifier.swift in Sources */,
