@@ -45,6 +45,10 @@
 		8292A2B62BB2E4ED0086A8C3 /* MigrationPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2B52BB2E4ED0086A8C3 /* MigrationPlan.swift */; };
 		8292A2D52BB45B450086A8C3 /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2D42BB45B450086A8C3 /* Int+Extensions.swift */; };
 		8292A2D72BB48E1E0086A8C3 /* HideViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2D62BB48E1E0086A8C3 /* HideViewModifier.swift */; };
+		82BCBE222BF475D8007C65EF /* ChartDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BCBE212BF475D8007C65EF /* ChartDataTypes.swift */; };
+		82BCBE242BF4773C007C65EF /* BarCharView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BCBE232BF4773C007C65EF /* BarCharView.swift */; };
+		82BCBE262BF47747007C65EF /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BCBE252BF47747007C65EF /* PieChartView.swift */; };
+		82BCBE292BF4DFF6007C65EF /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 82BCBE282BF4DFF6007C65EF /* Algorithms */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +91,9 @@
 		8292A2B72BB2E5D70086A8C3 /* TurnosFGV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TurnosFGV.entitlements; sourceTree = "<group>"; };
 		8292A2D42BB45B450086A8C3 /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
 		8292A2D62BB48E1E0086A8C3 /* HideViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideViewModifier.swift; sourceTree = "<group>"; };
+		82BCBE212BF475D8007C65EF /* ChartDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataTypes.swift; sourceTree = "<group>"; };
+		82BCBE232BF4773C007C65EF /* BarCharView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCharView.swift; sourceTree = "<group>"; };
+		82BCBE252BF47747007C65EF /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82BCBE292BF4DFF6007C65EF /* Algorithms in Frameworks */,
 				824E68252BB6B3070022B2DB /* CloudStorage in Frameworks */,
 				8292A27F2BAC8AAE0086A8C3 /* DateHelper in Frameworks */,
 			);
@@ -166,6 +174,7 @@
 				8292A24F2BAC4FE70086A8C3 /* ShiftsDataModel.swift */,
 				8292A2B42BB2E4BE0086A8C3 /* SwiftData */,
 				8292A2792BAC6F240086A8C3 /* Day.swift */,
+				82BCBE212BF475D8007C65EF /* ChartDataTypes.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -219,6 +228,8 @@
 			isa = PBXGroup;
 			children = (
 				8292A2B22BB2D3D40086A8C3 /* ChartView.swift */,
+				82BCBE232BF4773C007C65EF /* BarCharView.swift */,
+				82BCBE252BF47747007C65EF /* PieChartView.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -286,6 +297,7 @@
 			packageProductDependencies = (
 				8292A27E2BAC8AAE0086A8C3 /* DateHelper */,
 				824E68242BB6B3070022B2DB /* CloudStorage */,
+				82BCBE282BF4DFF6007C65EF /* Algorithms */,
 			);
 			productName = TurnosFGV;
 			productReference = 823031A52BAC4D6C005B00EF /* TurnosFGV.app */;
@@ -318,6 +330,7 @@
 			packageReferences = (
 				8292A27D2BAC8AAE0086A8C3 /* XCRemoteSwiftPackageReference "DateHelper" */,
 				824E68232BB6B3070022B2DB /* XCRemoteSwiftPackageReference "CloudStorage" */,
+				82BCBE272BF4DFF6007C65EF /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 			);
 			productRefGroup = 823031A62BAC4D6C005B00EF /* Products */;
 			projectDirPath = "";
@@ -346,6 +359,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82BCBE262BF47747007C65EF /* PieChartView.swift in Sources */,
 				823031AB2BAC4D6C005B00EF /* ContentView.swift in Sources */,
 				8292A2812BACA7E20086A8C3 /* Constants.swift in Sources */,
 				8292A2692BAC6D2D0086A8C3 /* NewRecordView.swift in Sources */,
@@ -359,6 +373,7 @@
 				8292A2832BAD54F40086A8C3 /* View+Extensions.swift in Sources */,
 				82277C5C2BCC2CB100C42B0E /* Double+Extensions.swift in Sources */,
 				8292A2502BAC4FE70086A8C3 /* ShiftsDataModel.swift in Sources */,
+				82BCBE242BF4773C007C65EF /* BarCharView.swift in Sources */,
 				8292A28D2BAF37810086A8C3 /* OnboardView.swift in Sources */,
 				8292A2752BAC6DA20086A8C3 /* GroupBoxBackgroundModifier.swift in Sources */,
 				8292A2852BADB8E00086A8C3 /* Color+Extensions.swift in Sources */,
@@ -374,6 +389,7 @@
 				8292A2D72BB48E1E0086A8C3 /* HideViewModifier.swift in Sources */,
 				8292A2B32BB2D3D40086A8C3 /* ChartView.swift in Sources */,
 				8292A28E2BAF37810086A8C3 /* CustomPicker.swift in Sources */,
+				82BCBE222BF475D8007C65EF /* ChartDataTypes.swift in Sources */,
 				8292A24C2BAC4F900086A8C3 /* Date+Extensions.swift in Sources */,
 				8292A2742BAC6DA20086A8C3 /* DisclosureGroupLabelModifier.swift in Sources */,
 				8292A2782BAC6DD40086A8C3 /* VersionedSchemaV1.swift in Sources */,
@@ -622,6 +638,14 @@
 				minimumVersion = 5.0.1;
 			};
 		};
+		82BCBE272BF4DFF6007C65EF /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -634,6 +658,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8292A27D2BAC8AAE0086A8C3 /* XCRemoteSwiftPackageReference "DateHelper" */;
 			productName = DateHelper;
+		};
+		82BCBE282BF4DFF6007C65EF /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 82BCBE272BF4DFF6007C65EF /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
