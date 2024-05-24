@@ -17,6 +17,11 @@ extension Date {
         Calendar.current.standaloneWeekdaySymbols.dropFirst() + [Calendar.current.standaloneWeekdaySymbols.first!]
     }
     
+    /// Year number from date
+    var year: Int {
+        Calendar.current.component(.year, from: self)
+    }
+    
     /// Current month
     static var currentMonth: Date {
         let calendar = Calendar.current
