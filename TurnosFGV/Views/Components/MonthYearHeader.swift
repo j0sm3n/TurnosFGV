@@ -16,18 +16,21 @@ struct MonthYearHeader: View {
 
     var body: some View {
         HStack {
-            HStack {
-                Text(selectedMonth.toString(format: .custom("MMMM"))!)
-                    .foregroundStyle(.appWhite)
-                Text(selectedMonth.toString(format: .isoYear)!)
-                    .foregroundStyle(.appPurple)
-            }
-            .font(.title)
-            .fontWeight(.semibold)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .onTapGesture {
+            Button {
+                TipModel.selectNewDate.invalidate(reason: .actionPerformed)
                 showMonthYearPicker.toggle()
+            } label: {
+                HStack {
+                    Text(selectedMonth.toString(format: .custom("MMMM"))!)
+                        .foregroundStyle(.appWhite)
+                    Text(selectedMonth.toString(format: .isoYear)!)
+                        .foregroundStyle(.appPurple)
+                }
+                .font(.title)
+                .fontWeight(.semibold)
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
+            .popoverTip(TipModel.selectNewDate)
             
             HStack(spacing: 15) {
                 decrease(isMonth: true)

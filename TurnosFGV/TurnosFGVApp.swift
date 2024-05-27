@@ -8,6 +8,7 @@
 import CloudStorage
 import SwiftData
 import SwiftUI
+import TipKit
 
 /// SwiftData Models
 typealias WorkDay = VersionedSchemaV1.WorkDay
@@ -28,6 +29,8 @@ struct TurnosFGVApp: App {
         } catch {
             fatalError("Could not configure the container")
         }
+        
+        try? Tips.configure([.displayFrequency(.immediate)])
     }
 
     var body: some Scene {

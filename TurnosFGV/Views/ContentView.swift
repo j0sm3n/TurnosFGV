@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 enum Tab: String {
     case calendar = "Calendario"
@@ -44,6 +45,9 @@ struct ContentView: View {
     ContentView()
     #if DEBUG
         .modelContainer(WorkDay.preview)
+        .task {
+            try? await Tips.showTipsForTesting([TipModel.self])
+        }
     #endif
 }
 
