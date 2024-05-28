@@ -7,12 +7,14 @@
 
 import Charts
 import SwiftUI
+import TipKit
 
 struct BarChartView: View {
     @State private var barSelection: Date?
+    @State private var barChartTip = BarChartTip()
     
     let chartData: [MonthChartData]
-    
+
     var currentYear: Int {
         guard let date = chartData.first?.date else { return 0 }
         return date.year
@@ -62,6 +64,8 @@ struct BarChartView: View {
                     }
                     
                     if let barSelection {
+                        let _ = barChartTip.invalidate(reason: .actionPerformed)
+                        
                         RuleMark(x: .value("Mes", barSelection, unit: .month))
                             .foregroundStyle(.appBackground.opacity(0.35))
                             .zIndex(-10)
@@ -81,6 +85,9 @@ struct BarChartView: View {
                     }
                 }
                 .chartLegend(position: .bottom, alignment: .leading, spacing: 25)
+                .overlay(alignment: .top) {
+                    TipView(barChartTip, arrowEdge: .bottom)
+                }
             }
             .frame(height: 300)
             .padding(.vertical)

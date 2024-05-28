@@ -13,11 +13,12 @@ struct MonthYearHeader: View {
     @Binding var selectedMonth: Date
     
     @State private var showMonthYearPicker: Bool = false
+    @State private var selectDateTip = SelectDateTip()
 
     var body: some View {
         HStack {
             Button {
-                TipModel.selectNewDate.invalidate(reason: .actionPerformed)
+                selectDateTip.invalidate(reason: .actionPerformed)
                 showMonthYearPicker.toggle()
             } label: {
                 HStack {
@@ -30,7 +31,7 @@ struct MonthYearHeader: View {
                 .fontWeight(.semibold)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .popoverTip(TipModel.selectNewDate)
+            .popoverTip(selectDateTip)
             
             HStack(spacing: 15) {
                 decrease(isMonth: true)

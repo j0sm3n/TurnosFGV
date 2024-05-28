@@ -8,27 +8,20 @@
 import Foundation
 import TipKit
 
-enum TipModel: Tip {
-    case selectNewDate
-    
-    var title: Text {
-        switch self {
-        case .selectNewDate:
-            Text("Selecciona una fecha.")
-        }
-    }
-    
-    var message: Text? {
-        switch self {
-        case .selectNewDate:
-            Text("Puedes ir directo a una fecha pulsando aquí.")
-        }
-    }
-    
-    var image: Image? {
-        switch self {
-        case .selectNewDate:
-            Image(systemName: "calendar")
-        }
-    }
+struct SelectDateTip: Tip {
+    let title: Text = Text("Selecciona una fecha.")
+    let message: Text? = Text("Puedes ir directo a una fecha pulsando aquí.")
+    let image: Image? = Image(systemName: "calendar")
+}
+
+struct BarChartTip: Tip {
+    let title: Text = Text("Toca una barra.")
+    let message: Text? = Text("Puedes ver las horas de cada mes pulsando en la barra correspondiente.")
+    let image: Image? = Image(systemName: "chart.bar.xaxis")
+}
+
+struct PieChartTip: Tip {
+    let title: Text = Text("Toca un sector")
+    let message: Text? = Text("Puedes ver las horas de cada tipo de turno pulsando en el sector correspondiente.")
+    let image: Image? = Image(systemName: "chart.pie.fill")
 }
