@@ -11,90 +11,45 @@ import TipKit
 
 struct BarChartView: View {
     @State private var barSelection: Date?
-    @State private var barChartTip = BarChartTip()
+    @State private var barChartTip = ChartTip()
     
     let chartData: [MonthChartData]
-
-    var currentYear: Int {
-        guard let date = chartData.first?.date else { return 0 }
-        return date.year
-    }
-    
-    var monthSelectionWorkedHours: Double {
-        guard let barSelection else { return 0 }
-        if let data = chartData.first(where: { $0.date.component(.month) == barSelection.component(.month) }) {
-            return data.workedHours
-        }
-        return 0
-    }
     
     var body: some View {
-        VStack {
-            Text("Horas por mes")
-                .bold()
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
+        VStack(alignment: .leading) {
             VStack(alignment: .leading) {
-                VStack {
-                    HStack(alignment: .firstTextBaseline, spacing: 2) {
-                        Text("\(totalWorkedHours.formatted(.number.precision(.fractionLength(2))))")
-                            .font(.system(size: 32, weight: .semibold, design: .rounded))
-                            .fontWidth(.compressed)
-                        Text("h")
-                            .font(.callout)
-                            .fontWeight(.light)
-                    }
-                    
-                    Text("Total horas \(currentYear)")
-                        .font(.callout)
-                        .fontWeight(.light)
-                }
-                .foregroundStyle(.appWhite)
-                .padding(.bottom, 20)
-                
-                Chart {
-                    ForEach(chartData) { dataPoint in
-                        BarMark(
-                            x: .value("Mes", dataPoint.date, unit: .month),
-                            y: .value("Días trabajados", dataPoint.isAnimated ? dataPoint.workedHours : 0)
-                        )
-                        .cornerRadius(6)
-                        .foregroundStyle(.appWhite.gradient)
-                        .opacity(opacityFor(dataPoint: dataPoint))
-                    }
-                    
-                    if let barSelection {
-                        let _ = barChartTip.invalidate(reason: .actionPerformed)
-                        
-                        RuleMark(x: .value("Mes", barSelection, unit: .month))
-                            .foregroundStyle(.appBackground.opacity(0.35))
-                            .zIndex(-10)
-                            .offset(yStart: -10)
-                            .annotation(position: .top, spacing: 0, overflowResolution: .init(x: .fit(to: .chart), y: .disabled)) {
-                                chartPopOverView
-                            }
-                    }
-                }
-                .chartYScale(domain: 0...(chartData.map(\.workedHours).max() ?? 150.0))
-                .chartXSelection(value: $barSelection)
-                .chartXAxis {
-                    AxisMarks(values: .stride(by: .month, count: 1)) { value in
-                        if let date = value.as(Date.self) {
-                            AxisValueLabel(date.toString(format: .custom("MMMMM"))!, centered: true)
-                        }
-                    }
-                }
-                .chartLegend(position: .bottom, alignment: .leading, spacing: 25)
-                .overlay(alignment: .top) {
-                    if !chartData.isEmpty {
-                        TipView(barChartTip, arrowEdge: .bottom)
-                    }
+                totalHours
+                interval
+            }
+            .foregroundStyle(.appWhite)
+            .padding(.bottom, 20)
+            .animation(.easeIn, value: barSelection)
+            
+            Chart {
+                ForEach(chartData) { dataPoint in
+                    BarMark(
+                        x: .value("Mes", dataPoint.date, unit: .month),
+                        y: .value("Días trabajados", dataPoint.isAnimated ? dataPoint.workedHours : 0)
+                    )
+                    .cornerRadius(6)
+                    .foregroundStyle(.appWhite.gradient)
+                    .opacity(opacityFor(dataPoint: dataPoint))
                 }
             }
-            .frame(height: 300)
-            .padding(.vertical)
-            .padding(.horizontal, 5)
-            .background(.appWhite.opacity(0.1).shadow(.inner(color: .white, radius: 9)), in: .rect(cornerRadius: 10))
+            .frame(height: 240)
+            .chartXSelection(value: $barSelection)
+            .chartXAxis {
+                AxisMarks(values: .stride(by: .month, count: 1)) {
+                    AxisValueLabel(format: .dateTime.month(.narrow), centered: true)
+                }
+            }
+        }
+        .padding()
+        .background(.appWhite.opacity(0.1).shadow(.inner(color: .white, radius: 9)), in: .rect(cornerRadius: 10))
+        .overlay(alignment: .top) {
+            if !chartData.isEmpty {
+                TipView(barChartTip, arrowEdge: .bottom)
+            }
         }
     }
     
@@ -113,27 +68,40 @@ struct BarChartView: View {
         return 0.0
     }
     
-    private var totalWorkedHours: Double {
-        chartData.map(\.workedHours).reduce(0, +)
+    private var currentYear: Int {
+        guard let date = chartData.first?.date else { return 0 }
+        return date.year
     }
     
-    private var chartPopOverView: some View {
-        VStack {
-            Text(barSelection?.toString(format: .custom("MMMM")) ?? "")
-            
-            HStack(spacing: 4) {
-                Text(String(format: "%.0f", monthSelectionWorkedHours))
-                    .fontWeight(.semibold)
-                
-                Text("h.")
-                    .textScale(.secondary)
-            }
-            .font(.caption)
+    private var monthSelectionWorkedHours: String {
+        guard let barSelection else { return "" }
+        if let data = chartData.first(where: { $0.date.component(.month) == barSelection.component(.month) }) {
+            return data.workedHours.formatted(.number.precision(.fractionLength(0)))
         }
-        .padding(.horizontal)
-        .padding(.vertical, 4)
-        .foregroundStyle(.appWhite)
-        .background(.appBackground, in: .rect(cornerRadius: 8))
+        return ""
+    }
+    
+    private var totalWorkedHours: String {
+        chartData.map(\.workedHours).reduce(0, +).formatted(.number.precision(.fractionLength(0)))
+    }
+    
+    private var totalHours: some View {
+        HStack(alignment: .firstTextBaseline) {
+            Text(barSelection != nil ? monthSelectionWorkedHours : totalWorkedHours)
+                .font(.system(size: 32, weight: .semibold, design: .rounded))
+                .fontWidth(.compressed)
+                .contentTransition(.numericText())
+            Text("h")
+                .font(.callout)
+                .fontWeight(.light)
+        }
+    }
+    
+    private var interval: some View {
+        Text((barSelection != nil ? barSelection?.formatted(.dateTime.month(.wide)) : "Total horas \(currentYear)")!)
+            .font(.callout)
+            .fontWeight(.light)
+            .contentTransition(.interpolate)
     }
 }
 

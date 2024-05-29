@@ -30,7 +30,7 @@ struct ChartView: View {
             .background(.appBackground)
             .scrollContentBackground(.hidden)
             .scrollIndicators(.hidden)
-            .navigationTitle("Resumen")
+            .navigationTitle("Resumen \(selectedDate.year)")
             .onAppear {
                 createData()
                 animateChart()

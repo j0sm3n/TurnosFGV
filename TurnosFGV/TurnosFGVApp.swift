@@ -20,9 +20,6 @@ struct TurnosFGVApp: App {
     
     init() {
         do {
-//            #if DEBUG
-//            return WorkDay.preview
-//            #else
             let schema = Schema([WorkDay.self])
             let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
             self.container = try ModelContainer(for: WorkDay.self, migrationPlan: MigrationPlan.self, configurations: config)
@@ -32,7 +29,7 @@ struct TurnosFGVApp: App {
         
         try? Tips.configure([.displayFrequency(.immediate)])
     }
-
+    
     var body: some Scene {
         WindowGroup {
             if hasSeenOnboardingView {
