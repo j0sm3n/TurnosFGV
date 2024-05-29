@@ -12,6 +12,7 @@
 		823031AB2BAC4D6C005B00EF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823031AA2BAC4D6C005B00EF /* ContentView.swift */; };
 		823031AD2BAC4D6C005B00EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 823031AC2BAC4D6C005B00EF /* Assets.xcassets */; };
 		823031B02BAC4D6C005B00EF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 823031AF2BAC4D6C005B00EF /* Preview Assets.xcassets */; };
+		8242B0392C0443EE002B7E00 /* TipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8242B0382C0443EE002B7E00 /* TipModel.swift */; };
 		824E68252BB6B3070022B2DB /* CloudStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 824E68242BB6B3070022B2DB /* CloudStorage */; };
 		8292A24C2BAC4F900086A8C3 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A24B2BAC4F900086A8C3 /* Date+Extensions.swift */; };
 		8292A24E2BAC4F9F0086A8C3 /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A24D2BAC4F9F0086A8C3 /* TimeInterval+Extensions.swift */; };
@@ -48,6 +49,10 @@
 		8292A2B62BB2E4ED0086A8C3 /* MigrationPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2B52BB2E4ED0086A8C3 /* MigrationPlan.swift */; };
 		8292A2D52BB45B450086A8C3 /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2D42BB45B450086A8C3 /* Int+Extensions.swift */; };
 		8292A2D72BB48E1E0086A8C3 /* HideViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2D62BB48E1E0086A8C3 /* HideViewModifier.swift */; };
+		82ABA4292C019F58001B539A /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 82ABA4282C019F58001B539A /* Algorithms */; };
+		82ABA42B2C019F90001B539A /* ChartDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82ABA42A2C019F90001B539A /* ChartDataTypes.swift */; };
+		82ABA42D2C019FE4001B539A /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82ABA42C2C019FE4001B539A /* BarChartView.swift */; };
+		82ABA42F2C01A4CA001B539A /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82ABA42E2C01A4CA001B539A /* PieChartView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +62,7 @@
 		823031AA2BAC4D6C005B00EF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		823031AC2BAC4D6C005B00EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		823031AF2BAC4D6C005B00EF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8242B0382C0443EE002B7E00 /* TipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipModel.swift; sourceTree = "<group>"; };
 		8292A24B2BAC4F900086A8C3 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		8292A24D2BAC4F9F0086A8C3 /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
 		8292A24F2BAC4FE70086A8C3 /* ShiftsDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftsDataModel.swift; sourceTree = "<group>"; };
@@ -93,6 +99,9 @@
 		8292A2B72BB2E5D70086A8C3 /* TurnosFGV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TurnosFGV.entitlements; sourceTree = "<group>"; };
 		8292A2D42BB45B450086A8C3 /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
 		8292A2D62BB48E1E0086A8C3 /* HideViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideViewModifier.swift; sourceTree = "<group>"; };
+		82ABA42A2C019F90001B539A /* ChartDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataTypes.swift; sourceTree = "<group>"; };
+		82ABA42C2C019FE4001B539A /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
+		82ABA42E2C01A4CA001B539A /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82ABA4292C019F58001B539A /* Algorithms in Frameworks */,
 				824E68252BB6B3070022B2DB /* CloudStorage in Frameworks */,
 				8292A27F2BAC8AAE0086A8C3 /* DateHelper in Frameworks */,
 			);
@@ -172,6 +182,8 @@
 				8292A24F2BAC4FE70086A8C3 /* ShiftsDataModel.swift */,
 				8292A2B42BB2E4BE0086A8C3 /* SwiftData */,
 				8292A2792BAC6F240086A8C3 /* Day.swift */,
+				82ABA42A2C019F90001B539A /* ChartDataTypes.swift */,
+				8242B0382C0443EE002B7E00 /* TipModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -225,6 +237,8 @@
 			isa = PBXGroup;
 			children = (
 				8292A2B22BB2D3D40086A8C3 /* ChartView.swift */,
+				82ABA42C2C019FE4001B539A /* BarChartView.swift */,
+				82ABA42E2C01A4CA001B539A /* PieChartView.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -303,6 +317,7 @@
 			packageProductDependencies = (
 				8292A27E2BAC8AAE0086A8C3 /* DateHelper */,
 				824E68242BB6B3070022B2DB /* CloudStorage */,
+				82ABA4282C019F58001B539A /* Algorithms */,
 			);
 			productName = TurnosFGV;
 			productReference = 823031A52BAC4D6C005B00EF /* TurnosFGV.app */;
@@ -335,6 +350,7 @@
 			packageReferences = (
 				8292A27D2BAC8AAE0086A8C3 /* XCRemoteSwiftPackageReference "DateHelper" */,
 				824E68232BB6B3070022B2DB /* XCRemoteSwiftPackageReference "CloudStorage" */,
+				82ABA4272C019F58001B539A /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 			);
 			productRefGroup = 823031A62BAC4D6C005B00EF /* Products */;
 			projectDirPath = "";
@@ -377,6 +393,9 @@
 				8292A2832BAD54F40086A8C3 /* View+Extensions.swift in Sources */,
 				82277C5C2BCC2CB100C42B0E /* Double+Extensions.swift in Sources */,
 				8292A2502BAC4FE70086A8C3 /* ShiftsDataModel.swift in Sources */,
+				82ABA42D2C019FE4001B539A /* BarChartView.swift in Sources */,
+				8242B0392C0443EE002B7E00 /* TipModel.swift in Sources */,
+				82ABA42F2C01A4CA001B539A /* PieChartView.swift in Sources */,
 				8292A28D2BAF37810086A8C3 /* OnboardView.swift in Sources */,
 				8292A2752BAC6DA20086A8C3 /* GroupBoxBackgroundModifier.swift in Sources */,
 				8292A2852BADB8E00086A8C3 /* Color+Extensions.swift in Sources */,
@@ -392,6 +411,7 @@
 				8292A2D72BB48E1E0086A8C3 /* HideViewModifier.swift in Sources */,
 				8292A2B32BB2D3D40086A8C3 /* ChartView.swift in Sources */,
 				8292A2672BAC6D2D0086A8C3 /* RecordRowView.swift in Sources */,
+				82ABA42B2C019F90001B539A /* ChartDataTypes.swift in Sources */,
 				8292A26A2BAC6D2D0086A8C3 /* RecordsView.swift in Sources */,
 				8292A28E2BAF37810086A8C3 /* CustomPicker.swift in Sources */,
 				8292A24C2BAC4F900086A8C3 /* Date+Extensions.swift in Sources */,
@@ -531,7 +551,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TurnosFGV/TurnosFGV.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"TurnosFGV/Preview Content\"";
 				DEVELOPMENT_TEAM = F259VZ645X;
 				ENABLE_PREVIEWS = YES;
@@ -570,7 +590,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TurnosFGV/TurnosFGV.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"TurnosFGV/Preview Content\"";
 				DEVELOPMENT_TEAM = F259VZ645X;
 				ENABLE_PREVIEWS = YES;
@@ -642,6 +662,14 @@
 				minimumVersion = 5.0.1;
 			};
 		};
+		82ABA4272C019F58001B539A /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -654,6 +682,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8292A27D2BAC8AAE0086A8C3 /* XCRemoteSwiftPackageReference "DateHelper" */;
 			productName = DateHelper;
+		};
+		82ABA4282C019F58001B539A /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 82ABA4272C019F58001B539A /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
