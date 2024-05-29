@@ -14,8 +14,8 @@ struct SelectDateTip: Tip {
     let image: Image? = Image(systemName: "calendar")
 }
 
-struct BarChartTip: Tip {
+struct ChartTip: Tip {
     let title: Text = Text("Toca la gráfica.")
-    let message: Text? = Text("Puedes ver los detalles tocando en la gráfica.")
+    let message: Text? = Text("Puedes ver los detalles tocando en las gráficas.")
     let image: Image? = Image(systemName: "chart.bar.xaxis")
 }
