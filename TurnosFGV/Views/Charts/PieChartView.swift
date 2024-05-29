@@ -12,7 +12,7 @@ struct PieChartView: View {
     @State private var pieSelection: Double? = 0
     
     let chartData: [TypeChartData]
-    
+
     var selectedType: TypeChartData? {
         guard let pieSelection else { return nil }
         var total = 0.0

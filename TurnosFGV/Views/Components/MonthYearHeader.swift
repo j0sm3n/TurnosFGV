@@ -13,21 +13,25 @@ struct MonthYearHeader: View {
     @Binding var selectedMonth: Date
     
     @State private var showMonthYearPicker: Bool = false
+    @State private var selectDateTip = SelectDateTip()
 
     var body: some View {
         HStack {
-            HStack {
-                Text(selectedMonth.toString(format: .custom("MMMM"))!)
-                    .foregroundStyle(.appWhite)
-                Text(selectedMonth.toString(format: .isoYear)!)
-                    .foregroundStyle(.appPurple)
-            }
-            .font(.title)
-            .fontWeight(.semibold)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .onTapGesture {
+            Button {
+                selectDateTip.invalidate(reason: .actionPerformed)
                 showMonthYearPicker.toggle()
+            } label: {
+                HStack {
+                    Text(selectedMonth.toString(format: .custom("MMMM"))!)
+                        .foregroundStyle(.appWhite)
+                    Text(selectedMonth.toString(format: .isoYear)!)
+                        .foregroundStyle(.appPurple)
+                }
+                .font(.title)
+                .fontWeight(.semibold)
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
+            .popoverTip(selectDateTip)
             
             HStack(spacing: 15) {
                 decrease(isMonth: true)
