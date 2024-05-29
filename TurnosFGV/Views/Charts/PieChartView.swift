@@ -7,11 +7,9 @@
 
 import Charts
 import SwiftUI
-import TipKit
 
 struct PieChartView: View {
     @State private var pieSelection: Double? = 0
-    @State private var pieChartTip = PieChartTip()
     
     let chartData: [TypeChartData]
 
@@ -51,8 +49,6 @@ struct PieChartView: View {
                             let frame = geo[plotFrame]
                             
                             if let selectedType {
-                                let _ = pieChartTip.invalidate(reason: .actionPerformed)
-                                
                                 VStack {
                                     HStack(alignment: .firstTextBaseline, spacing: 2) {
                                         Text("\(selectedType.workedHours.formatted(.number.precision(.fractionLength(2))))")
@@ -77,9 +73,6 @@ struct PieChartView: View {
                             }
                         }
                     }
-                }
-                .overlay(alignment: .top) {
-                    TipView(pieChartTip, arrowEdge: .bottom)
                 }
                 
                 HStack(spacing: 20) {

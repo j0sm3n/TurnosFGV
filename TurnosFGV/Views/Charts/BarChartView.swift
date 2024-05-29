@@ -86,7 +86,9 @@ struct BarChartView: View {
                 }
                 .chartLegend(position: .bottom, alignment: .leading, spacing: 25)
                 .overlay(alignment: .top) {
-                    TipView(barChartTip, arrowEdge: .bottom)
+                    if !chartData.isEmpty {
+                        TipView(barChartTip, arrowEdge: .bottom)
+                    }
                 }
             }
             .frame(height: 300)

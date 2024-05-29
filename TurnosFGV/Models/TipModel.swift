@@ -15,13 +15,7 @@ struct SelectDateTip: Tip {
 }
 
 struct BarChartTip: Tip {
-    let title: Text = Text("Toca una barra.")
-    let message: Text? = Text("Puedes ver las horas de cada mes pulsando en la barra correspondiente.")
+    let title: Text = Text("Toca la gráfica.")
+    let message: Text? = Text("Puedes ver los detalles tocando en la gráfica.")
     let image: Image? = Image(systemName: "chart.bar.xaxis")
-}
-
-struct PieChartTip: Tip {
-    let title: Text = Text("Toca un sector")
-    let message: Text? = Text("Puedes ver las horas de cada tipo de turno pulsando en el sector correspondiente.")
-    let image: Image? = Image(systemName: "chart.pie.fill")
 }
