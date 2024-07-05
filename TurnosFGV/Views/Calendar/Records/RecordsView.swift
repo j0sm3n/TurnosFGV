@@ -56,7 +56,6 @@ extension RecordsView {
                     .frame(width: 50, height: 50)
                     .background(.appPurple.gradient.shadow(.inner(color: .white, radius: 2)), in: .rect(cornerRadius: 20))
             }
-            .font(.title2)
             .alert("Ups!", isPresented: $showWorkedDayAlert) {
                 Button("Ok") {}
             } message: {
