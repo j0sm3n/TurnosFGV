@@ -88,7 +88,7 @@ struct ShiftsDataModel {
             .init(name: "8", startTime: TimeInterval(hour: 5, minute: 45), duration: TimeInterval(hour: 6, minute: 45), saturation: 40.90),
             .init(name: "9", startTime: TimeInterval(hour: 13, minute: 45), duration: TimeInterval(hour: 6, minute: 45), saturation: 40.90),
             .init(name: "STDR", startTime: TimeInterval(hour: 7), duration: TimeInterval(hour: 7, minute: 49)),
-            .init(name: "A11", startTime: TimeInterval(hour: 23, minute: 45), duration: TimeInterval(hour: 6), saturation: 66.67),
+            .init(name: "A11", startTime: TimeInterval(hour: 23, minute: 45), duration: TimeInterval(hour: 6, minute: 10), saturation: 66.67),
         ]),
         
         // Maquinista Denia
