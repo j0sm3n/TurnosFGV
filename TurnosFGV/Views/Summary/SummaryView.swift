@@ -129,6 +129,8 @@ extension SummaryView {
     }
 
     // MARK: - Month computed properties
+    
+    // All records in selected month
     var recordsInMonth: [WorkDay] {
         let startDateOfMonth = selectedDate.adjust(for: .startOfMonth)!.adjust(for: .startOfDay)!
         let endDateOfMonth = selectedDate.adjust(for: .endOfMonth)!.adjust(for: .endOfDay)!
@@ -136,24 +138,28 @@ extension SummaryView {
         return monthRecords
     }
     
-    var notSickRecordsInMonth: [WorkDay] {
-        recordsInMonth.filter { !$0.isSickLeave && !$0.isWorkAccident }
+    var ordinaryRecordsInMonth: [WorkDay] {
+        recordsInMonth.filter { !$0.isSPP }
     }
     
     var sppRecordsInMonth: [WorkDay] {
         recordsInMonth.filter { $0.isSPP }
     }
     
+    var notSickRecordsInMonth: [WorkDay] {
+        ordinaryRecordsInMonth.filter { !$0.isSickLeave && !$0.isWorkAccident }
+    }
+    
     var monthWorkedHours: Double {
-        workedHoursIn(records: recordsInMonth)
+        workedHoursIn(records: ordinaryRecordsInMonth)
     }
     
     var workedDaysInCurrentMonth: Int {
-        recordsInMonth.count
+        ordinaryRecordsInMonth.count
     }
     
     var snackBreakCompensation: Int {
-        notSickRecordsInMonth.filter({ !$0.isStandardShift && !$0.isSPP }).count
+        notSickRecordsInMonth.filter({ !$0.isStandardShift }).count
     }
     
     var nightTimeInMonth: Double {
@@ -183,7 +189,7 @@ extension SummaryView {
     }
     
     var extraTimeInMonth: Double {
-        recordsInMonth.map(\.extraTime).reduce(0, +).minutesInHours
+        notSickRecordsInMonth.map(\.extraTime).reduce(0, +).minutesInHours
     }
     
     var totalSPPHours: Double {
