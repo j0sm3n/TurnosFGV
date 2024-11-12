@@ -7,9 +7,11 @@
 
 import SwiftUI
 import SwiftData
+import CloudStorage
 
 struct SummaryView: View {
     @Environment(\.modelContext) private var modelContext
+    @CloudStorage("prevYearHours") var prevYearHours: Double = 0.0
     @Binding var selectedDate: Date
     @Binding var selectedMonth: Date
     @State private var showPayrollGroup: Bool = true
@@ -101,6 +103,8 @@ extension SummaryView {
         DisclosureGroup {
             VStack(spacing: 12) {
                 LabeledContent("Horas trabajadas", value: yearWorkedHours, format: .number.precision(.fractionLength(2)))
+                
+                LabeledContent("Horas año anterior", value: prevYearHours, format: .number.precision(.fractionLength(2)))
                 
                 LabeledContent("Dias trabajados", value: workedDaysInCurrentYear, format: .number)
                 
