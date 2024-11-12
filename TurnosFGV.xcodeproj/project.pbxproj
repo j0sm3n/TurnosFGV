@@ -3,106 +3,32 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		82277C5C2BCC2CB100C42B0E /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82277C5B2BCC2CB100C42B0E /* Double+Extensions.swift */; };
-		823031A92BAC4D6C005B00EF /* TurnosFGVApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823031A82BAC4D6C005B00EF /* TurnosFGVApp.swift */; };
-		823031AB2BAC4D6C005B00EF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823031AA2BAC4D6C005B00EF /* ContentView.swift */; };
-		823031AD2BAC4D6C005B00EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 823031AC2BAC4D6C005B00EF /* Assets.xcassets */; };
-		823031B02BAC4D6C005B00EF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 823031AF2BAC4D6C005B00EF /* Preview Assets.xcassets */; };
-		8242B0392C0443EE002B7E00 /* TipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8242B0382C0443EE002B7E00 /* TipModel.swift */; };
 		824E68252BB6B3070022B2DB /* CloudStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 824E68242BB6B3070022B2DB /* CloudStorage */; };
-		8292A24C2BAC4F900086A8C3 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A24B2BAC4F900086A8C3 /* Date+Extensions.swift */; };
-		8292A24E2BAC4F9F0086A8C3 /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A24D2BAC4F9F0086A8C3 /* TimeInterval+Extensions.swift */; };
-		8292A2502BAC4FE70086A8C3 /* ShiftsDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A24F2BAC4FE70086A8C3 /* ShiftsDataModel.swift */; };
-		8292A2522BAC51C50086A8C3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8292A2512BAC51C50086A8C3 /* PrivacyInfo.xcprivacy */; };
-		8292A25E2BAC6CD80086A8C3 /* CalendarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A25D2BAC6CD80086A8C3 /* CalendarScreen.swift */; };
-		8292A2612BAC6D180086A8C3 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A25F2BAC6D180086A8C3 /* CalendarView.swift */; };
-		8292A2622BAC6D180086A8C3 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2602BAC6D180086A8C3 /* DayView.swift */; };
-		8292A2672BAC6D2D0086A8C3 /* RecordRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2632BAC6D2D0086A8C3 /* RecordRowView.swift */; };
-		8292A2682BAC6D2D0086A8C3 /* RecordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2642BAC6D2D0086A8C3 /* RecordDetailView.swift */; };
-		8292A2692BAC6D2D0086A8C3 /* NewRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2652BAC6D2D0086A8C3 /* NewRecordView.swift */; };
-		8292A26A2BAC6D2D0086A8C3 /* RecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2662BAC6D2D0086A8C3 /* RecordsView.swift */; };
-		8292A26D2BAC6D430086A8C3 /* MonthYearHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A26B2BAC6D430086A8C3 /* MonthYearHeader.swift */; };
-		8292A26E2BAC6D430086A8C3 /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A26C2BAC6D430086A8C3 /* SaveButton.swift */; };
-		8292A2732BAC6DA20086A8C3 /* ShiftTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A26F2BAC6DA20086A8C3 /* ShiftTextModifier.swift */; };
-		8292A2742BAC6DA20086A8C3 /* DisclosureGroupLabelModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2702BAC6DA20086A8C3 /* DisclosureGroupLabelModifier.swift */; };
-		8292A2752BAC6DA20086A8C3 /* GroupBoxBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2712BAC6DA20086A8C3 /* GroupBoxBackgroundModifier.swift */; };
-		8292A2762BAC6DA20086A8C3 /* DisclosureGroupModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2722BAC6DA20086A8C3 /* DisclosureGroupModifier.swift */; };
-		8292A2782BAC6DD40086A8C3 /* VersionedSchemaV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2772BAC6DD40086A8C3 /* VersionedSchemaV1.swift */; };
-		8292A27A2BAC6F240086A8C3 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2792BAC6F240086A8C3 /* Day.swift */; };
-		8292A27C2BAC6F920086A8C3 /* WorkDay+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A27B2BAC6F920086A8C3 /* WorkDay+Extensions.swift */; };
 		8292A27F2BAC8AAE0086A8C3 /* DateHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 8292A27E2BAC8AAE0086A8C3 /* DateHelper */; };
-		8292A2812BACA7E20086A8C3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2802BACA7E20086A8C3 /* Constants.swift */; };
-		8292A2832BAD54F40086A8C3 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2822BAD54F40086A8C3 /* View+Extensions.swift */; };
-		8292A2852BADB8E00086A8C3 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2842BADB8E00086A8C3 /* Color+Extensions.swift */; };
-		8292A2872BADC0AA0086A8C3 /* Shift+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2862BADC0AA0086A8C3 /* Shift+Extensions.swift */; };
-		8292A2892BAF28F70086A8C3 /* ShiftGroup+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2882BAF28F70086A8C3 /* ShiftGroup+Extensions.swift */; };
-		8292A28D2BAF37810086A8C3 /* OnboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A28A2BAF37810086A8C3 /* OnboardView.swift */; };
-		8292A28E2BAF37810086A8C3 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A28B2BAF37810086A8C3 /* CustomPicker.swift */; };
-		8292A28F2BAF37810086A8C3 /* OnboardStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A28C2BAF37810086A8C3 /* OnboardStepView.swift */; };
-		8292A2912BB0022C0086A8C3 /* WorkDayContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2902BB0022C0086A8C3 /* WorkDayContainer.swift */; };
-		8292A2B12BB1B5470086A8C3 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2B02BB1B5470086A8C3 /* SummaryView.swift */; };
-		8292A2B32BB2D3D40086A8C3 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2B22BB2D3D40086A8C3 /* ChartView.swift */; };
-		8292A2B62BB2E4ED0086A8C3 /* MigrationPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2B52BB2E4ED0086A8C3 /* MigrationPlan.swift */; };
-		8292A2D52BB45B450086A8C3 /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2D42BB45B450086A8C3 /* Int+Extensions.swift */; };
-		8292A2D72BB48E1E0086A8C3 /* HideViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8292A2D62BB48E1E0086A8C3 /* HideViewModifier.swift */; };
 		82ABA4292C019F58001B539A /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 82ABA4282C019F58001B539A /* Algorithms */; };
-		82ABA42B2C019F90001B539A /* ChartDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82ABA42A2C019F90001B539A /* ChartDataTypes.swift */; };
-		82ABA42D2C019FE4001B539A /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82ABA42C2C019FE4001B539A /* BarChartView.swift */; };
-		82ABA42F2C01A4CA001B539A /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82ABA42E2C01A4CA001B539A /* PieChartView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		82277C5B2BCC2CB100C42B0E /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		823031A52BAC4D6C005B00EF /* TurnosFGV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TurnosFGV.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		823031A82BAC4D6C005B00EF /* TurnosFGVApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnosFGVApp.swift; sourceTree = "<group>"; };
-		823031AA2BAC4D6C005B00EF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		823031AC2BAC4D6C005B00EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		823031AF2BAC4D6C005B00EF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		8242B0382C0443EE002B7E00 /* TipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipModel.swift; sourceTree = "<group>"; };
-		8292A24B2BAC4F900086A8C3 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
-		8292A24D2BAC4F9F0086A8C3 /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
-		8292A24F2BAC4FE70086A8C3 /* ShiftsDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftsDataModel.swift; sourceTree = "<group>"; };
-		8292A2512BAC51C50086A8C3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		8292A2532BAC52ED0086A8C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8292A25D2BAC6CD80086A8C3 /* CalendarScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarScreen.swift; sourceTree = "<group>"; };
-		8292A25F2BAC6D180086A8C3 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
-		8292A2602BAC6D180086A8C3 /* DayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
-		8292A2632BAC6D2D0086A8C3 /* RecordRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordRowView.swift; sourceTree = "<group>"; };
-		8292A2642BAC6D2D0086A8C3 /* RecordDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordDetailView.swift; sourceTree = "<group>"; };
-		8292A2652BAC6D2D0086A8C3 /* NewRecordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewRecordView.swift; sourceTree = "<group>"; };
-		8292A2662BAC6D2D0086A8C3 /* RecordsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordsView.swift; sourceTree = "<group>"; };
-		8292A26B2BAC6D430086A8C3 /* MonthYearHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthYearHeader.swift; sourceTree = "<group>"; };
-		8292A26C2BAC6D430086A8C3 /* SaveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
-		8292A26F2BAC6DA20086A8C3 /* ShiftTextModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShiftTextModifier.swift; sourceTree = "<group>"; };
-		8292A2702BAC6DA20086A8C3 /* DisclosureGroupLabelModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisclosureGroupLabelModifier.swift; sourceTree = "<group>"; };
-		8292A2712BAC6DA20086A8C3 /* GroupBoxBackgroundModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupBoxBackgroundModifier.swift; sourceTree = "<group>"; };
-		8292A2722BAC6DA20086A8C3 /* DisclosureGroupModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisclosureGroupModifier.swift; sourceTree = "<group>"; };
-		8292A2772BAC6DD40086A8C3 /* VersionedSchemaV1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionedSchemaV1.swift; sourceTree = "<group>"; };
-		8292A2792BAC6F240086A8C3 /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
-		8292A27B2BAC6F920086A8C3 /* WorkDay+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkDay+Extensions.swift"; sourceTree = "<group>"; };
-		8292A2802BACA7E20086A8C3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		8292A2822BAD54F40086A8C3 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
-		8292A2842BADB8E00086A8C3 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
-		8292A2862BADC0AA0086A8C3 /* Shift+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shift+Extensions.swift"; sourceTree = "<group>"; };
-		8292A2882BAF28F70086A8C3 /* ShiftGroup+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShiftGroup+Extensions.swift"; sourceTree = "<group>"; };
-		8292A28A2BAF37810086A8C3 /* OnboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardView.swift; sourceTree = "<group>"; };
-		8292A28B2BAF37810086A8C3 /* CustomPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
-		8292A28C2BAF37810086A8C3 /* OnboardStepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardStepView.swift; sourceTree = "<group>"; };
-		8292A2902BB0022C0086A8C3 /* WorkDayContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkDayContainer.swift; sourceTree = "<group>"; };
-		8292A2B02BB1B5470086A8C3 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
-		8292A2B22BB2D3D40086A8C3 /* ChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
-		8292A2B52BB2E4ED0086A8C3 /* MigrationPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationPlan.swift; sourceTree = "<group>"; };
-		8292A2B72BB2E5D70086A8C3 /* TurnosFGV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TurnosFGV.entitlements; sourceTree = "<group>"; };
-		8292A2D42BB45B450086A8C3 /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
-		8292A2D62BB48E1E0086A8C3 /* HideViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideViewModifier.swift; sourceTree = "<group>"; };
-		82ABA42A2C019F90001B539A /* ChartDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataTypes.swift; sourceTree = "<group>"; };
-		82ABA42C2C019FE4001B539A /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
-		82ABA42E2C01A4CA001B539A /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		82BC9EE82CE3255100379913 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 823031A42BAC4D6C005B00EF /* TurnosFGV */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		82BC9EBB2CE3255100379913 /* TurnosFGV */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (82BC9EE82CE3255100379913 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = TurnosFGV; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		823031A22BAC4D6C005B00EF /* Frameworks */ = {
@@ -121,7 +47,7 @@
 		8230319C2BAC4D6C005B00EF = {
 			isa = PBXGroup;
 			children = (
-				823031A72BAC4D6C005B00EF /* TurnosFGV */,
+				82BC9EBB2CE3255100379913 /* TurnosFGV */,
 				823031A62BAC4D6C005B00EF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -132,170 +58,6 @@
 				823031A52BAC4D6C005B00EF /* TurnosFGV.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		823031A72BAC4D6C005B00EF /* TurnosFGV */ = {
-			isa = PBXGroup;
-			children = (
-				8292A2B72BB2E5D70086A8C3 /* TurnosFGV.entitlements */,
-				8292A2532BAC52ED0086A8C3 /* Info.plist */,
-				8292A2512BAC51C50086A8C3 /* PrivacyInfo.xcprivacy */,
-				823031A82BAC4D6C005B00EF /* TurnosFGVApp.swift */,
-				8292A24A2BAC4F700086A8C3 /* Views */,
-				8292A2492BAC4F620086A8C3 /* Models */,
-				8292A2482BAC4F5C0086A8C3 /* Extensions */,
-				8292A25C2BAC58A90086A8C3 /* Helpers */,
-				823031AC2BAC4D6C005B00EF /* Assets.xcassets */,
-				823031AE2BAC4D6C005B00EF /* Preview Content */,
-			);
-			path = TurnosFGV;
-			sourceTree = "<group>";
-		};
-		823031AE2BAC4D6C005B00EF /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				823031AF2BAC4D6C005B00EF /* Preview Assets.xcassets */,
-				8292A2902BB0022C0086A8C3 /* WorkDayContainer.swift */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		8292A2482BAC4F5C0086A8C3 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				8292A2842BADB8E00086A8C3 /* Color+Extensions.swift */,
-				8292A24B2BAC4F900086A8C3 /* Date+Extensions.swift */,
-				82277C5B2BCC2CB100C42B0E /* Double+Extensions.swift */,
-				8292A2D42BB45B450086A8C3 /* Int+Extensions.swift */,
-				8292A2862BADC0AA0086A8C3 /* Shift+Extensions.swift */,
-				8292A2882BAF28F70086A8C3 /* ShiftGroup+Extensions.swift */,
-				8292A24D2BAC4F9F0086A8C3 /* TimeInterval+Extensions.swift */,
-				8292A2822BAD54F40086A8C3 /* View+Extensions.swift */,
-				8292A27B2BAC6F920086A8C3 /* WorkDay+Extensions.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		8292A2492BAC4F620086A8C3 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				8292A24F2BAC4FE70086A8C3 /* ShiftsDataModel.swift */,
-				8292A2B42BB2E4BE0086A8C3 /* SwiftData */,
-				8292A2792BAC6F240086A8C3 /* Day.swift */,
-				82ABA42A2C019F90001B539A /* ChartDataTypes.swift */,
-				8242B0382C0443EE002B7E00 /* TipModel.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		8292A24A2BAC4F700086A8C3 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				823031AA2BAC4D6C005B00EF /* ContentView.swift */,
-				8292A2592BAC57880086A8C3 /* Calendar */,
-				8292A2582BAC577D0086A8C3 /* Summary */,
-				8292A2572BAC57750086A8C3 /* Charts */,
-				8292A2562BAC57690086A8C3 /* Onboard */,
-				8292A2552BAC57610086A8C3 /* Components */,
-				8292A2542BAC57140086A8C3 /* Modifiers */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		8292A2542BAC57140086A8C3 /* Modifiers */ = {
-			isa = PBXGroup;
-			children = (
-				8292A2702BAC6DA20086A8C3 /* DisclosureGroupLabelModifier.swift */,
-				8292A2722BAC6DA20086A8C3 /* DisclosureGroupModifier.swift */,
-				8292A2712BAC6DA20086A8C3 /* GroupBoxBackgroundModifier.swift */,
-				8292A2D62BB48E1E0086A8C3 /* HideViewModifier.swift */,
-				8292A26F2BAC6DA20086A8C3 /* ShiftTextModifier.swift */,
-			);
-			path = Modifiers;
-			sourceTree = "<group>";
-		};
-		8292A2552BAC57610086A8C3 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				8292A26B2BAC6D430086A8C3 /* MonthYearHeader.swift */,
-				8292A26C2BAC6D430086A8C3 /* SaveButton.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		8292A2562BAC57690086A8C3 /* Onboard */ = {
-			isa = PBXGroup;
-			children = (
-				8292A28B2BAF37810086A8C3 /* CustomPicker.swift */,
-				8292A28C2BAF37810086A8C3 /* OnboardStepView.swift */,
-				8292A28A2BAF37810086A8C3 /* OnboardView.swift */,
-			);
-			path = Onboard;
-			sourceTree = "<group>";
-		};
-		8292A2572BAC57750086A8C3 /* Charts */ = {
-			isa = PBXGroup;
-			children = (
-				8292A2B22BB2D3D40086A8C3 /* ChartView.swift */,
-				82ABA42C2C019FE4001B539A /* BarChartView.swift */,
-				82ABA42E2C01A4CA001B539A /* PieChartView.swift */,
-			);
-			path = Charts;
-			sourceTree = "<group>";
-		};
-		8292A2582BAC577D0086A8C3 /* Summary */ = {
-			isa = PBXGroup;
-			children = (
-				8292A2B02BB1B5470086A8C3 /* SummaryView.swift */,
-			);
-			path = Summary;
-			sourceTree = "<group>";
-		};
-		8292A2592BAC57880086A8C3 /* Calendar */ = {
-			isa = PBXGroup;
-			children = (
-				8292A25D2BAC6CD80086A8C3 /* CalendarScreen.swift */,
-				8292A25B2BAC57940086A8C3 /* Calendar */,
-				8292A25A2BAC578E0086A8C3 /* Records */,
-			);
-			path = Calendar;
-			sourceTree = "<group>";
-		};
-		8292A25A2BAC578E0086A8C3 /* Records */ = {
-			isa = PBXGroup;
-			children = (
-				8292A2652BAC6D2D0086A8C3 /* NewRecordView.swift */,
-				8292A2642BAC6D2D0086A8C3 /* RecordDetailView.swift */,
-				8292A2632BAC6D2D0086A8C3 /* RecordRowView.swift */,
-				8292A2662BAC6D2D0086A8C3 /* RecordsView.swift */,
-			);
-			path = Records;
-			sourceTree = "<group>";
-		};
-		8292A25B2BAC57940086A8C3 /* Calendar */ = {
-			isa = PBXGroup;
-			children = (
-				8292A25F2BAC6D180086A8C3 /* CalendarView.swift */,
-				8292A2602BAC6D180086A8C3 /* DayView.swift */,
-			);
-			path = Calendar;
-			sourceTree = "<group>";
-		};
-		8292A25C2BAC58A90086A8C3 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				8292A2802BACA7E20086A8C3 /* Constants.swift */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		8292A2B42BB2E4BE0086A8C3 /* SwiftData */ = {
-			isa = PBXGroup;
-			children = (
-				8292A2772BAC6DD40086A8C3 /* VersionedSchemaV1.swift */,
-				8292A2B52BB2E4ED0086A8C3 /* MigrationPlan.swift */,
-			);
-			path = SwiftData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -312,6 +74,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				82BC9EBB2CE3255100379913 /* TurnosFGV */,
 			);
 			name = TurnosFGV;
 			packageProductDependencies = (
@@ -366,9 +131,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8292A2522BAC51C50086A8C3 /* PrivacyInfo.xcprivacy in Resources */,
-				823031B02BAC4D6C005B00EF /* Preview Assets.xcassets in Resources */,
-				823031AD2BAC4D6C005B00EF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,46 +141,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				823031AB2BAC4D6C005B00EF /* ContentView.swift in Sources */,
-				8292A2812BACA7E20086A8C3 /* Constants.swift in Sources */,
-				8292A2692BAC6D2D0086A8C3 /* NewRecordView.swift in Sources */,
-				8292A2D52BB45B450086A8C3 /* Int+Extensions.swift in Sources */,
-				8292A2622BAC6D180086A8C3 /* DayView.swift in Sources */,
-				8292A2612BAC6D180086A8C3 /* CalendarView.swift in Sources */,
-				8292A25E2BAC6CD80086A8C3 /* CalendarScreen.swift in Sources */,
-				8292A27C2BAC6F920086A8C3 /* WorkDay+Extensions.swift in Sources */,
-				823031A92BAC4D6C005B00EF /* TurnosFGVApp.swift in Sources */,
-				8292A2B62BB2E4ED0086A8C3 /* MigrationPlan.swift in Sources */,
-				8292A28F2BAF37810086A8C3 /* OnboardStepView.swift in Sources */,
-				8292A2832BAD54F40086A8C3 /* View+Extensions.swift in Sources */,
-				82277C5C2BCC2CB100C42B0E /* Double+Extensions.swift in Sources */,
-				8292A2502BAC4FE70086A8C3 /* ShiftsDataModel.swift in Sources */,
-				82ABA42D2C019FE4001B539A /* BarChartView.swift in Sources */,
-				8242B0392C0443EE002B7E00 /* TipModel.swift in Sources */,
-				82ABA42F2C01A4CA001B539A /* PieChartView.swift in Sources */,
-				8292A28D2BAF37810086A8C3 /* OnboardView.swift in Sources */,
-				8292A2752BAC6DA20086A8C3 /* GroupBoxBackgroundModifier.swift in Sources */,
-				8292A2852BADB8E00086A8C3 /* Color+Extensions.swift in Sources */,
-				8292A26D2BAC6D430086A8C3 /* MonthYearHeader.swift in Sources */,
-				8292A2B12BB1B5470086A8C3 /* SummaryView.swift in Sources */,
-				8292A2912BB0022C0086A8C3 /* WorkDayContainer.swift in Sources */,
-				8292A2762BAC6DA20086A8C3 /* DisclosureGroupModifier.swift in Sources */,
-				8292A2732BAC6DA20086A8C3 /* ShiftTextModifier.swift in Sources */,
-				8292A26E2BAC6D430086A8C3 /* SaveButton.swift in Sources */,
-				8292A2872BADC0AA0086A8C3 /* Shift+Extensions.swift in Sources */,
-				8292A2682BAC6D2D0086A8C3 /* RecordDetailView.swift in Sources */,
-				8292A2892BAF28F70086A8C3 /* ShiftGroup+Extensions.swift in Sources */,
-				8292A2D72BB48E1E0086A8C3 /* HideViewModifier.swift in Sources */,
-				8292A2B32BB2D3D40086A8C3 /* ChartView.swift in Sources */,
-				8292A2672BAC6D2D0086A8C3 /* RecordRowView.swift in Sources */,
-				82ABA42B2C019F90001B539A /* ChartDataTypes.swift in Sources */,
-				8292A26A2BAC6D2D0086A8C3 /* RecordsView.swift in Sources */,
-				8292A28E2BAF37810086A8C3 /* CustomPicker.swift in Sources */,
-				8292A24C2BAC4F900086A8C3 /* Date+Extensions.swift in Sources */,
-				8292A2742BAC6DA20086A8C3 /* DisclosureGroupLabelModifier.swift in Sources */,
-				8292A2782BAC6DD40086A8C3 /* VersionedSchemaV1.swift in Sources */,
-				8292A27A2BAC6F240086A8C3 /* Day.swift in Sources */,
-				8292A24E2BAC4F9F0086A8C3 /* TimeInterval+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,7 +273,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TurnosFGV/TurnosFGV.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "\"TurnosFGV/Preview Content\"";
 				DEVELOPMENT_TEAM = F259VZ645X;
 				ENABLE_PREVIEWS = YES;
@@ -590,7 +312,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TurnosFGV/TurnosFGV.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_ASSET_PATHS = "\"TurnosFGV/Preview Content\"";
 				DEVELOPMENT_TEAM = F259VZ645X;
 				ENABLE_PREVIEWS = YES;

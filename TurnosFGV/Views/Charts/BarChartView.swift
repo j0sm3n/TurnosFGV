@@ -8,8 +8,10 @@
 import Charts
 import SwiftUI
 import TipKit
+import CloudStorage
 
 struct BarChartView: View {
+    @CloudStorage("prevYearHours") var prevYearHours: Double = 0.0
     @State private var barSelection: Date?
     @State private var barChartTip = ChartTip()
     
@@ -82,7 +84,7 @@ struct BarChartView: View {
     }
     
     private var totalWorkedHours: String {
-        chartData.map(\.workedHours).reduce(0, +).formatted(.number.precision(.fractionLength(0)))
+        (chartData.map(\.workedHours).reduce(0, +) + prevYearHours).formatted(.number.precision(.fractionLength(0)))
     }
     
     private var totalHours: some View {
