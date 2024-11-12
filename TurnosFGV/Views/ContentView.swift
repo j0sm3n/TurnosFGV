@@ -11,12 +11,14 @@ enum Tab: String {
     case calendar = "Calendario"
     case summary = "Nómina"
     case chart = "Resumen"
+    case settings = "Ajustes"
     
     var icon: String {
         switch self {
             case .calendar: "calendar"
             case .summary: "doc.plaintext"
             case .chart: "chart.bar.xaxis"
+            case .settings: "gearshape"
         }
     }
 }
@@ -24,7 +26,7 @@ enum Tab: String {
 struct ContentView: View {
     @State private var currentDate: Date = .now
     @State private var currentMonth: Date = .currentMonth
-    @State private var selectedTab: Tab = .calendar
+    @AppStorage("selectedTab") private var selectedTab: Tab = .calendar
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -36,6 +38,9 @@ struct ContentView: View {
             
             ChartView(selectedDate: $currentDate)
                 .setUpTab(.chart)
+            
+            SettingsView()
+                .setUpTab(.settings)
         }
     }
 }
