@@ -175,4 +175,17 @@ struct ShiftsDataModel {
         let shiftGroup = shiftGroup(for: shiftId)
         return shiftGroup?.location
     }
+    
+    func standardMinutesFor(date: Date) -> Int {
+        let shiftGroups = shiftsGroupsValidsTo(date)
+        
+        for shiftGroup in shiftGroups {
+            for _ in shiftGroup.shifts {
+                guard let standarShift = shiftGroup.shifts.first(where: { $0.name == "STDR" }) else { return 0 }
+                return standarShift.duration.inMinutes
+            }
+        }
+        
+        return 0
+    }
 }

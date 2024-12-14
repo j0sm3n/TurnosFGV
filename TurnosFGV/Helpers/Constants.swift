@@ -8,9 +8,6 @@
 import Foundation
 
 struct Constants {
-    // 7h 48m
-    static let standardWorkDayMinutes: Int = 468
-    
     // Value of every allowance day
     static let allowanceValue: Double = 0.95
     
