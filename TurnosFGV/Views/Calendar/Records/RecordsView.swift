@@ -83,7 +83,6 @@ extension RecordsView {
                                 }
                         }
                         .tint(.white)
-                        .scrollTargetLayout()
                     }
                 }
                 .padding(.horizontal)
