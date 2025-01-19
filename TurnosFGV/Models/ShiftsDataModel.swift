@@ -107,7 +107,7 @@ struct ShiftsDataModel {
             .init(name: "STDR", startTime: TimeInterval(hour: 7), duration: TimeInterval(hour: 7, minute: 48)),
         ]),
         
-        ShiftGroup(validFrom: .init(fromString: "2025-01-20", format: .isoDate)!, role: .maquinista, location: .benidorm, shifts: [
+        ShiftGroup(validFrom: .init(fromString: "2025-01-28", format: .isoDate)!, role: .maquinista, location: .benidorm, shifts: [
             .init(name: "1", startTime: TimeInterval(hour: 5, minute: 5), duration: TimeInterval(hour: 6, minute: 20), saturation: 48.15),
             .init(name: "2", startTime: TimeInterval(hour: 5, minute: 15), duration: TimeInterval(hour: 7, minute: 24), saturation: 65.66),
             .init(name: "3", startTime: TimeInterval(hour: 6, minute: 20), duration: TimeInterval(hour: 8, minute: 19), saturation: 70.79),
@@ -153,7 +153,7 @@ struct ShiftsDataModel {
             .init(name: "28", startTime: TimeInterval(hour: 13, minute: 30), duration: TimeInterval(hour: 8, minute: 30), saturation: 65.50),
         ]),
         
-        ShiftGroup(validFrom: .init(fromString: "2025-01-20", format: .isoDate)!, role: .maquinista, location: .denia, shifts: [
+        ShiftGroup(validFrom: .init(fromString: "2025-01-28", format: .isoDate)!, role: .maquinista, location: .denia, shifts: [
             .init(name: "21", startTime: TimeInterval(hour: 5, minute: 32), duration: TimeInterval(hour: 7, minute: 39), saturation: 65.70),
             .init(name: "22", startTime: TimeInterval(hour: 9, minute: 47), duration: TimeInterval(hour: 8, minute: 24), saturation: 70.04),
             .init(name: "23", startTime: TimeInterval(hour: 14, minute: 47), duration: TimeInterval(hour: 8, minute: 24), saturation: 70.04),
