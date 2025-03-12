@@ -18,4 +18,8 @@ extension TimeInterval {
         formatter.unitsStyle = .abbreviated
         return formatter.string(from: self) ?? ""
     }
+    
+    var inMinutes: Int {
+        Int(self / 60)
+    }
 }

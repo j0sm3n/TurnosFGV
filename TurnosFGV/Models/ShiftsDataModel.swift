@@ -103,7 +103,21 @@ struct ShiftsDataModel {
             .init(name: "4", startTime: TimeInterval(hour: 14, minute: 45), duration: TimeInterval(hour: 8, minute: 31), saturation: 42.76),
             .init(name: "8", startTime: TimeInterval(hour: 5, minute: 45), duration: TimeInterval(hour: 6, minute: 55), saturation: 40.90),
             .init(name: "9", startTime: TimeInterval(hour: 13, minute: 35), duration: TimeInterval(hour: 6, minute: 55), saturation: 40.90),
+            // It is mandatory to update Constants.standardWorkDayMinutes
             .init(name: "STDR", startTime: TimeInterval(hour: 7), duration: TimeInterval(hour: 7, minute: 48)),
+        ]),
+        
+        ShiftGroup(validFrom: .init(fromString: "2025-01-28", format: .isoDate)!, role: .maquinista, location: .benidorm, shifts: [
+            .init(name: "1", startTime: TimeInterval(hour: 5, minute: 5), duration: TimeInterval(hour: 6, minute: 20), saturation: 48.15),
+            .init(name: "2", startTime: TimeInterval(hour: 5, minute: 15), duration: TimeInterval(hour: 7, minute: 24), saturation: 65.66),
+            .init(name: "3", startTime: TimeInterval(hour: 6, minute: 20), duration: TimeInterval(hour: 8, minute: 19), saturation: 70.79),
+            .init(name: "4", startTime: TimeInterval(hour: 9, minute: 20), duration: TimeInterval(hour: 8, minute: 19), saturation: 69.51),
+            .init(name: "5", startTime: TimeInterval(hour: 14, minute: 20), duration: TimeInterval(hour: 8, minute: 19), saturation: 70.79),
+            .init(name: "6", startTime: TimeInterval(hour: 17, minute: 9), duration: TimeInterval(hour: 6, minute: 20), saturation: 58.63),
+            .init(name: "7", startTime: TimeInterval(hour: 15, minute: 20), duration: TimeInterval(hour: 8, minute: 19), saturation: 70.79),
+            .init(name: "8", startTime: TimeInterval(hour: 5, minute: 10), duration: TimeInterval(hour: 8, minute: 35), saturation: 64.65),
+            .init(name: "9", startTime: TimeInterval(hour: 14, minute: 10), duration: TimeInterval(hour: 8), saturation: 64.65),
+            .init(name: "STDR", startTime: TimeInterval(hour: 7), duration: TimeInterval(hour: 7, minute: 46))
         ]),
         
         // Maquinista Denia
@@ -138,6 +152,16 @@ struct ShiftsDataModel {
             .init(name: "27", startTime: TimeInterval(hour: 5, minute: 5), duration: TimeInterval(hour: 8, minute: 30), saturation: 65.50),
             .init(name: "28", startTime: TimeInterval(hour: 13, minute: 30), duration: TimeInterval(hour: 8, minute: 30), saturation: 65.50),
         ]),
+        
+        ShiftGroup(validFrom: .init(fromString: "2025-01-28", format: .isoDate)!, role: .maquinista, location: .denia, shifts: [
+            .init(name: "21", startTime: TimeInterval(hour: 5, minute: 32), duration: TimeInterval(hour: 7, minute: 39), saturation: 65.70),
+            .init(name: "22", startTime: TimeInterval(hour: 9, minute: 47), duration: TimeInterval(hour: 8, minute: 24), saturation: 70.04),
+            .init(name: "23", startTime: TimeInterval(hour: 14, minute: 47), duration: TimeInterval(hour: 8, minute: 24), saturation: 70.04),
+            .init(name: "24", startTime: TimeInterval(hour: 5, minute: 35), duration: TimeInterval(hour: 7, minute: 35), saturation: 68.59),
+            .init(name: "25", startTime: TimeInterval(hour: 14, minute: 30), duration: TimeInterval(hour: 7, minute: 35), saturation: 68.59),
+            .init(name: "SP1", startTime: TimeInterval(hour: 5, minute: 15), duration: TimeInterval(hour: 7, minute: 43), saturation: 68.59),
+            .init(name: "SP2", startTime: TimeInterval(hour: 14, minute: 15), duration: TimeInterval(hour: 7, minute: 43), saturation: 68.59),
+        ])
     ]
     
     func shiftsGroupsValidsTo(_ date: Date) -> [ShiftGroup] {
@@ -173,5 +197,18 @@ struct ShiftsDataModel {
     func shiftLocation(for shiftId: Shift.ID) -> Location? {
         let shiftGroup = shiftGroup(for: shiftId)
         return shiftGroup?.location
+    }
+    
+    func standardMinutesFor(date: Date) -> Int {
+        let shiftGroups = shiftsGroupsValidsTo(date)
+        
+        for shiftGroup in shiftGroups {
+            for _ in shiftGroup.shifts {
+                guard let standarShift = shiftGroup.shifts.first(where: { $0.name == "STDR" }) else { return 0 }
+                return standarShift.duration.inMinutes
+            }
+        }
+        
+        return 0
     }
 }

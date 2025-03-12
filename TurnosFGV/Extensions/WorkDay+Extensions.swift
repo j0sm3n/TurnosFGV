@@ -44,11 +44,12 @@ extension WorkDay {
         if isSPP {
             return 0
         } else if isSickLeave {
-            let minutes = Constants.standardWorkDayMinutes
+            let shiftsDataModel = ShiftsDataModel()
+            let minutes = shiftsDataModel.standardMinutesFor(date: startDate)
             return minutes.minutesInHours
         } else {
             // Extratime does not count for the total time worked, it only appears in the monthly payroll
-            let minutes = Calendar.current.dateComponents([.minute], from: startDate, to: endDate).minute! // + extraTime
+            let minutes = Calendar.current.dateComponents([.minute], from: startDate, to: endDate).minute! - extraTime
             return minutes.minutesInHours
         }
     }

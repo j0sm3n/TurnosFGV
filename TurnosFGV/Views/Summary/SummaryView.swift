@@ -86,7 +86,7 @@ extension SummaryView {
                 
                 LabeledContent("Dias trabajados", value: workedDaysInCurrentMonth, format: .number)
                 
-                ForEach(TypeOfShift.allCases, id: \.self) { typeOfShift in
+                ForEach(TypeOfShift.allCases) { typeOfShift in
                     let (hours, days) = recordsByType(recordsInMonth, typeOfShift)
                     LabeledContent("\(typeOfShift.rawValue) (\(days))", value: hours, format: .number.precision(.fractionLength(2)))
                 }

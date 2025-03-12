@@ -19,7 +19,7 @@ struct RecordsView: View {
     @State private var selectedWorkDay: WorkDay?
     
     // SwiftData query
-    @Query(sort: \WorkDay.startDate, order: .reverse) private var workDays: [WorkDay]
+    @Query(sort: \WorkDay.startDate) private var workDays: [WorkDay]
     
     var body: some View {
         VStack {
@@ -83,7 +83,6 @@ extension RecordsView {
                                 }
                         }
                         .tint(.white)
-                        .scrollTargetLayout()
                     }
                 }
                 .padding(.horizontal)
