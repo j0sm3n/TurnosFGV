@@ -115,7 +115,7 @@ struct ShiftsDataModel {
             .init(name: "5", startTime: TimeInterval(hour: 14, minute: 20), duration: TimeInterval(hour: 8, minute: 19), saturation: 70.79),
             .init(name: "6", startTime: TimeInterval(hour: 17, minute: 9), duration: TimeInterval(hour: 6, minute: 20), saturation: 58.63),
             .init(name: "7", startTime: TimeInterval(hour: 15, minute: 20), duration: TimeInterval(hour: 8, minute: 19), saturation: 70.79),
-            .init(name: "8", startTime: TimeInterval(hour: 5, minute: 5), duration: TimeInterval(hour: 8, minute: 35), saturation: 64.65),
+            .init(name: "8", startTime: TimeInterval(hour: 5, minute: 10), duration: TimeInterval(hour: 8, minute: 35), saturation: 64.65),
             .init(name: "9", startTime: TimeInterval(hour: 14, minute: 10), duration: TimeInterval(hour: 8), saturation: 64.65),
             .init(name: "STDR", startTime: TimeInterval(hour: 7), duration: TimeInterval(hour: 7, minute: 46))
         ]),
