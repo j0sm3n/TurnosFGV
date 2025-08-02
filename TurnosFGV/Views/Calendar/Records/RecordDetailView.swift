@@ -23,6 +23,7 @@ struct RecordDetailView: View {
     @State private var isSick: Bool = false
     @State private var showDeleteAlert: Bool = false
     @State private var shiftsByLocation: [String: [Shift]] = [:]
+    @FocusState private var isFocused: Bool
     
     // Update record properties
     @State private var shift: Shift?
@@ -153,14 +154,11 @@ extension RecordDetailView {
     var ShiftStartAndEnd: some View {
         GroupBox {
             LabeledContent("Inicio de jornada") {
-                DatePicker("", selection: $updateWorkDay.startDate, displayedComponents: .hourAndMinute)
+                Text(updateWorkDay.startDate, style: .time)
             }
             
             LabeledContent("Fin de jornada") {
-                DatePicker("", selection: $updateWorkDay.endDate, in: updateWorkDay.startDate..., displayedComponents: .hourAndMinute)
-                    .onChange(of: updateWorkDay.endDate) { _, newValue in
-                        endDateChanged(newValue: newValue)
-                    }
+                Text(updateWorkDay.endDate, style: .time)
             }
         }
         .groupBoxBackGroundStyle()
@@ -175,7 +173,21 @@ extension RecordDetailView {
             LabeledContent("Nocturnidad", value: updateWorkDay.nightTimeString)
             
             LabeledContent("Exceso de jornada") {
-                Text("\(updateWorkDay.extraTime) min")
+                HStack {
+                    TextField("Minutos", value: $updateWorkDay.extraTime, formatter: NumberFormatter())
+                        .frame(width: 80)
+                        .multilineTextAlignment(.trailing)
+                        .focused($isFocused)
+                        .onChange(of: updateWorkDay.extraTime) { _, newValue in
+                            print("New value: \(newValue)")
+                            extraTimeChanged(newValue: newValue)
+                        }
+                    Text("min")
+                }
+            }
+            .contentShape(.rect)
+            .onTapGesture {
+                isFocused = true
             }
             
             LabeledContent("Dieta") {
@@ -289,15 +301,9 @@ extension RecordDetailView {
         }
     }
     
-    func endDateChanged(newValue: Date) {
-        if let shift {
-            let selectedShiftEndTime = updateWorkDay.startDate.adjust(for: .startOfDay)!.addingTimeInterval(shift.endTime)
-            let extraTime = Int(updateWorkDay.endDate.since(selectedShiftEndTime, in: .minute)!)
-            if extraTime > 0 {
-                updateWorkDay.extraTime = extraTime
-            } else {
-                updateWorkDay.extraTime = 0
-            }
+    func extraTimeChanged(newValue: Int) {
+        if newValue != updateWorkDay.extraTime {
+            updateWorkDay.extraTime = newValue
         }
     }
         
