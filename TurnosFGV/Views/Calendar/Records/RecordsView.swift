@@ -90,6 +90,13 @@ extension RecordsView {
             }
             .scrollIndicators(.hidden)
             .scrollTargetBehavior(.viewAligned)
+            .task {
+                if let record = getRecordOfDay(selectedDate) {
+                    withAnimation {
+                        proxy.scrollTo(record.id, anchor: .top)
+                    }
+                }
+            }
             .onChange(of: selectedDate) {
                 if let record = getRecordOfDay(selectedDate) {
                     withAnimation {
