@@ -30,7 +30,7 @@ extension WorkDay {
             
             for workedDayNumber in workedDays {
                 if let shift = shiftGroups.shiftGroups.randomElement()?.shifts.randomElement() {
-                    let startDate = Date(fromString: "2024-\(month)-\(workedDayNumber)", format: .isoDate)!
+                    let startDate = Date(fromString: "2025-\(month)-\(workedDayNumber)", format: .isoDate)!
                         .adjust(for: .startOfDay)!
                         .addingTimeInterval(shift.startTime)
                     let endTime = startDate.addingTimeInterval(shift.duration)

@@ -30,8 +30,12 @@ struct RecordsView: View {
 }
 
 #Preview {
-    RecordsView(selectedDate: .constant(.now), selectedMonth: .constant(.now.adjust(for: .startOfMonth)!))
-        .modelContainer(for: WorkDay.self)
+    VStack {
+        VStack {}.frame(height: 400)
+        RecordsView(selectedDate: .constant(.now), selectedMonth: .constant(.now.adjust(for: .startOfMonth)!))
+            .modelContainer(for: WorkDay.self)
+    }
+    .background(.appBackground)
 }
 
 extension RecordsView {
@@ -43,23 +47,44 @@ extension RecordsView {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             // Add Record Button
-            Button {
-                if canWorkSelectedDate {
-                    showNewRecordView = true
-                } else {
-                    showWorkedDayAlert = true
+            if #available(iOS 26.0, *) {
+                Button {
+                    if canWorkSelectedDate {
+                        showNewRecordView = true
+                    } else {
+                        showWorkedDayAlert = true
+                    }
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.title.bold())
+                        .foregroundStyle(.white)
+                        .frame(width: 50, height: 50)
                 }
-            } label: {
-                Image(systemName: "plus")
-                    .font(.title.bold())
-                    .foregroundStyle(.white)
-                    .frame(width: 50, height: 50)
-                    .background(.appPurple.gradient.shadow(.inner(color: .white, radius: 2)), in: .rect(cornerRadius: 20))
-            }
-            .alert("Ups!", isPresented: $showWorkedDayAlert) {
-                Button("Ok") {}
-            } message: {
-                Text("Ya existe un turno el día \(selectedDate.toString(format: .custom("dd/MM/yyyy"))!)")
+                .glassEffect(.clear, in: .rect(cornerRadius: 20))
+                .alert("Ups!", isPresented: $showWorkedDayAlert) {
+                    Button("Ok") {}
+                } message: {
+                    Text("Ya existe un turno el día \(selectedDate.toString(format: .custom("dd/MM/yyyy"))!)")
+                }
+            } else {
+                Button {
+                    if canWorkSelectedDate {
+                        showNewRecordView = true
+                    } else {
+                        showWorkedDayAlert = true
+                    }
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.title.bold())
+                        .foregroundStyle(.white)
+                        .frame(width: 50, height: 50)
+                        .background(.appPurple.gradient.shadow(.inner(color: .white, radius: 2)), in: .rect(cornerRadius: 20))
+                }
+                .alert("Ups!", isPresented: $showWorkedDayAlert) {
+                    Button("Ok") {}
+                } message: {
+                    Text("Ya existe un turno el día \(selectedDate.toString(format: .custom("dd/MM/yyyy"))!)")
+                }
             }
         }
         .padding(.horizontal)

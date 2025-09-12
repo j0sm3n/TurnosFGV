@@ -85,16 +85,29 @@ extension NewRecordView {
     // MARK: - Extracted views
     @ViewBuilder
     var CloseButton: some View {
-        Button {
-            dismiss()
-        } label: {
-            Image(systemName: "xmark.circle.fill")
-                .font(.title)
-                .tint(.red)
-                .foregroundStyle(.appWhite.opacity(0.3))
+        if #available(iOS 26.0, *) {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.title2)
+            }
+            .buttonStyle(.glass)
+            .glassEffect(.clear, in: .circle)
+            .hSpacing(.leading)
+            .padding(.bottom)
+        } else {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "xmark.circle.fill")
+                    .font(.title)
+                    .tint(.red)
+                    .foregroundStyle(.appWhite.opacity(0.3))
+            }
+            .hSpacing(.leading)
+            .padding(.bottom)
         }
-        .hSpacing(.leading)
-        .padding(.bottom)
     }
     
     @ViewBuilder
