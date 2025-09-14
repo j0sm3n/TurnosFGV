@@ -56,52 +56,54 @@ struct RecordDetailView: View {
     }
     
     var body: some View {
-        VStack {
-            DateHeader
-            
-            ScrollView {
-                VStack(spacing: 20) {
-                    ShiftPicker
-                    ShiftStartAndEnd
-                    ShiftExtraOptions
+        NavigationStack {
+            VStack {
+                DateHeader
+                
+                ScrollView {
+                    VStack(spacing: 20) {
+                        ShiftPicker
+                        ShiftStartAndEnd
+                        ShiftExtraOptions
+                    }
+                }
+                .scrollIndicators(.hidden)
+                
+                SaveButton(text: "Actualizar", color: updateWorkDay.color, action: updateRecord)
+            }
+            .padding()
+            .background(.appBackground)
+            .task {
+                shiftsByLocation = shiftGroups.getActualShiftsByLocation(workDay.startDate)
+                shift = shifts.first(where: { $0.name == updateWorkDay.shift })
+            }
+            .toolbar {
+                ToolbarItem(placement: .destructiveAction) {
+                    Button("Borrar", role: .destructive) {
+                        showDeleteAlert = true
+                    }
+                    .tint(.red)
+                }
+                
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancelar") {
+                        dismiss()
+                    }
                 }
             }
-            .scrollIndicators(.hidden)
-            
-            SaveButton(text: "Actualizar", color: updateWorkDay.color, action: updateRecord)
-        }
-        .padding()
-        .background(.appBackground)
-        .task {
-            shiftsByLocation = shiftGroups.getActualShiftsByLocation(workDay.startDate)
-            shift = shifts.first(where: { $0.name == updateWorkDay.shift })
-        }
-        .toolbar {
-            ToolbarItem(placement: .destructiveAction) {
-                Button("Borrar", role: .destructive) {
-                    showDeleteAlert = true
-                }
-                .tint(.red)
+            .alert("Borrar turno \(shift?.name ?? "")", isPresented: $showDeleteAlert) {
+                Button("Borrar", role: .destructive, action: deleteRecord)
+                Button("Cancelar", role: .cancel, action: {})
+            } message: {
+                Text("¿Seguro que quieres borrar el turno del día \(String(describing: updateWorkDay.startDate.toString(format: .custom("dd MMM"))!))?")
             }
-            
-            ToolbarItem(placement: .cancellationAction) {
-                Button("Cancelar") {
-                    dismiss()
-                }
-            }
-        }
-        .alert("Borrar turno \(shift?.name ?? "")", isPresented: $showDeleteAlert) {
-            Button("Borrar", role: .destructive, action: deleteRecord)
-            Button("Cancelar", role: .cancel, action: {})
-        } message: {
-            Text("¿Seguro que quieres borrar el turno del día \(String(describing: updateWorkDay.startDate.toString(format: .custom("dd MMM"))!))?")
         }
     }
 }
 
 #Preview {
-    let container = try! ModelContainer(for: WorkDay.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
-    let workDay = WorkDay(
+    @Previewable let container = try! ModelContainer(for: WorkDay.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+    @Previewable let workDay = WorkDay(
         shift: "1",
         startDate: .init(fromString: "2024-02-04T05:27:00+01:00", format: .isoDateTime)!,
         endDate: .init(fromString: "2024-02-04T13:36:00+01:00", format: .isoDateTime)!,
