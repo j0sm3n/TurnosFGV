@@ -18,6 +18,11 @@ struct RecordsView: View {
     @State private var showWorkedDayAlert: Bool = false
     @State private var selectedWorkDay: WorkDay?
     
+    // Transition namespace
+    @Namespace private var transition
+    @Namespace private var transition2
+    private let transitionID = "newRecord"
+    
     // SwiftData query
     @Query(sort: \WorkDay.startDate) private var workDays: [WorkDay]
     
@@ -33,7 +38,7 @@ struct RecordsView: View {
     VStack {
         VStack {}.frame(height: 400)
         RecordsView(selectedDate: .constant(.now), selectedMonth: .constant(.now.adjust(for: .startOfMonth)!))
-            .modelContainer(for: WorkDay.self)
+            .modelContainer(WorkDay.preview)
     }
     .background(.appBackground)
 }
@@ -61,6 +66,7 @@ extension RecordsView {
                         .frame(width: 50, height: 50)
                 }
                 .glassEffect(.clear, in: .rect(cornerRadius: 20))
+                .matchedTransitionSource(id: transitionID, in: transition)
                 .alert("Ups!", isPresented: $showWorkedDayAlert) {
                     Button("Ok") {}
                 } message: {
@@ -96,18 +102,24 @@ extension RecordsView {
             ScrollView {
                 LazyVStack {
                     ForEach(workDays) { workDay in
-                        Button {
-                            selectedWorkDay = workDay
-                        } label: {
-                            RecordRowView(workDay: workDay, selectedWorkDay: workDay.startDate.compare(.isSameDay(as: selectedDate)))
-                                .id(workDay.id)
-                                .scrollTransition { view, transition in
-                                    view
-                                        .opacity(transition.isIdentity ? 1 : 0.2)
-                                        .scaleEffect(transition.isIdentity ? 1 : 0.8)
-                                }
+                        if #available(iOS 26.0, *) {
+                            Button {
+                                selectedWorkDay = workDay
+                            } label: {
+                                RecordRowView(workDay: workDay, selectedWorkDay: workDay.startDate.compare(.isSameDay(as: selectedDate)))
+                                    .id(workDay.id)
+                            }
+                            .tint(.white)
+                            .matchedTransitionSource(id: workDay.id, in: transition2)
+                        } else {
+                            Button {
+                                selectedWorkDay = workDay
+                            } label: {
+                                RecordRowView(workDay: workDay, selectedWorkDay: workDay.startDate.compare(.isSameDay(as: selectedDate)))
+                                    .id(workDay.id)
+                            }
+                            .tint(.white)
                         }
-                        .tint(.white)
                     }
                 }
                 .padding(.horizontal)
@@ -137,12 +149,20 @@ extension RecordsView {
                     }
                 }
             }, content: {
-                NewRecordView(date: selectedDate)
+                if #available(iOS 18.0, *) {
+                    NewRecordView(date: selectedDate)
+                        .navigationTransition(.zoom(sourceID: transitionID, in: transition))
+                } else {
+                    NewRecordView(date: selectedDate)
+                }
             })
             .sheet(item: $selectedWorkDay) { workDay in
-                NavigationStack {
-                    RecordDetailView(workDay: workDay)
-                }
+                    if #available(iOS 18.0, *) {
+                        RecordDetailView(workDay: workDay)
+                            .navigationTransition(.zoom(sourceID: workDay.id, in: transition2))
+                    } else {
+                        RecordDetailView(workDay: workDay)
+                    }
             }
         }
     }

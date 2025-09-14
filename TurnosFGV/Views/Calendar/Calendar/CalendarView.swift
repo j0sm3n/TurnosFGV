@@ -38,15 +38,6 @@ struct CalendarView: View {
             LazyVGrid(columns: Array(repeating: GridItem(spacing: 0), count: 7), spacing: 0) {
                 ForEach(monthDays) { day in
                     DayView(day: day, color: colorOfWorkedDay(day.date), selectedDate: $selectedDate)
-                        .overlay {
-                            if day.date.compare(.isSameDay(as: selectedDate)) {
-                                RoundedRectangle(cornerRadius: 20)
-                                    .inset(by: 8)
-                                    .stroke(.appPurple, lineWidth: 1)
-                                    .offset(y: 9)
-                                    .frame(width: 60, height: 70)
-                            }
-                        }
                 }
             }
             .frame(height: 304, alignment: .top)
@@ -61,8 +52,12 @@ struct CalendarView: View {
 }
 
 #Preview {
-    CalendarView(selectedDate: .constant(.now), selectedMonth: .constant(.currentMonth))
-        .modelContainer(for: WorkDay.self, inMemory: true)
+    VStack {
+        CalendarView(selectedDate: .constant(.now), selectedMonth: .constant(.currentMonth))
+            .modelContainer(WorkDay.preview)
+    }
+    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+    .background(.appBackground)
 }
 
 extension CalendarView {
