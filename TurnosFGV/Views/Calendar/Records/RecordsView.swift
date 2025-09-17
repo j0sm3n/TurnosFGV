@@ -34,6 +34,7 @@ struct RecordsView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     VStack {
         VStack {}.frame(height: 400)
@@ -42,6 +43,7 @@ struct RecordsView: View {
     }
     .background(.appBackground)
 }
+#endif
 
 extension RecordsView {
     @ViewBuilder
@@ -63,9 +65,9 @@ extension RecordsView {
                     Image(systemName: "plus")
                         .font(.title.bold())
                         .foregroundStyle(.white)
-                        .frame(width: 50, height: 50)
+                        .padding()
                 }
-                .glassEffect(.clear, in: .rect(cornerRadius: 20))
+                .glassEffect(.clear)
                 .matchedTransitionSource(id: transitionID, in: transition)
                 .alert("Ups!", isPresented: $showWorkedDayAlert) {
                     Button("Ok") {}
@@ -142,27 +144,21 @@ extension RecordsView {
                 }
                 selectedMonth = selectedDate.adjust(for: .startOfMonth)!
             }
-            .sheet(isPresented: $showNewRecordView, onDismiss: {
+            .fullScreenCover(isPresented: $showNewRecordView, onDismiss: {
                 if let record = getRecordOfDay(selectedDate) {
                     withAnimation {
                         proxy.scrollTo(record.id, anchor: .top)
                     }
                 }
             }, content: {
-                if #available(iOS 18.0, *) {
+                NavigationStack {
                     NewRecordView(date: selectedDate)
                         .navigationTransition(.zoom(sourceID: transitionID, in: transition))
-                } else {
-                    NewRecordView(date: selectedDate)
                 }
             })
             .sheet(item: $selectedWorkDay) { workDay in
-                    if #available(iOS 18.0, *) {
-                        RecordDetailView(workDay: workDay)
-                            .navigationTransition(.zoom(sourceID: workDay.id, in: transition2))
-                    } else {
-                        RecordDetailView(workDay: workDay)
-                    }
+                RecordDetailView(workDay: workDay)
+                    .navigationTransition(.zoom(sourceID: workDay.id, in: transition2))
             }
         }
     }

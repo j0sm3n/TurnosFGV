@@ -59,7 +59,6 @@ struct RecordDetailView: View {
         NavigationStack {
             VStack {
                 DateHeader
-                
                 ScrollView {
                     VStack(spacing: 20) {
                         ShiftPicker
@@ -68,8 +67,6 @@ struct RecordDetailView: View {
                     }
                 }
                 .scrollIndicators(.hidden)
-                
-                SaveButton(text: "Actualizar", color: updateWorkDay.color, action: updateRecord)
             }
             .padding()
             .background(.appBackground)
@@ -79,14 +76,27 @@ struct RecordDetailView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .destructiveAction) {
-                    Button("Borrar", role: .destructive) {
+                    Button("Borrar", systemImage: "trash", role: .destructive) {
                         showDeleteAlert = true
                     }
                     .tint(.red)
                 }
                 
+                ToolbarItem(placement: .confirmationAction) {
+                    if #available(iOS 26.0, *) {
+                        Button("Actualizar", systemImage: "checkmark", role: .confirm) {
+                            updateRecord()
+                        }
+                        .tint(updateWorkDay.color)
+                    } else {
+                        Button("Actualizar", systemImage: "checkmark") {
+                            updateRecord()
+                        }
+                        .tint(updateWorkDay.color)
+                    }
+                }
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancelar") {
+                    Button("Cancelar", systemImage: "xmark", role: .cancel) {
                         dismiss()
                     }
                 }

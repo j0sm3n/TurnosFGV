@@ -51,6 +51,7 @@ struct CalendarView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     VStack {
         CalendarView(selectedDate: .constant(.now), selectedMonth: .constant(.currentMonth))
@@ -59,6 +60,7 @@ struct CalendarView: View {
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     .background(.appBackground)
 }
+#endif
 
 extension CalendarView {
     private func colorOfWorkedDay(_ date: Date) -> Color? {

@@ -17,7 +17,7 @@ struct NewRecordView: View {
     
     // CloudStorage properties
     @CloudStorage("location") var location: String = ""
-
+    
     // View properties
     @State private var shiftsByLocation: [String: [Shift]] = [:]
     @State private var selectedShift: Shift?
@@ -42,20 +42,12 @@ struct NewRecordView: View {
     let date: Date
     
     var body: some View {
-        VStack {
-            CloseButton
-            
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    ShiftPicker
-                    ShiftStartAndShiftEndText
-                    ShiftExtraOptions
-                }
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                ShiftPicker
+                ShiftStartAndShiftEndText
+                ShiftExtraOptions
             }
-            
-            SaveButton(text: "Guardar", color: selectedShift?.color ?? .appYellow, action: saveRecord)
-                .disabled(selectedShift == nil)
-                .opacity(selectedShift == nil ? 0.5 : 1)
         }
         .padding(15)
         .background(.appBackground)
@@ -73,43 +65,32 @@ struct NewRecordView: View {
                 }
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancelar", systemImage: "xmark", role: .cancel) {
+                    dismiss()
+                }
+            }
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Guardar", systemImage: "checkmark") {
+                    saveRecord()
+                }
+                .tint(selectedShift?.color ?? .clear)
+                .disabled(selectedShift == nil)
+            }
+        }
     }
 }
 
 #Preview {
-    NewRecordView(date: .now)
-        .modelContainer(for: WorkDay.self, inMemory: true)
+    NavigationStack {
+        NewRecordView(date: .now)
+            .modelContainer(for: WorkDay.self, inMemory: true)
+    }
 }
 
 extension NewRecordView {
     // MARK: - Extracted views
-    @ViewBuilder
-    var CloseButton: some View {
-        if #available(iOS 26.0, *) {
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "xmark")
-                    .font(.title2)
-            }
-            .buttonStyle(.glass)
-            .glassEffect(.clear, in: .circle)
-            .hSpacing(.leading)
-            .padding(.bottom)
-        } else {
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "xmark.circle.fill")
-                    .font(.title)
-                    .tint(.red)
-                    .foregroundStyle(.appWhite.opacity(0.3))
-            }
-            .hSpacing(.leading)
-            .padding(.bottom)
-        }
-    }
-    
     @ViewBuilder
     var ShiftPicker: some View {
         GroupBox {
@@ -206,7 +187,7 @@ extension NewRecordView {
         .tint(selectedShift?.color ?? .appYellow)
         .groupBoxBackGroundStyle()
     }
-
+    
     // MARK: - Computed properties and functions
     var start: Date {
         guard let selectedShift else { return date }
