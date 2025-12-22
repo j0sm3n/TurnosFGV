@@ -67,12 +67,12 @@ struct NewRecordView: View {
         }
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button("Cancelar", systemImage: "xmark", role: .cancel) {
+                Button(role: .cancel) {
                     dismiss()
                 }
             }
             ToolbarItem(placement: .confirmationAction) {
-                Button("Guardar", systemImage: "checkmark") {
+                Button(role: .confirm) {
                     saveRecord()
                 }
                 .tint(selectedShift?.color ?? .clear)
@@ -105,11 +105,11 @@ extension NewRecordView {
                         .pickerStyle(.menu)
                     }
                 } label: {
-                    if selectedShift == nil {
-                        Text("Selecciona turno")
+                    if let selectedShift {
+                        Text(selectedShift.name)
+                            .shiftTextModifier(color: selectedShift.color)
                     } else {
-                        Text(selectedShift?.name ?? "")
-                            .shiftTextModifier(color: selectedShift?.color ?? .appWhite)
+                        Text("Selecciona turno")
                     }
                 }
             }

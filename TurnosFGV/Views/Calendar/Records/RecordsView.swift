@@ -54,45 +54,24 @@ extension RecordsView {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             // Add Record Button
-            if #available(iOS 26.0, *) {
-                Button {
-                    if canWorkSelectedDate {
-                        showNewRecordView = true
-                    } else {
-                        showWorkedDayAlert = true
-                    }
-                } label: {
-                    Image(systemName: "plus")
-                        .font(.title.bold())
-                        .foregroundStyle(.white)
-                        .padding()
+            Button {
+                if canWorkSelectedDate {
+                    showNewRecordView = true
+                } else {
+                    showWorkedDayAlert = true
                 }
-                .glassEffect(.clear)
-                .matchedTransitionSource(id: transitionID, in: transition)
-                .alert("Ups!", isPresented: $showWorkedDayAlert) {
-                    Button("Ok") {}
-                } message: {
-                    Text("Ya existe un turno el día \(selectedDate.toString(format: .custom("dd/MM/yyyy"))!)")
-                }
-            } else {
-                Button {
-                    if canWorkSelectedDate {
-                        showNewRecordView = true
-                    } else {
-                        showWorkedDayAlert = true
-                    }
-                } label: {
-                    Image(systemName: "plus")
-                        .font(.title.bold())
-                        .foregroundStyle(.white)
-                        .frame(width: 50, height: 50)
-                        .background(.appPurple.gradient.shadow(.inner(color: .white, radius: 2)), in: .rect(cornerRadius: 20))
-                }
-                .alert("Ups!", isPresented: $showWorkedDayAlert) {
-                    Button("Ok") {}
-                } message: {
-                    Text("Ya existe un turno el día \(selectedDate.toString(format: .custom("dd/MM/yyyy"))!)")
-                }
+            } label: {
+                Image(systemName: "plus")
+                    .font(.title.bold())
+                    .foregroundStyle(.white)
+                    .padding()
+            }
+            .glassEffect(.clear)
+            .matchedTransitionSource(id: transitionID, in: transition)
+            .alert("Ups!", isPresented: $showWorkedDayAlert) {
+                Button("Ok") {}
+            } message: {
+                Text("Ya existe un turno el día \(selectedDate.toString(format: .custom("dd/MM/yyyy"))!)")
             }
         }
         .padding(.horizontal)
@@ -104,24 +83,14 @@ extension RecordsView {
             ScrollView {
                 LazyVStack {
                     ForEach(workDays) { workDay in
-                        if #available(iOS 26.0, *) {
-                            Button {
-                                selectedWorkDay = workDay
-                            } label: {
-                                RecordRowView(workDay: workDay, selectedWorkDay: workDay.startDate.compare(.isSameDay(as: selectedDate)))
-                                    .id(workDay.id)
-                            }
-                            .tint(.white)
-                            .matchedTransitionSource(id: workDay.id, in: transition2)
-                        } else {
-                            Button {
-                                selectedWorkDay = workDay
-                            } label: {
-                                RecordRowView(workDay: workDay, selectedWorkDay: workDay.startDate.compare(.isSameDay(as: selectedDate)))
-                                    .id(workDay.id)
-                            }
-                            .tint(.white)
+                        Button {
+                            selectedWorkDay = workDay
+                        } label: {
+                            RecordRowView(workDay: workDay, selectedWorkDay: workDay.startDate.compare(.isSameDay(as: selectedDate)))
+                                .id(workDay.id)
                         }
+                        .tint(.white)
+                        .matchedTransitionSource(id: workDay.id, in: transition2)
                     }
                 }
                 .padding(.horizontal)

@@ -76,27 +76,20 @@ struct RecordDetailView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .destructiveAction) {
-                    Button("Borrar", systemImage: "trash", role: .destructive) {
+                    Button(role: .destructive) {
                         showDeleteAlert = true
                     }
                     .tint(.red)
                 }
                 
                 ToolbarItem(placement: .confirmationAction) {
-                    if #available(iOS 26.0, *) {
-                        Button("Actualizar", systemImage: "checkmark", role: .confirm) {
-                            updateRecord()
-                        }
-                        .tint(updateWorkDay.color)
-                    } else {
-                        Button("Actualizar", systemImage: "checkmark") {
-                            updateRecord()
-                        }
-                        .tint(updateWorkDay.color)
+                    Button(role: .confirm) {
+                        updateRecord()
                     }
+                    .tint(updateWorkDay.color)
                 }
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancelar", systemImage: "xmark", role: .cancel) {
+                    Button(role: .cancel) {
                         dismiss()
                     }
                 }
