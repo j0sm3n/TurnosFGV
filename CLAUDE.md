@@ -90,3 +90,72 @@ TurnosFGV/
 
 - Primary language: Spanish (es-ES)
 - String Catalogs enabled (`LOCALIZATION_PREFERS_STRING_CATALOGS = YES`)
+
+## Development Guidelines
+
+### Code Structure
+- Use Swift's latest features and protocol-oriented programming
+- Prefer value types (structs) over classes
+- Use MVVM architecture with SwiftUI
+- Structure: Features/, Core/, UI/, Resources/
+- Follow Apple's Human Interface Guidelines
+
+### Naming
+- camelCase for vars/funcs, PascalCase for types
+- Verbs for methods (fetchData)
+- Boolean: use is/has/should prefixes
+- Clear, descriptive names following Apple style
+
+### Swift Best Practices
+- Strong type system, proper optionals
+- async/await for concurrency
+- Result type for errors
+- Prefer let over var
+- Protocol extensions for shared code
+
+### UI Development
+- SwiftUI first, UIKit when needed
+- SF Symbols for icons
+- Support dark mode, dynamic type
+- SafeArea and GeometryReader for layout
+- Handle all screen sizes and orientations
+- Implement proper keyboard handling
+
+### Performance
+- Profile with Instruments
+- Lazy load views and images
+- Optimize network requests
+- Background task handling
+- Proper state management
+- Memory management
+
+### Data & State
+- UserDefaults for preferences
+- Clean data flow architecture
+- Proper dependency injection
+- **ViewModels con @Observable (Observation framework), NO usar ObservableObject ni @Published**
+
+### Security
+- Encrypt sensitive data
+- Use Keychain securely
+- Certificate pinning
+- Biometric auth when needed
+- App Transport Security
+- Input validation
+
+### Essential Features
+- Deep linking support
+- Push notifications
+- Background tasks
+- Localization
+- Error handling
+- Analytics/logging
+
+### Development Process
+- Use SwiftUI previews
+- Git branching strategy
+- Code review process
+
+### Control de versiones
+- Ejecutar comandos git para guardar los cambios después de cada tarea completada
+- Hacer commits atómicos con mensajes descriptivos en inglés
