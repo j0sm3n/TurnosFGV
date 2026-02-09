@@ -100,10 +100,16 @@ struct BarChartView: View {
     }
     
     private var interval: some View {
-        Text((barSelection != nil ? barSelection?.formatted(.dateTime.month(.wide)) : "Total horas \(currentYear)")!)
-            .font(.callout)
-            .fontWeight(.light)
-            .contentTransition(.interpolate)
+        Group {
+            if let barSelection {
+                Text(barSelection.formatted(.dateTime.month(.wide)))
+            } else {
+                Text("Total horas \(currentYear)")
+            }
+        }
+        .font(.callout)
+        .fontWeight(.light)
+        .contentTransition(.interpolate)
     }
 }
 

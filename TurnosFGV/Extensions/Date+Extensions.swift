@@ -56,7 +56,7 @@ extension Date {
     func nightTime(startDate: Date, endDate: Date) -> TimeInterval {
         var nightTime: TimeInterval = 0
         
-        assert(startDate.compare(.isEarlier(than: endDate)), "Start date always has to be earlier than end date")
+        guard startDate < endDate else { return 0 }
         
         // Work day start and end are in the same day
         if startDate.compare(.isSameDay(as: endDate)) {

@@ -48,14 +48,14 @@ extension WorkDay {
             let minutes = shiftsDataModel.standardMinutesFor(date: startDate)
             return minutes.minutesInHours
         } else {
-            let minutes = Calendar.current.dateComponents([.minute], from: startDate, to: endDate).minute!
+            let minutes = Calendar.current.dateComponents([.minute], from: startDate, to: endDate).minute ?? 0
             return minutes.minutesInHours
         }
     }
-    
+
     var sppMinutes: Int {
         guard isSPP else { return 0 }
-        return Calendar.current.dateComponents([.minute], from: startDate, to: endDate).minute!
+        return Calendar.current.dateComponents([.minute], from: startDate, to: endDate).minute ?? 0
     }
     
     var extraTimeTimeInterval: TimeInterval {
@@ -64,7 +64,7 @@ extension WorkDay {
     
     var workDayNightTime: TimeInterval {
         guard startDate < endDate.addingTimeInterval(extraTimeTimeInterval) else { return 0 }
-        return Date().nightTime(startDate: startDate, endDate: endDate.addingTimeInterval(extraTimeTimeInterval))
+        return startDate.nightTime(startDate: startDate, endDate: endDate.addingTimeInterval(extraTimeTimeInterval))
     }
     
     var nightTimeString: String {
@@ -80,9 +80,10 @@ extension WorkDay {
     }
     
     var typeOfShift: TypeOfShift {
-        if startDate > startDate.morningStart && startDate < startDate.maxMorningStart && endDate < startDate.maxMorningEnd { return .morning }
-        else if startDate < startDate.maxMorningStart && endDate > startDate.maxMorningEnd { return .noon }
-        else { return .afternoon }
+        let startOfDay = Calendar.current.startOfDay(for: startDate)
+        let startTime = startDate.timeIntervalSince(startOfDay)
+        let endTime = endDate.timeIntervalSince(startOfDay)
+        return .determine(startTime: startTime, endTime: endTime)
     }
     
     var color: Color {

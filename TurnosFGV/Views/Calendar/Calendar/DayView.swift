@@ -13,49 +13,40 @@ struct DayView: View {
     let color: Color?
     @Binding var selectedDate: Date
     
-    private let offset: CGFloat = -4
+    private let dotOffset: CGFloat = -4
+
+    private var isSelected: Bool {
+        day.date.compare(.isSameDay(as: selectedDate))
+    }
 
     var body: some View {
-        if day.date.compare(.isSameDay(as: selectedDate)) {
-            Button {
-                selectedDate = day.date
-            } label: {
-                Text(day.shortSymbol)
-                    .foregroundStyle(day.ignored ? .secondary : .primary)
-                    .fontWeight(day.date.compare(.isSameDay(as: selectedDate)) ? .bold : .regular)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 48)
-                    .clipShape(.circle)
-                    .overlay(alignment: .bottom) {
-                        if let color {
-                            Circle()
-                                .offset(y: offset)
-                                .fill(color)
-                                .frame(width: 8, height: 8)
-                        }
-                    }
-            }
-            .frame(width: 48, height: 48)
-            .glassEffect(.clear)
+        if isSelected {
+            dayButton
+                .frame(width: 48, height: 48)
+                .glassEffect(.clear)
         } else {
-            Button {
-                selectedDate = day.date
-            } label: {
-                Text(day.shortSymbol)
-                    .foregroundStyle(day.ignored ? .secondary : .primary)
-                    .fontWeight(day.date.compare(.isSameDay(as: selectedDate)) ? .bold : .regular)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 48)
-                    .overlay(alignment: .bottom) {
-                        if let color {
-                            Circle()
-                                .offset(y: offset)
-                                .fill(color)
-                                .frame(width: 8, height: 8)
-                        }
+            dayButton
+                .contentShape(.rect)
+        }
+    }
+
+    private var dayButton: some View {
+        Button {
+            selectedDate = day.date
+        } label: {
+            Text(day.shortSymbol)
+                .foregroundStyle(day.ignored ? .secondary : .primary)
+                .fontWeight(isSelected ? .bold : .regular)
+                .frame(maxWidth: .infinity)
+                .frame(height: 48)
+                .overlay(alignment: .bottom) {
+                    if let color {
+                        Circle()
+                            .offset(y: dotOffset)
+                            .fill(color)
+                            .frame(width: 8, height: 8)
                     }
-            }
-            .contentShape(.rect)
+                }
         }
     }
 }

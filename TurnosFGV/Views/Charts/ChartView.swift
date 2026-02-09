@@ -98,21 +98,23 @@ extension ChartView {
     private func animateChart() {
         guard !isAnimated else { return }
         isAnimated = true
-        
-        $barChartData.enumerated().forEach { index, element in
+
+        for (index, _) in barChartData.enumerated() {
             let delay = Double(index) * 0.05
-            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            Task { @MainActor in
+                try? await Task.sleep(for: .seconds(delay))
                 withAnimation(.smooth) {
-                    element.wrappedValue.isAnimated.toggle()
+                    barChartData[index].isAnimated = true
                 }
             }
         }
-        
-        $pieChartData.enumerated().forEach { index, element in
+
+        for (index, _) in pieChartData.enumerated() {
             let delay = Double(index) * 0.05
-            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            Task { @MainActor in
+                try? await Task.sleep(for: .seconds(delay))
                 withAnimation(.smooth) {
-                    element.wrappedValue.isAnimated.toggle()
+                    pieChartData[index].isAnimated = true
                 }
             }
         }

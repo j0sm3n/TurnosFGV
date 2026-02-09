@@ -12,14 +12,28 @@ enum TypeOfShift: String, CaseIterable, Identifiable {
     case morning = "Mañana"
     case noon = "Intermedio"
     case afternoon = "Tarde"
-    
+
     var id: Self { self }
-    
+
     var color: Color {
         switch self {
         case .morning: .appYellow
         case .noon: .appOrange
         case .afternoon: .appBlue
+        }
+    }
+
+    static func determine(startTime: TimeInterval, endTime: TimeInterval) -> TypeOfShift {
+        let morningStart = TimeInterval(hour: 4, minute: 0)
+        let maxMorningStart = TimeInterval(hour: 12, minute: 30)
+        let maxMorningEnd = TimeInterval(hour: 15, minute: 45)
+
+        if startTime > morningStart && startTime < maxMorningStart && endTime < maxMorningEnd {
+            return .morning
+        } else if startTime < maxMorningStart && endTime > maxMorningEnd {
+            return .noon
+        } else {
+            return .afternoon
         }
     }
 }
@@ -103,7 +117,6 @@ struct ShiftsDataModel {
             .init(name: "4", startTime: TimeInterval(hour: 14, minute: 45), duration: TimeInterval(hour: 8, minute: 31), saturation: 42.76),
             .init(name: "8", startTime: TimeInterval(hour: 5, minute: 45), duration: TimeInterval(hour: 6, minute: 55), saturation: 40.90),
             .init(name: "9", startTime: TimeInterval(hour: 13, minute: 35), duration: TimeInterval(hour: 6, minute: 55), saturation: 40.90),
-            // It is mandatory to update Constants.standardWorkDayMinutes
             .init(name: "STDR", startTime: TimeInterval(hour: 7), duration: TimeInterval(hour: 7, minute: 48)),
         ]),
         
@@ -267,14 +280,13 @@ struct ShiftsDataModel {
     
     func standardMinutesFor(date: Date) -> Int {
         let shiftGroups = shiftsGroupsValidsTo(date)
-        
+
         for shiftGroup in shiftGroups {
-            for _ in shiftGroup.shifts {
-                guard let standarShift = shiftGroup.shifts.first(where: { $0.name == "STDR" }) else { return 0 }
-                return standarShift.duration.inMinutes
+            if let standardShift = shiftGroup.shifts.first(where: { $0.name == "STDR" }) {
+                return standardShift.duration.inMinutes
             }
         }
-        
+
         return 0
     }
 }

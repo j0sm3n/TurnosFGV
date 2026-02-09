@@ -52,7 +52,7 @@ struct SummaryView: View {
 }
 
 extension SummaryView {
-    // MARK: - Extracted vies
+    // MARK: - Extracted views
     var PayrollDisclosureGroup: some View {
         DisclosureGroup(isExpanded: $showPayrollGroup) {
             VStack(spacing: 12) {
@@ -109,7 +109,7 @@ extension SummaryView {
                 LabeledContent("Dias trabajados", value: workedDaysInCurrentYear, format: .number)
                 
                 ForEach(TypeOfShift.allCases, id: \.self) { typeOfShift in
-                    let (hours, days) = recordsByType(recorsInYear, typeOfShift)
+                    let (hours, days) = recordsByType(recordsInYear, typeOfShift)
                     LabeledContent("\(typeOfShift.rawValue) (\(days))", value: hours, format: .number.precision(.fractionLength(2)))
                 }
             }
@@ -210,17 +210,17 @@ extension SummaryView {
     }
 
     // MARK: - Year computed properties
-    var recorsInYear: [WorkDay] {
+    var recordsInYear: [WorkDay] {
         let firstDayOfYear = selectedDate.adjust(for: .startOfYear)!
         let lastDayOfYear = selectedDate.adjust(for: .endOfYear)!
         return workDays.filter { $0.startDate >= firstDayOfYear && $0.startDate <= lastDayOfYear }
     }
     
     var yearWorkedHours: Double {
-        workedHoursIn(records: recorsInYear)
+        workedHoursIn(records: recordsInYear)
     }
     
     var workedDaysInCurrentYear: Int {
-        recorsInYear.count
+        recordsInYear.count
     }
 }

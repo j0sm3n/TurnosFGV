@@ -13,24 +13,7 @@ extension Shift {
     }
     
     var typeOfShift: TypeOfShift {
-        let maxMorningStart = TimeInterval(hour: 12, minute: 30)
-        let maxMorningEnd = TimeInterval(hour: 15, minute: 45)
-        
-        var shiftIsMorning: Bool {
-            startTime < maxMorningStart && endTime < maxMorningEnd
-        }
-        
-        var shiftIsNoon: Bool {
-            startTime < maxMorningStart && endTime > maxMorningEnd
-        }
-        
-        if shiftIsMorning {
-            return .morning
-        } else if shiftIsNoon {
-            return .noon
-        } else {
-            return .afternoon
-        }
+        .determine(startTime: startTime, endTime: endTime)
     }
     
     var color: Color {

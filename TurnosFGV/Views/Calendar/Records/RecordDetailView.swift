@@ -184,7 +184,6 @@ extension RecordDetailView {
                         .multilineTextAlignment(.trailing)
                         .focused($isFocused)
                         .onChange(of: updateWorkDay.extraTime) { _, newValue in
-                            print("New value: \(newValue)")
                             extraTimeChanged(newValue: newValue)
                         }
                     Text("min")
@@ -291,19 +290,17 @@ extension RecordDetailView {
     func shiftChanged() {
         guard let shift, updateWorkDay.shift != shift.name else { return }
 
-        if let shiftLocation = shiftGroups.shiftLocation(for: shift.id) {
-            updateWorkDay.shift = shift.name
-            updateWorkDay.startDate = updateWorkDay.startDate.adjust(for: .startOfDay)!.addingTimeInterval(shift.startTime)
-            updateWorkDay.endDate = updateWorkDay.startDate.addingTimeInterval(shift.duration)
-            updateWorkDay.saturation = shift.saturation
-            updateWorkDay.extraTime = 0
-            
-            if shiftLocation.rawValue != location {
-                updateWorkDay.isAllowance = true
-            } else {
-                updateWorkDay.isAllowance = false
-            }
-        }
+        updateWorkDay.shift = shift.name
+        updateWorkDay.startDate = updateWorkDay.startDate.adjust(for: .startOfDay)!.addingTimeInterval(shift.startTime)
+        updateWorkDay.endDate = updateWorkDay.startDate.addingTimeInterval(shift.duration)
+        updateWorkDay.saturation = shift.saturation
+        updateWorkDay.extraTime = 0
+        updateWorkDay.isAllowance = !isShiftFromUserLocation(shift)
+    }
+
+    private func isShiftFromUserLocation(_ shift: Shift) -> Bool {
+        let userLocationName = Location(rawValue: location)?.displayName ?? ""
+        return shiftsByLocation[userLocationName]?.contains { $0.id == shift.id } ?? false
     }
     
     func extraTimeChanged(newValue: Int) {

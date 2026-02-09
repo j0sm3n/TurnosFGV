@@ -57,12 +57,7 @@ struct NewRecordView: View {
         .onChange(of: selectedShift) {
             if let selectedShift {
                 saturation = selectedShift.saturation
-                let shiftGroup = shiftGroups.shiftGroup(for: selectedShift.id)
-                if shiftGroup?.location.rawValue != location {
-                    isAllowance = true
-                } else {
-                    isAllowance = false
-                }
+                isAllowance = !isShiftFromUserLocation(selectedShift)
             }
         }
         .toolbar {
@@ -225,5 +220,10 @@ extension NewRecordView {
     
     private func shiftsOf(_ location: String) -> [Shift] {
         shiftsByLocation[location]?.sorted() ?? []
+    }
+
+    private func isShiftFromUserLocation(_ shift: Shift) -> Bool {
+        let userLocationName = Location(rawValue: location)?.displayName ?? ""
+        return shiftsByLocation[userLocationName]?.contains { $0.id == shift.id } ?? false
     }
 }
