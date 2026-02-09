@@ -21,7 +21,7 @@ struct ShiftTextModifier: ViewModifier {
 }
 
 extension View {
-    func shiftTextModifier(size: CGFloat = 32, color: Color = .white) -> some View {
+    func shiftTextModifier(size: CGFloat = 24, color: Color = .white) -> some View {
         modifier(ShiftTextModifier(size: size, color: color))
     }
 }

@@ -100,15 +100,10 @@ extension NewRecordView {
                         .pickerStyle(.menu)
                     }
                 } label: {
-                    if let selectedShift {
-                        Text(selectedShift.name)
-                            .shiftTextModifier(color: selectedShift.color)
-                    } else {
-                        Text("Selecciona turno")
-                    }
+                    Text(selectedShift?.name ?? "Selecciona turno")
+                        .shiftTextModifier(color: selectedShift?.color ?? .white.opacity(0.6))
                 }
             }
-            .frame(height: 50)
         }
         .groupBoxBackGroundStyle()
     }
