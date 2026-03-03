@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Classification of a shift based on its start and end times.
 enum TypeOfShift: String, CaseIterable, Identifiable {
     case morning = "Mañana"
     case noon = "Intermedio"
@@ -22,6 +23,12 @@ enum TypeOfShift: String, CaseIterable, Identifiable {
         }
     }
 
+    /// Determines the shift type from the elapsed seconds since midnight for the start and end times.
+    ///
+    /// - Parameters:
+    ///   - startTime: Seconds since midnight for the shift start.
+    ///   - endTime: Seconds since midnight for the shift end.
+    /// - Returns: The matching ``TypeOfShift`` based on the thresholds defined in ``Constants``.
     static func determine(startTime: TimeInterval, endTime: TimeInterval) -> TypeOfShift {
         if startTime > Constants.morningStartHour && startTime < Constants.maxMorningStartHour && endTime < Constants.maxMorningEndHour {
             return .morning
@@ -33,6 +40,7 @@ enum TypeOfShift: String, CaseIterable, Identifiable {
     }
 }
 
+/// Worker role within FGV operations.
 enum Role: String, Identifiable, CaseIterable, PickerEnum {
     case maquinista
     case usi
@@ -47,6 +55,7 @@ enum Role: String, Identifiable, CaseIterable, PickerEnum {
     }
 }
 
+/// Depot location where the worker is assigned.
 enum Location: String, Identifiable, CaseIterable, PickerEnum {
     case benidorm
     case denia
@@ -57,23 +66,33 @@ enum Location: String, Identifiable, CaseIterable, PickerEnum {
     var displayName: String { self.rawValue.capitalized }
 }
 
+/// A versioned collection of shifts applicable from a given date for a specific role and depot.
 struct ShiftGroup: Identifiable {
     let id: UUID = .init()
+    /// The date from which this group of shifts becomes effective.
     let validFrom: Date
+    /// The worker role this group applies to.
     let role: Role
+    /// The depot location this group applies to.
     let location: Location
+    /// The list of shifts defined in this group.
     let shifts: [Shift]
 }
 
+/// Definition of a single shift schedule entry.
 struct Shift: Identifiable {
     let id: UUID = .init()
+    /// Display name / code of the shift (e.g. "1", "STDR", "A11").
     let name: String
+    /// Start time expressed as seconds elapsed since midnight.
     let startTime: TimeInterval
+    /// Total shift duration in seconds.
     let duration: TimeInterval
+    /// Saturation bonus percentage. `nil` when no saturation applies.
     var saturation: Double?
 }
 
-// Data Model
+/// Singleton data model that holds all hard-coded shift schedule definitions for every role, depot, and version.
 struct ShiftsDataModel {
     static let shared = ShiftsDataModel()
 
@@ -240,6 +259,10 @@ struct ShiftsDataModel {
         ]),
     ]
     
+    /// Returns the shift groups that are valid on the given date for the current user's role, one per depot location.
+    ///
+    /// - Parameter date: The reference date used to select the most recent applicable group.
+    /// - Returns: An array of ``ShiftGroup`` values — at most one per ``Location``.
     func shiftsGroupsValidsTo(_ date: Date) -> [ShiftGroup] {
         let role = NSUbiquitousKeyValueStore.default.string(forKey: "role") ?? ""
         let sortedShiftGroups = shiftGroups.sorted().reversed()
@@ -254,6 +277,10 @@ struct ShiftsDataModel {
         return actualShiftGroups
     }
     
+    /// Returns the current shifts grouped by depot display name for the given date.
+    ///
+    /// - Parameter date: The reference date used to resolve the active shift groups.
+    /// - Returns: A dictionary mapping each depot's display name to its sorted list of ``Shift`` values.
     func getActualShiftsByLocation(_ date: Date) -> [String: [Shift]] {
         var shiftsByLocation: [String: [Shift]] = [:]
         
@@ -275,6 +302,10 @@ struct ShiftsDataModel {
         return shiftGroup?.location
     }
     
+    /// Returns the duration in minutes of the standard STDR shift valid for the given date.
+    ///
+    /// - Parameter date: The work date used to look up the active shift group.
+    /// - Returns: The STDR shift duration in minutes, or `0` if no matching group is found.
     func standardMinutesFor(date: Date) -> Int {
         let shiftGroups = shiftsGroupsValidsTo(date)
 
@@ -289,6 +320,12 @@ struct ShiftsDataModel {
 }
 
 extension Dictionary where Key == String, Value == [Shift] {
+    /// Returns whether the given shift belongs to the user's assigned depot.
+    ///
+    /// - Parameters:
+    ///   - shift: The shift to look up.
+    ///   - userLocation: The raw value of the user's ``Location``.
+    /// - Returns: `true` when the shift is listed under the user's depot in this dictionary.
     func isFromUserLocation(_ shift: Shift, userLocation: String) -> Bool {
         let userLocationName = Location(rawValue: userLocation)?.displayName ?? ""
         return self[userLocationName]?.contains { $0.id == shift.id } ?? false
