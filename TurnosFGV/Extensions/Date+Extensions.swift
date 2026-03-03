@@ -14,7 +14,7 @@ extension Date {
     
     /// Week days starting by monday
     static var weekdaySymbols: [String] {
-        Calendar.current.standaloneWeekdaySymbols.dropFirst() + [Calendar.current.standaloneWeekdaySymbols.first!]
+        Array(Calendar.current.standaloneWeekdaySymbols.dropFirst()) + Calendar.current.standaloneWeekdaySymbols.prefix(1)
     }
     
     /// Year number from date
@@ -33,24 +33,12 @@ extension Date {
         return month
     }
     
-    var morningStart: Date {
-        self.adjust(hour: 4, minute: 0, second: 0)!
-    }
-    
-    var maxMorningStart: Date {
-        self.adjust(hour: 12, minute: 30, second: 0)!
-    }
-    
-    var maxMorningEnd: Date {
-        self.adjust(hour: 15, minute: 45, second: 0)!
-    }
-    
     var nightStart: Date {
-        self.adjust(hour: 22, minute: 0, second: 0)!
+        self.adjust(hour: Constants.nightStartHour, minute: 0, second: 0)!
     }
-    
+
     var nightEnd: Date {
-        self.adjust(hour: 6, minute: 0, second: 0)!
+        self.adjust(hour: Constants.nightEndHour, minute: 0, second: 0)!
     }
     
     func nightTime(startDate: Date, endDate: Date) -> TimeInterval {
