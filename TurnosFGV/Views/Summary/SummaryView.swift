@@ -136,10 +136,7 @@ extension SummaryView {
     
     // All records in selected month
     var recordsInMonth: [WorkDay] {
-        let startDateOfMonth = selectedDate.adjust(for: .startOfMonth)!.adjust(for: .startOfDay)!
-        let endDateOfMonth = selectedDate.adjust(for: .endOfMonth)!.adjust(for: .endOfDay)!
-        let monthRecords = workDays.filter { $0.startDate >= startDateOfMonth && $0.startDate <= endDateOfMonth}
-        return monthRecords
+        WorkDay.filtered(workDays, byMonth: selectedDate)
     }
     
     var ordinaryRecordsInMonth: [WorkDay] {
@@ -176,20 +173,15 @@ extension SummaryView {
     }
     
     var saturationInMonth: Double {
-        notSickRecordsInMonth.reduce(0) { partialResult, record in
-            guard let saturation = record.saturation else {
-                return partialResult
-            }
-            return partialResult + saturation
-        }
+        notSickRecordsInMonth.compactMap(\.saturation).reduce(0, +)
     }
     
     var sundaysOrWorkedHolidaysInMonth: Int {
-        notSickRecordsInMonth.filter({ $0.isWorkedHoliday || $0.startDate.component(.weekday) == 1 }).count
+        notSickRecordsInMonth.filter({ $0.isWorkedHoliday || $0.startDate.component(.weekday) == Constants.sundayWeekday }).count
     }
-    
+
     var saturdaysInMonth: Int {
-        notSickRecordsInMonth.filter({ $0.startDate.component(.weekday) == 7 }).count
+        notSickRecordsInMonth.filter({ $0.startDate.component(.weekday) == Constants.saturdayWeekday }).count
     }
     
     var extraTimeInMonth: Double {
@@ -211,9 +203,7 @@ extension SummaryView {
 
     // MARK: - Year computed properties
     var recordsInYear: [WorkDay] {
-        let firstDayOfYear = selectedDate.adjust(for: .startOfYear)!
-        let lastDayOfYear = selectedDate.adjust(for: .endOfYear)!
-        return workDays.filter { $0.startDate >= firstDayOfYear && $0.startDate <= lastDayOfYear }
+        WorkDay.filtered(workDays, byYear: selectedDate)
     }
     
     var yearWorkedHours: Double {

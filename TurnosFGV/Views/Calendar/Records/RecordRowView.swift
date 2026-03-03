@@ -89,29 +89,7 @@ extension RecordRowView {
         
         var body: some View {
             LazyHGrid(rows: rows, spacing: 4) {
-                Group {
-                    if workDay.isAllowance {
-                        tag(WorkDayTag.allowance.rawValue)
-                    }
-                    if workDay.isWorkedHoliday {
-                        tag(WorkDayTag.holiday.rawValue)
-                    }
-                    if workDay.isSpecialWorkedHoliday {
-                        tag(WorkDayTag.specialHoliday.rawValue)
-                    }
-                    if workDay.isMentoring {
-                        tag(WorkDayTag.mentoring.rawValue)
-                    }
-                    if workDay.isSickLeave {
-                        tag(WorkDayTag.sick.rawValue)
-                    }
-                    if workDay.isWorkAccident {
-                        tag(WorkDayTag.accident.rawValue)
-                    }
-                    if workDay.isSPP {
-                        tag(WorkDayTag.spp.rawValue)
-                    }
-                }
+                ForEach(workDay.activeTags) { workDayTag in tag(workDayTag.rawValue) }
             }
             .padding(.trailing)
             .padding(.vertical, 6)

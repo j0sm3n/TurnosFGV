@@ -33,26 +33,11 @@ struct RecordDetailView: View {
     @Bindable var workDay: WorkDay
     
     // Shifts Data Model
-    let shiftGroups = ShiftsDataModel()
+    let shiftGroups = ShiftsDataModel.shared
     
     init(workDay: WorkDay) {
         self.workDay = workDay
-        self.updateWorkDay = WorkDay(
-            shift: workDay.shift,
-            startDate: workDay.startDate,
-            endDate: workDay.endDate,
-            saturation: workDay.saturation,
-            extraTime: workDay.extraTime,
-            isAllowance: workDay.isAllowance,
-            isFreeLicense: workDay.isFreeLicense,
-            isWorkedHoliday: workDay.isWorkedHoliday,
-            isSpecialWorkedHoliday: workDay.isSpecialWorkedHoliday,
-            isMentoring: workDay.isMentoring,
-            isPaidLicense: workDay.isPaidLicense,
-            isSickLeave: workDay.isSickLeave,
-            isWorkAccident: workDay.isWorkAccident,
-            isSPP: workDay.isSPP
-        )
+        self.updateWorkDay = workDay.copy()
     }
     
     var body: some View {
@@ -98,7 +83,7 @@ struct RecordDetailView: View {
                 Button("Borrar", role: .destructive, action: deleteRecord)
                 Button("Cancelar", role: .cancel, action: {})
             } message: {
-                Text("¿Seguro que quieres borrar el turno del día \(String(describing: updateWorkDay.startDate.toString(format: .custom("dd MMM"))!))?")
+                Text("¿Seguro que quieres borrar el turno del día \(updateWorkDay.startDate.toString(format: .custom("dd MMM"))!)?")
             }
         }
     }
@@ -194,51 +179,27 @@ extension RecordDetailView {
                 isFocused = true
             }
             
-            LabeledContent("Dieta") {
-                Toggle("", isOn: $updateWorkDay.isAllowance)
-            }
-            
-            LabeledContent("Festivo") {
-                Toggle("", isOn: $updateWorkDay.isWorkedHoliday)
-            }
-            
-            LabeledContent("Festivo especial") {
-                Toggle("", isOn: $updateWorkDay.isSpecialWorkedHoliday)
-            }
-            
-            LabeledContent("Práctica") {
-                Toggle("", isOn: $updateWorkDay.isMentoring)
-            }
-            
-            LabeledContent("SPP") {
-                Toggle("", isOn: $updateWorkDay.isSPP)
-            }
-            
+            ToggleRow("Dieta", isOn: $updateWorkDay.isAllowance)
+            ToggleRow("Festivo", isOn: $updateWorkDay.isWorkedHoliday)
+            ToggleRow("Festivo especial", isOn: $updateWorkDay.isSpecialWorkedHoliday)
+            ToggleRow("Práctica", isOn: $updateWorkDay.isMentoring)
+            ToggleRow("SPP", isOn: $updateWorkDay.isSPP)
+
             DisclosureGroup("Licencia", isExpanded: $isLicense) {
                 Group {
-                    LabeledContent("Sin sueldo") {
-                        Toggle("", isOn: $updateWorkDay.isFreeLicense)
-                    }
-                    
-                    LabeledContent("Con sueldo") {
-                        Toggle("", isOn: $updateWorkDay.isPaidLicense)
-                    }
+                    ToggleRow("Sin sueldo", isOn: $updateWorkDay.isFreeLicense)
+                    ToggleRow("Con sueldo", isOn: $updateWorkDay.isPaidLicense)
                 }
                 .padding(.leading)
                 .padding(.trailing, 2)
             }
             .foregroundStyle(.white)
             .onAppear(perform: checkIsLicense)
-            
+
             DisclosureGroup("Baja", isExpanded: $isSick) {
                 Group {
-                    LabeledContent("Por enfermedad") {
-                        Toggle("", isOn: $updateWorkDay.isSickLeave)
-                    }
-                    
-                    LabeledContent("Accidente laboral") {
-                        Toggle("", isOn: $updateWorkDay.isWorkAccident)
-                    }
+                    ToggleRow("Por enfermedad", isOn: $updateWorkDay.isSickLeave)
+                    ToggleRow("Accidente laboral", isOn: $updateWorkDay.isWorkAccident)
                 }
                 .padding(.leading)
                 .padding(.trailing, 2)
@@ -256,7 +217,7 @@ extension RecordDetailView {
     }
     
     var shifts: [Shift] {
-        Array(locations).flatMap { shiftsByLocation[$0] ?? [] }
+        locations.flatMap { shiftsByLocation[$0] ?? [] }
     }
     
     func shiftsOf(_ location: String) -> [Shift] {
@@ -295,14 +256,9 @@ extension RecordDetailView {
         updateWorkDay.endDate = updateWorkDay.startDate.addingTimeInterval(shift.duration)
         updateWorkDay.saturation = shift.saturation
         updateWorkDay.extraTime = 0
-        updateWorkDay.isAllowance = !isShiftFromUserLocation(shift)
+        updateWorkDay.isAllowance = !shiftsByLocation.isFromUserLocation(shift, userLocation: location)
     }
 
-    private func isShiftFromUserLocation(_ shift: Shift) -> Bool {
-        let userLocationName = Location(rawValue: location)?.displayName ?? ""
-        return shiftsByLocation[userLocationName]?.contains { $0.id == shift.id } ?? false
-    }
-    
     func extraTimeChanged(newValue: Int) {
         if newValue != updateWorkDay.extraTime {
             updateWorkDay.extraTime = newValue

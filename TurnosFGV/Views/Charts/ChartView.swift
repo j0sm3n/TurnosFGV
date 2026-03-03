@@ -49,8 +49,9 @@ struct ChartView: View {
 
 extension ChartView {
     private func createData() {
-        barChartData = createBarChartData()
-        pieChartData = createPieChartData()
+        guard let days = workedDaysInYear() else { return }
+        barChartData = createBarChartData(from: days)
+        pieChartData = createPieChartData(from: days)
     }
     
     private func workedDaysInYear() -> [WorkDay]? {
@@ -66,8 +67,7 @@ extension ChartView {
         return workedDaysInYear
     }
     
-    private func createBarChartData() -> [MonthChartData] {
-        guard let workedDaysInYear = workedDaysInYear() else { return [] }
+    private func createBarChartData(from workedDaysInYear: [WorkDay]) -> [MonthChartData] {
         let workedDaysArray = workedDaysInYear.chunked { $0.startDate.component(.month) == $1.startDate.component(.month) }
         var monthChartData: [MonthChartData] = []
         
@@ -80,9 +80,7 @@ extension ChartView {
         return monthChartData
     }
     
-    private func createPieChartData() -> [TypeChartData] {
-        guard let workedDaysInYear = workedDaysInYear() else { return [] }
-        
+    private func createPieChartData(from workedDaysInYear: [WorkDay]) -> [TypeChartData] {
         var typeChartData: [TypeChartData] = []
         
         for typeOfShift in TypeOfShift.allCases {
@@ -121,10 +119,7 @@ extension ChartView {
     }
     
     private func resetChartAnimation() {
-        $barChartData.forEach {
-            $0.wrappedValue.isAnimated = false
-        }
-        
+        barChartData.indices.forEach { barChartData[$0].isAnimated = false }
         isAnimated = false
     }
 }

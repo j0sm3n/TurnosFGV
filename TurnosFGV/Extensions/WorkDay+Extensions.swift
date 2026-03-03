@@ -10,6 +10,25 @@ import SwiftData
 import SwiftUI
 
 extension WorkDay {
+    func copy() -> WorkDay {
+        WorkDay(
+            shift: shift,
+            startDate: startDate,
+            endDate: endDate,
+            saturation: saturation,
+            extraTime: extraTime,
+            isAllowance: isAllowance,
+            isFreeLicense: isFreeLicense,
+            isWorkedHoliday: isWorkedHoliday,
+            isSpecialWorkedHoliday: isSpecialWorkedHoliday,
+            isMentoring: isMentoring,
+            isPaidLicense: isPaidLicense,
+            isSickLeave: isSickLeave,
+            isWorkAccident: isWorkAccident,
+            isSPP: isSPP
+        )
+    }
+
     static func monthPredicate(month: Date) -> Predicate<WorkDay> {
         // Get the current month, the previous two and the next two
         let firstDay = month.offset(.month, value: -2)!
@@ -33,10 +52,22 @@ extension WorkDay {
     static func allWorkDaysDescriptor() -> FetchDescriptor<WorkDay> {
         FetchDescriptor(sortBy: [SortDescriptor(\.startDate, order: .reverse)])
     }
+
+    static func filtered(_ workDays: [WorkDay], byMonth date: Date) -> [WorkDay] {
+        let start = date.adjust(for: .startOfMonth)!.adjust(for: .startOfDay)!
+        let end = date.adjust(for: .endOfMonth)!.adjust(for: .endOfDay)!
+        return workDays.filter { $0.startDate >= start && $0.startDate <= end }
+    }
+
+    static func filtered(_ workDays: [WorkDay], byYear date: Date) -> [WorkDay] {
+        let start = date.adjust(for: .startOfYear)!
+        let end = date.adjust(for: .endOfYear)!
+        return workDays.filter { $0.startDate >= start && $0.startDate <= end }
+    }
     
     var viewRecordDuration: String {
-        let startTime = String(describing: startDate.toString(format: .custom("HH:mm"))!)
-        let endTime = String(describing: endDate.toString(format: .custom("HH:mm"))!)
+        let startTime = startDate.toString(format: .custom("HH:mm"))!
+        let endTime = endDate.toString(format: .custom("HH:mm"))!
         return "De \(startTime) a \(endTime)"
     }
     
@@ -44,8 +75,7 @@ extension WorkDay {
         if isSPP {
             return 0
         } else if isSickLeave {
-            let shiftsDataModel = ShiftsDataModel()
-            let minutes = shiftsDataModel.standardMinutesFor(date: startDate)
+            let minutes = ShiftsDataModel.shared.standardMinutesFor(date: startDate)
             return minutes.minutesInHours
         } else {
             let minutes = Calendar.current.dateComponents([.minute], from: startDate, to: endDate).minute ?? 0
@@ -88,5 +118,17 @@ extension WorkDay {
     
     var color: Color {
         typeOfShift.color
+    }
+
+    var activeTags: [WorkDayTag] {
+        var tags: [WorkDayTag] = []
+        if isAllowance           { tags.append(.allowance) }
+        if isWorkedHoliday       { tags.append(.holiday) }
+        if isSpecialWorkedHoliday { tags.append(.specialHoliday) }
+        if isMentoring           { tags.append(.mentoring) }
+        if isSickLeave           { tags.append(.sick) }
+        if isWorkAccident        { tags.append(.accident) }
+        if isSPP                 { tags.append(.spp) }
+        return tags
     }
 }

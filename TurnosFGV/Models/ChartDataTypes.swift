@@ -12,7 +12,7 @@ struct MonthChartData: Identifiable {
     let date: Date
     let workedHours: Double
     
-    // Animatable propertie
+    // Animatable property
     var isAnimated: Bool = false
 }
 
@@ -20,7 +20,7 @@ struct TypeChartData: Identifiable {
     let id: UUID = .init()
     let type: String
     let workedHours: Double
-    
-    // Animatable propertie
+
+    // Animatable property
     var isAnimated: Bool = false
 }

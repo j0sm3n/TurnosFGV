@@ -36,7 +36,7 @@ struct NewRecordView: View {
     @State private var isWorkAccident: Bool = false
     
     // Shifts Data Model
-    let shiftGroups = ShiftsDataModel()
+    let shiftGroups = ShiftsDataModel.shared
     
     // Selected date
     let date: Date
@@ -57,7 +57,7 @@ struct NewRecordView: View {
         .onChange(of: selectedShift) {
             if let selectedShift {
                 saturation = selectedShift.saturation
-                isAllowance = !isShiftFromUserLocation(selectedShift)
+                isAllowance = !shiftsByLocation.isFromUserLocation(selectedShift, userLocation: location)
             }
         }
         .toolbar {
@@ -126,48 +126,26 @@ extension NewRecordView {
     @ViewBuilder
     var ShiftExtraOptions: some View {
         GroupBox {
-            LabeledContent("Dieta") {
-                Toggle("", isOn: $isAllowance)
-            }
-            
-            LabeledContent("Día festivo") {
-                Toggle("", isOn: $isWorkedHoliday)
-            }
-            
-            LabeledContent("Festivo especial") {
-                Toggle("", isOn: $isSpecialWorkedHoliday)
-            }
-            
-            LabeledContent("Práctica") {
-                Toggle("", isOn: $isMentoring)
-            }
-            
-            LabeledContent("SPP") {
-                Toggle("", isOn: $isSPP)
-            }
-            
+            ToggleRow("Dieta", isOn: $isAllowance)
+            ToggleRow("Día festivo", isOn: $isWorkedHoliday)
+            ToggleRow("Festivo especial", isOn: $isSpecialWorkedHoliday)
+            ToggleRow("Práctica", isOn: $isMentoring)
+            ToggleRow("SPP", isOn: $isSPP)
+
             DisclosureGroup("Licencia") {
                 Group {
-                    LabeledContent("Sin sueldo") {
-                        Toggle("", isOn: $isFreeLicense)
-                    }
-                    LabeledContent("Con sueldo") {
-                        Toggle("", isOn: $isPaidLicense)
-                    }
+                    ToggleRow("Sin sueldo", isOn: $isFreeLicense)
+                    ToggleRow("Con sueldo", isOn: $isPaidLicense)
                 }
                 .padding(.leading)
                 .padding(.trailing, 2)
             }
             .foregroundStyle(.white)
-            
+
             DisclosureGroup("Baja") {
                 Group {
-                    LabeledContent("Por enfermedad") {
-                        Toggle("", isOn: $isSickLeave)
-                    }
-                    LabeledContent("Accidente laboral") {
-                        Toggle("", isOn: $isWorkAccident)
-                    }
+                    ToggleRow("Por enfermedad", isOn: $isSickLeave)
+                    ToggleRow("Accidente laboral", isOn: $isWorkAccident)
                 }
                 .padding(.leading)
                 .padding(.trailing, 2)
@@ -189,7 +167,7 @@ extension NewRecordView {
         return start.addingTimeInterval(selectedShift.duration)
     }
     
-    var locations: [String] { Array(shiftsByLocation.keys.sorted(by: <)) }
+    var locations: [String] { shiftsByLocation.keys.sorted(by: <) }
     
     private func saveRecord() {
         guard let selectedShift else { return }
@@ -217,8 +195,4 @@ extension NewRecordView {
         shiftsByLocation[location]?.sorted() ?? []
     }
 
-    private func isShiftFromUserLocation(_ shift: Shift) -> Bool {
-        let userLocationName = Location(rawValue: location)?.displayName ?? ""
-        return shiftsByLocation[userLocationName]?.contains { $0.id == shift.id } ?? false
-    }
 }

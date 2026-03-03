@@ -17,7 +17,7 @@ extension WorkDay {
         let rangeOfDaysInMonth: Range = Range(1...28)
         let rangeOfWorkedDays: Range = Range(15...20)
         
-        let shiftGroups = ShiftsDataModel()
+        let shiftGroups = ShiftsDataModel.shared
         
         for month in 1...12 {
             // The number of worked days in month

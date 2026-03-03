@@ -24,13 +24,9 @@ enum TypeOfShift: String, CaseIterable, Identifiable {
     }
 
     static func determine(startTime: TimeInterval, endTime: TimeInterval) -> TypeOfShift {
-        let morningStart = TimeInterval(hour: 4, minute: 0)
-        let maxMorningStart = TimeInterval(hour: 12, minute: 30)
-        let maxMorningEnd = TimeInterval(hour: 15, minute: 45)
-
-        if startTime > morningStart && startTime < maxMorningStart && endTime < maxMorningEnd {
+        if startTime > Constants.morningStartHour && startTime < Constants.maxMorningStartHour && endTime < Constants.maxMorningEndHour {
             return .morning
-        } else if startTime < maxMorningStart && endTime > maxMorningEnd {
+        } else if startTime < Constants.maxMorningStartHour && endTime > Constants.maxMorningEndHour {
             return .noon
         } else {
             return .afternoon
@@ -80,6 +76,8 @@ struct Shift: Identifiable {
 
 // Data Model
 struct ShiftsDataModel {
+    static let shared = ShiftsDataModel()
+
     let shiftGroups = [
         // Maquinista Benidorm
         ShiftGroup(validFrom: .init(fromString: "2023-07-14", format: .isoDate)!, role: .maquinista, location: .benidorm, shifts: [
@@ -288,5 +286,12 @@ struct ShiftsDataModel {
         }
 
         return 0
+    }
+}
+
+extension Dictionary where Key == String, Value == [Shift] {
+    func isFromUserLocation(_ shift: Shift, userLocation: String) -> Bool {
+        let userLocationName = Location(rawValue: userLocation)?.displayName ?? ""
+        return self[userLocationName]?.contains { $0.id == shift.id } ?? false
     }
 }
