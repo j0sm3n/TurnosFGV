@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import DateHelper
 
 struct MonthYearHeader: View {
     @Binding var selectedDate: Date
@@ -22,9 +21,9 @@ struct MonthYearHeader: View {
                 showMonthYearPicker.toggle()
             } label: {
                 HStack {
-                    Text(selectedMonth.toString(format: .custom("MMMM"))!)
+                    Text(selectedMonth.toString("MMMM"))
                         .foregroundStyle(.appWhite)
-                    Text(selectedMonth.toString(format: .isoYear)!)
+                    Text(String(selectedMonth.year))
                         .foregroundStyle(.appPurple)
                 }
                 .font(.title)
@@ -39,7 +38,7 @@ struct MonthYearHeader: View {
                 Button {
                     selectedDate = Date.now
                     withAnimation {
-                        selectedMonth = Date.now.adjust(for: .startOfMonth)!
+                        selectedMonth = Date.now.startOfMonth
                     }
                 } label: {
                     Image(systemName: "circle.fill")
@@ -64,7 +63,7 @@ struct MonthYearHeader: View {
 }
 
 #Preview {
-    MonthYearHeader(selectedDate: .constant(.now), selectedMonth: .constant(.now.adjust(for: .startOfMonth)!))
+    MonthYearHeader(selectedDate: .constant(.now), selectedMonth: .constant(.now.startOfMonth))
 }
 
 extension MonthYearHeader {
@@ -115,7 +114,7 @@ extension MonthYearHeader {
                     Text(item)
                         .font(.headline).bold()
                         .frame(width: 60, height: 33)
-                        .background(item == selectedDate.toString(format: .custom("MMM")) ? Color.appBlue : Color.gray.opacity(0.3), in: .rect(cornerRadius: 8))
+                        .background(item == selectedDate.toString("MMM") ? Color.appBlue : Color.gray.opacity(0.3), in: .rect(cornerRadius: 8))
                         .onTapGesture {
                             var dateComponents = DateComponents()
                             dateComponents.month = months.firstIndex(of: item)! + 1

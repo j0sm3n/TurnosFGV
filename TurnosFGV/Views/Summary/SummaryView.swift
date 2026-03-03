@@ -73,7 +73,7 @@ extension SummaryView {
             }
             .padding(.bottom)
         } label: {
-            Label("Nómina \(selectedMonth.toString(format: .custom("MMMM yyyy"))!)", systemImage: "doc.text.magnifyingglass")
+            Label("Nómina \(selectedMonth.toString("MMMM yyyy"))", systemImage: "doc.text.magnifyingglass")
                 .disclosureGroupLabelStyle()
         }
         .disclosureGroupBackgroundStyle()
@@ -93,7 +93,7 @@ extension SummaryView {
             }
             .padding(.bottom)
         } label: {
-            Label("Datos de \(selectedMonth.toString(format: .custom("MMMM"))!)", systemImage: "\(selectedMonth.component(.month)!).square.fill")
+            Label("Datos de \(selectedMonth.toString("MMMM"))", systemImage: "\(selectedMonth.component(.month)).square.fill")
                 .disclosureGroupLabelStyle()
         }
         .disclosureGroupBackgroundStyle()
@@ -115,7 +115,7 @@ extension SummaryView {
             }
             .padding(.bottom)
         } label: {
-            Label("Datos de \(selectedMonth.toString(format: .isoYear)!)", systemImage: "calendar")
+            Label("Datos de \(String(selectedMonth.year))", systemImage: "calendar")
                 .disclosureGroupLabelStyle()
         }
         .disclosureGroupBackgroundStyle()

@@ -7,7 +7,6 @@
 
 import SwiftData
 import SwiftUI
-import DateHelper
 
 struct CalendarView: View {
     @Binding var selectedDate: Date
@@ -64,6 +63,6 @@ struct CalendarView: View {
 
 extension CalendarView {
     private func colorOfWorkedDay(_ date: Date) -> Color? {
-        workDays.first(where: { $0.startDate.compare(.isSameDay(as: date)) })?.color
+        workDays.first(where: { $0.startDate.isSameDay(as: date) })?.color
     }
 }

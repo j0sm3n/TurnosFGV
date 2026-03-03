@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		824E68252BB6B3070022B2DB /* CloudStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 824E68242BB6B3070022B2DB /* CloudStorage */; };
-		8292A27F2BAC8AAE0086A8C3 /* DateHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 8292A27E2BAC8AAE0086A8C3 /* DateHelper */; };
 		82ABA4292C019F58001B539A /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 82ABA4282C019F58001B539A /* Algorithms */; };
 /* End PBXBuildFile section */
 
@@ -37,8 +36,7 @@
 			files = (
 				82ABA4292C019F58001B539A /* Algorithms in Frameworks */,
 				824E68252BB6B3070022B2DB /* CloudStorage in Frameworks */,
-				8292A27F2BAC8AAE0086A8C3 /* DateHelper in Frameworks */,
-			);
+				);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -80,8 +78,7 @@
 			);
 			name = TurnosFGV;
 			packageProductDependencies = (
-				8292A27E2BAC8AAE0086A8C3 /* DateHelper */,
-				824E68242BB6B3070022B2DB /* CloudStorage */,
+					824E68242BB6B3070022B2DB /* CloudStorage */,
 				82ABA4282C019F58001B539A /* Algorithms */,
 			);
 			productName = TurnosFGV;
@@ -113,8 +110,7 @@
 			);
 			mainGroup = 8230319C2BAC4D6C005B00EF;
 			packageReferences = (
-				8292A27D2BAC8AAE0086A8C3 /* XCRemoteSwiftPackageReference "DateHelper" */,
-				824E68232BB6B3070022B2DB /* XCRemoteSwiftPackageReference "CloudStorage" */,
+					824E68232BB6B3070022B2DB /* XCRemoteSwiftPackageReference "CloudStorage" */,
 				82ABA4272C019F58001B539A /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 			);
 			productRefGroup = 823031A62BAC4D6C005B00EF /* Products */;
@@ -378,14 +374,6 @@
 				minimumVersion = 0.4.0;
 			};
 		};
-		8292A27D2BAC8AAE0086A8C3 /* XCRemoteSwiftPackageReference "DateHelper" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/melvitax/DateHelper.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.1;
-			};
-		};
 		82ABA4272C019F58001B539A /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-algorithms.git";
@@ -401,11 +389,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 824E68232BB6B3070022B2DB /* XCRemoteSwiftPackageReference "CloudStorage" */;
 			productName = CloudStorage;
-		};
-		8292A27E2BAC8AAE0086A8C3 /* DateHelper */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8292A27D2BAC8AAE0086A8C3 /* XCRemoteSwiftPackageReference "DateHelper" */;
-			productName = DateHelper;
 		};
 		82ABA4282C019F58001B539A /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;

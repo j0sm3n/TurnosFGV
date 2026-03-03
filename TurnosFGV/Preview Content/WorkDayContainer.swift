@@ -5,7 +5,6 @@
 //  Created by Jose Antonio Mendoza on 24/3/24.
 //
 
-import DateHelper
 import Foundation
 import SwiftData
 
@@ -30,9 +29,9 @@ extension WorkDay {
             
             for workedDayNumber in workedDays {
                 if let shift = shiftGroups.shiftGroups.randomElement()?.shifts.randomElement() {
-                    let startDate = Date(fromString: "2025-\(month)-\(workedDayNumber)", format: .isoDate)!
-                        .adjust(for: .startOfDay)!
-                        .addingTimeInterval(shift.startTime)
+                    let comps = DateComponents(year: 2025, month: month, day: workedDayNumber)
+                    guard let baseDate = Calendar.current.date(from: comps) else { continue }
+                    let startDate = baseDate.startOfDay.addingTimeInterval(shift.startTime)
                     let endTime = startDate.addingTimeInterval(shift.duration)
                     
                     let workDay = WorkDay(

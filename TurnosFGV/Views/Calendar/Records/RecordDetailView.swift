@@ -6,7 +6,6 @@
 //
 
 import CloudStorage
-import DateHelper
 import SwiftData
 import SwiftUI
 
@@ -83,7 +82,7 @@ struct RecordDetailView: View {
                 Button("Borrar", role: .destructive, action: deleteRecord)
                 Button("Cancelar", role: .cancel, action: {})
             } message: {
-                Text("¿Seguro que quieres borrar el turno del día \(updateWorkDay.startDate.toString(format: .custom("dd MMM"))!)?")
+                Text("¿Seguro que quieres borrar el turno del día \(updateWorkDay.startDate.toString("dd MMM"))?")
             }
         }
     }
@@ -93,8 +92,8 @@ struct RecordDetailView: View {
     @Previewable let container = try! ModelContainer(for: WorkDay.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
     @Previewable let workDay = WorkDay(
         shift: "1",
-        startDate: .init(fromString: "2024-02-04T05:27:00+01:00", format: .isoDateTime)!,
-        endDate: .init(fromString: "2024-02-04T13:36:00+01:00", format: .isoDateTime)!,
+        startDate: Date(isoDateTime: "2024-02-04T05:27:00+01:00")!,
+        endDate: Date(isoDateTime: "2024-02-04T13:36:00+01:00")!,
         saturation: 72.1,
         extraTime: 8,
         isAllowance: true
@@ -252,7 +251,7 @@ extension RecordDetailView {
         guard let shift, updateWorkDay.shift != shift.name else { return }
 
         updateWorkDay.shift = shift.name
-        updateWorkDay.startDate = updateWorkDay.startDate.adjust(for: .startOfDay)!.addingTimeInterval(shift.startTime)
+        updateWorkDay.startDate = updateWorkDay.startDate.startOfDay.addingTimeInterval(shift.startTime)
         updateWorkDay.endDate = updateWorkDay.startDate.addingTimeInterval(shift.duration)
         updateWorkDay.saturation = shift.saturation
         updateWorkDay.extraTime = 0

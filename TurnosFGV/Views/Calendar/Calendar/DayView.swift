@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import DateHelper
 
 struct DayView: View {
     let day: Day
@@ -16,7 +15,7 @@ struct DayView: View {
     private let dotOffset: CGFloat = -4
 
     private var isSelected: Bool {
-        day.date.compare(.isSameDay(as: selectedDate))
+        day.date.isSameDay(as: selectedDate)
     }
 
     var body: some View {

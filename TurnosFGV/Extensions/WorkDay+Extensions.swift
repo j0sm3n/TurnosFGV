@@ -5,7 +5,6 @@
 //  Created by Jose Antonio Mendoza on 21/3/24.
 //
 
-import DateHelper
 import SwiftData
 import SwiftUI
 
@@ -31,17 +30,17 @@ extension WorkDay {
 
     static func monthPredicate(month: Date) -> Predicate<WorkDay> {
         // Get the current month, the previous two and the next two
-        let firstDay = month.offset(.month, value: -2)!
-        let lastDay = month.offset(.month, value: 2)!
+        let firstDay = month.adding(-2, .month)
+        let lastDay = month.adding(2, .month)
         
         return #Predicate<WorkDay> { $0.startDate >= firstDay && $0.startDate < lastDay }
     }
     
     static func monthDescriptor(month: Date) -> FetchDescriptor<WorkDay> {
-        let firstDay = month.adjust(for: .startOfMonth)!.adjust(for: .startOfWeek)!.adjust(for: .startOfDay)!
-        var lastDay = month.adjust(for: .endOfMonth)!.adjust(for: .endOfWeek)!.adjust(for: .endOfDay)!
-        if lastDay.since(firstDay, in: .day)! < 42 {
-            lastDay = lastDay.offset(.week, value: 1)!
+        let firstDay = month.startOfMonth.startOfWeek.startOfDay
+        var lastDay = month.endOfMonth.endOfWeek.endOfDay
+        if Calendar.current.dateComponents([.day], from: firstDay, to: lastDay).day! < 42 {
+            lastDay = lastDay.adding(1, .weekOfYear)
         }
         
         return FetchDescriptor(predicate: #Predicate<WorkDay> {
@@ -54,20 +53,20 @@ extension WorkDay {
     }
 
     static func filtered(_ workDays: [WorkDay], byMonth date: Date) -> [WorkDay] {
-        let start = date.adjust(for: .startOfMonth)!.adjust(for: .startOfDay)!
-        let end = date.adjust(for: .endOfMonth)!.adjust(for: .endOfDay)!
+        let start = date.startOfMonth.startOfDay
+        let end = date.endOfMonth.endOfDay
         return workDays.filter { $0.startDate >= start && $0.startDate <= end }
     }
 
     static func filtered(_ workDays: [WorkDay], byYear date: Date) -> [WorkDay] {
-        let start = date.adjust(for: .startOfYear)!
-        let end = date.adjust(for: .endOfYear)!
+        let start = date.startOfYear
+        let end = date.endOfYear
         return workDays.filter { $0.startDate >= start && $0.startDate <= end }
     }
     
     var viewRecordDuration: String {
-        let startTime = startDate.toString(format: .custom("HH:mm"))!
-        let endTime = endDate.toString(format: .custom("HH:mm"))!
+        let startTime = startDate.toString("HH:mm")
+        let endTime = endDate.toString("HH:mm")
         return "De \(startTime) a \(endTime)"
     }
     

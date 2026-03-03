@@ -37,7 +37,7 @@ struct RecordRowView: View {
                     .frame(width: 60, alignment: .center)
                 
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(workDay.startDate.toString(format: .custom("dd MMM yyyy"))!)
+                    Text(workDay.startDate.toString("dd MMM yyyy"))
                         .fontWeight(.semibold)
                     HStack {
                         Text(workDay.viewRecordDuration)
@@ -63,10 +63,8 @@ struct RecordRowView: View {
 
 #Preview {
     let workDay = WorkDay(shift: "1",
-                          startDate: .init(fromString: "2024-02-04T05:27:00+01:00",
-                                           format: .isoDateTime)!,
-                          endDate: .init(fromString: "2024-02-04T13:36:00+01:00",
-                                         format: .isoDateTime)!,
+                          startDate: Date(isoDateTime: "2024-02-04T05:27:00+01:00")!,
+                          endDate: Date(isoDateTime: "2024-02-04T13:36:00+01:00")!,
                           saturation: 72.1,
                           extraTime: 8,
                           isAllowance: false,

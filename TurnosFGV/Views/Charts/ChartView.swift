@@ -55,8 +55,8 @@ extension ChartView {
     }
     
     private func workedDaysInYear() -> [WorkDay]? {
-        let startOfYear = selectedDate.adjust(for: .startOfYear)!.adjust(for: .startOfDay)!
-        let endOfYear = selectedDate.adjust(for: .endOfYear)!.adjust(for: .endOfDay)!
+        let startOfYear = selectedDate.startOfYear.startOfDay
+        let endOfYear = selectedDate.endOfYear.endOfDay
         
         let descriptor = FetchDescriptor<WorkDay>(
             predicate: #Predicate { ($0.startDate > startOfYear) && ($0.startDate < endOfYear) },

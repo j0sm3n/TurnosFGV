@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import DateHelper
 
 extension View {
     @ViewBuilder
@@ -45,7 +44,7 @@ extension View {
         
         range.forEach { date in
             let shortSymbol = formatter.string(from: date)
-            days.append(.init(shortSymbol: shortSymbol, date: date.adjust(hour: 12, minute: 0)!))
+            days.append(.init(shortSymbol: shortSymbol, date: date.settingTime(hour: 12, minute: 0)))
         }
         
         var lastWeekDay = 7 - calendar.component(.weekday, from: range.last!) + 1

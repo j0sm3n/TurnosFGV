@@ -6,7 +6,6 @@
 //
 
 import CloudStorage
-import DateHelper
 import SwiftData
 import SwiftUI
 
@@ -112,11 +111,11 @@ extension NewRecordView {
     var ShiftStartAndShiftEndText: some View {
         GroupBox {
             LabeledContent("Inicio") {
-                Text(start.toString(format: .custom("dd/MM/yyyy HH:mm"))!)
+                Text(start.toString("dd/MM/yyyy HH:mm"))
                     .monospaced()
             }
             LabeledContent("Fin") {
-                Text(end.toString(format: .custom("dd/MM/yyyy HH:mm"))!)
+                Text(end.toString("dd/MM/yyyy HH:mm"))
                     .monospaced()
             }
         }
@@ -159,7 +158,7 @@ extension NewRecordView {
     // MARK: - Computed properties and functions
     var start: Date {
         guard let selectedShift else { return date }
-        return date.adjust(for: .startOfDay)!.addingTimeInterval(selectedShift.startTime)
+        return date.startOfDay.addingTimeInterval(selectedShift.startTime)
     }
     
     var end: Date {

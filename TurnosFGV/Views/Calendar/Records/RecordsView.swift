@@ -38,7 +38,7 @@ struct RecordsView: View {
 #Preview {
     VStack {
         VStack {}.frame(height: 400)
-        RecordsView(selectedDate: .constant(.now), selectedMonth: .constant(.now.adjust(for: .startOfMonth)!))
+        RecordsView(selectedDate: .constant(.now), selectedMonth: .constant(.now.startOfMonth))
             .modelContainer(WorkDay.preview)
     }
     .background(.appBackground)
@@ -71,7 +71,7 @@ extension RecordsView {
             .alert("Ups!", isPresented: $showWorkedDayAlert) {
                 Button("Ok") {}
             } message: {
-                Text("Ya existe un turno el día \(selectedDate.toString(format: .custom("dd/MM/yyyy"))!)")
+                Text("Ya existe un turno el día \(selectedDate.toString("dd/MM/yyyy"))")
             }
         }
         .padding(.horizontal)
@@ -86,7 +86,7 @@ extension RecordsView {
                         Button {
                             selectedWorkDay = workDay
                         } label: {
-                            RecordRowView(workDay: workDay, selectedWorkDay: workDay.startDate.compare(.isSameDay(as: selectedDate)))
+                            RecordRowView(workDay: workDay, selectedWorkDay: workDay.startDate.isSameDay(as: selectedDate))
                                 .id(workDay.id)
                         }
                         .tint(.white)
@@ -111,7 +111,7 @@ extension RecordsView {
                         proxy.scrollTo(record.id, anchor: .top)
                     }
                 }
-                selectedMonth = selectedDate.adjust(for: .startOfMonth)!
+                selectedMonth = selectedDate.startOfMonth
             }
             .fullScreenCover(isPresented: $showNewRecordView, onDismiss: {
                 if let record = getRecordOfDay(selectedDate) {
@@ -137,6 +137,6 @@ extension RecordsView {
     }
     
     func getRecordOfDay(_ day: Date) -> WorkDay? {
-        workDays.first(where: { $0.startDate.compare(.isSameDay(as: day)) })
+        workDays.first(where: { $0.startDate.isSameDay(as: day) })
     }
 }
