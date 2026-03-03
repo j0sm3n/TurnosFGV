@@ -26,8 +26,11 @@ struct TurnosFGVApp: App {
         } catch {
             fatalError("Could not configure the container")
         }
-        
+
         try? Tips.configure([.displayFrequency(.immediate)])
+
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.appPurple)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color.white)], for: .selected)
     }
     
     var body: some Scene {
