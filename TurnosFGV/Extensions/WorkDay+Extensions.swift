@@ -43,24 +43,6 @@ extension WorkDay {
         return #Predicate<WorkDay> { $0.startDate >= firstDay && $0.startDate < lastDay }
     }
 
-    /// Returns a `FetchDescriptor` covering all days visible in the calendar grid for the given month.
-    ///
-    /// The range starts at the Monday of the first week of the month and ends after at least
-    /// 42 days (6 complete weeks) to fill the grid uniformly.
-    ///
-    /// - Parameter month: Any date within the target month.
-    static func monthDescriptor(month: Date) -> FetchDescriptor<WorkDay> {
-        let firstDay = month.startOfMonth.startOfWeek.startOfDay
-        var lastDay = month.endOfMonth.endOfWeek.endOfDay
-        if Calendar.current.dateComponents([.day], from: firstDay, to: lastDay).day! < 42 {
-            lastDay = lastDay.adding(1, .weekOfYear)
-        }
-
-        return FetchDescriptor(predicate: #Predicate<WorkDay> {
-            $0.startDate > firstDay && $0.startDate < lastDay
-        })
-    }
-
     /// Returns a `FetchDescriptor` that fetches all work-day records sorted by date descending.
     static func allWorkDaysDescriptor() -> FetchDescriptor<WorkDay> {
         FetchDescriptor(sortBy: [SortDescriptor(\.startDate, order: .reverse)])
