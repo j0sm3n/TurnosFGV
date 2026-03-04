@@ -11,7 +11,7 @@ import TipKit
 import CloudStorage
 
 struct BarChartView: View {
-    @CloudStorage("prevYearHours") var prevYearHours: Double = 0.0
+    @CloudStorage(Constants.prevYearHoursKey) var prevYearHours: Double = 0.0
     @State private var barSelection: Date?
     @State private var barChartTip = ChartTip()
     

@@ -13,32 +13,30 @@ struct RecordDetailView: View {
     // Environment properties
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    
+
     // CloudStorage properties
-    @CloudStorage("location") var location: String = ""
-    
+    @CloudStorage(Constants.locationKey) var location: String = ""
+
     // View properties
-    @State private var isLicense: Bool = false
-    @State private var isSick: Bool = false
     @State private var showDeleteAlert: Bool = false
     @State private var shiftsByLocation: [String: [Shift]] = [:]
     @FocusState private var isFocused: Bool
-    
+
     // Update record properties
     @State private var shift: Shift?
     @State private var updateWorkDay: WorkDay
-    
+
     // Record to edit
     @Bindable var workDay: WorkDay
-    
+
     // Shifts Data Model
     let shiftGroups = ShiftsDataModel.shared
-    
+
     init(workDay: WorkDay) {
         self.workDay = workDay
         self.updateWorkDay = workDay.copy()
     }
-    
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -65,7 +63,7 @@ struct RecordDetailView: View {
                     }
                     .tint(.red)
                 }
-                
+
                 ToolbarItem(placement: .confirmationAction) {
                     Button(role: .confirm) {
                         updateRecord()
@@ -98,9 +96,9 @@ struct RecordDetailView: View {
         extraTime: 8,
         isAllowance: true
     )
-    
+
     container.mainContext.insert(workDay)
-    
+
     return RecordDetailView(workDay: workDay)
         .modelContainer(for: WorkDay.self, inMemory: true)
 }
@@ -117,50 +115,33 @@ extension RecordDetailView {
         }
         .frame(maxWidth: .infinity, alignment: .center)
     }
-    
+
     var ShiftPicker: some View {
-        GroupBox {
-            LabeledContent("Turno") {
-                Menu {
-                    ForEach(locations, id: \.self) { location in
-                        Picker(location, selection: $shift) {
-                            ForEach(shiftsOf(location)) { locationShift in
-                                Text(locationShift.name).tag(locationShift as Shift?)
-                            }
-                        }
-                    }
-                    .pickerStyle(.menu)
-                } label: {
-                    Text(shift?.name ?? "")
-                        .shiftTextModifier(color: updateWorkDay.color)
-                }
-                .onChange(of: shift, initial: false) { shiftChanged() }
-            }
-        }
-        .groupBoxBackGroundStyle()
+        ShiftPickerGroupBox(shiftsByLocation: shiftsByLocation, selectedShift: $shift)
+            .onChange(of: shift, initial: false) { shiftChanged() }
     }
-    
+
     var ShiftStartAndEnd: some View {
         GroupBox {
             LabeledContent("Inicio de jornada") {
                 Text(updateWorkDay.startDate, style: .time)
             }
-            
+
             LabeledContent("Fin de jornada") {
                 Text(updateWorkDay.endDate, style: .time)
             }
         }
         .groupBoxBackGroundStyle()
     }
-    
+
     var ShiftExtraOptions: some View {
         GroupBox {
             LabeledContent("Duración", value: updateWorkDay.workingHours)
-            
+
             LabeledContent("Saturación", value: updateWorkDay.saturation ?? 0, format: .number)
-            
+
             LabeledContent("Nocturnidad", value: updateWorkDay.nightTimeString)
-            
+
             LabeledContent("Exceso de jornada") {
                 HStack {
                     TextField("Minutos", value: $updateWorkDay.extraTime, formatter: NumberFormatter())
@@ -177,34 +158,8 @@ extension RecordDetailView {
             .onTapGesture {
                 isFocused = true
             }
-            
-            ToggleRow("Dieta", isOn: $updateWorkDay.isAllowance)
-            ToggleRow("Festivo", isOn: $updateWorkDay.isWorkedHoliday)
-            ToggleRow("Festivo especial", isOn: $updateWorkDay.isSpecialWorkedHoliday)
-            ToggleRow("Práctica", isOn: $updateWorkDay.isMentoring)
-            ToggleRow("SPP", isOn: $updateWorkDay.isSPP)
 
-            DisclosureGroup("Licencia", isExpanded: $isLicense) {
-                Group {
-                    ToggleRow("Sin sueldo", isOn: $updateWorkDay.isFreeLicense)
-                    ToggleRow("Con sueldo", isOn: $updateWorkDay.isPaidLicense)
-                }
-                .padding(.leading)
-                .padding(.trailing, 2)
-            }
-            .foregroundStyle(.white)
-            .onAppear(perform: checkIsLicense)
-
-            DisclosureGroup("Baja", isExpanded: $isSick) {
-                Group {
-                    ToggleRow("Por enfermedad", isOn: $updateWorkDay.isSickLeave)
-                    ToggleRow("Accidente laboral", isOn: $updateWorkDay.isWorkAccident)
-                }
-                .padding(.leading)
-                .padding(.trailing, 2)
-            }
-            .foregroundStyle(.white)
-            .onAppear(perform: checkIsSick)
+            WorkDayTogglesSection(workDay: updateWorkDay)
         }
         .groupBoxBackGroundStyle()
         .tint(updateWorkDay.color)
@@ -214,15 +169,11 @@ extension RecordDetailView {
     var locations: [String] {
         shiftsByLocation.keys.sorted(by: <)
     }
-    
+
     var shifts: [Shift] {
         locations.flatMap { shiftsByLocation[$0] ?? [] }
     }
-    
-    func shiftsOf(_ location: String) -> [Shift] {
-        shiftsByLocation[location]?.sorted() ?? []
-    }
-    
+
     func updateRecord() {
         workDay.shift = updateWorkDay.shift
         workDay.startDate = updateWorkDay.startDate
@@ -238,15 +189,15 @@ extension RecordDetailView {
         workDay.isSickLeave = updateWorkDay.isSickLeave
         workDay.isWorkAccident = updateWorkDay.isWorkAccident
         workDay.isSPP = updateWorkDay.isSPP
-        
+
         dismiss()
     }
-    
+
     func deleteRecord() {
         modelContext.delete(workDay)
         dismiss()
     }
-    
+
     func shiftChanged() {
         guard let shift, updateWorkDay.shift != shift.name else { return }
 
@@ -261,18 +212,6 @@ extension RecordDetailView {
     func extraTimeChanged(newValue: Int) {
         if newValue != updateWorkDay.extraTime {
             updateWorkDay.extraTime = newValue
-        }
-    }
-        
-    func checkIsLicense() {
-        if updateWorkDay.isFreeLicense || updateWorkDay.isPaidLicense {
-            isLicense = true
-        }
-    }
-    
-    func checkIsSick() {
-        if updateWorkDay.isSickLeave || updateWorkDay.isWorkAccident {
-            isSick = true
         }
     }
 }

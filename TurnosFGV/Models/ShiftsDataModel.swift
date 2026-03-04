@@ -264,7 +264,7 @@ struct ShiftsDataModel {
     /// - Parameter date: The reference date used to select the most recent applicable group.
     /// - Returns: An array of ``ShiftGroup`` values — at most one per ``Location``.
     func shiftsGroupsValidsTo(_ date: Date) -> [ShiftGroup] {
-        let role = NSUbiquitousKeyValueStore.default.string(forKey: "role") ?? ""
+        let role = NSUbiquitousKeyValueStore.default.string(forKey: Constants.roleKey) ?? ""
         let sortedShiftGroups = shiftGroups.sorted().reversed()
         var actualShiftGroups: [ShiftGroup] = []
         

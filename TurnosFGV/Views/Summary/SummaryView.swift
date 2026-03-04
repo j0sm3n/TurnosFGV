@@ -11,18 +11,17 @@ import CloudStorage
 
 struct SummaryView: View {
     @Environment(\.modelContext) private var modelContext
-    @CloudStorage("prevYearHours") var prevYearHours: Double = 0.0
-    @Binding var selectedDate: Date
-    @Binding var selectedMonth: Date
+    @Environment(DateSelectionViewModel.self) var dateVM
+    @CloudStorage(Constants.prevYearHoursKey) var prevYearHours: Double = 0.0
+    @State private var viewModel = PayrollViewModel()
     @State private var showPayrollGroup: Bool = true
-    @State private var workDays: [WorkDay] = []
 
     var body: some View {
         NavigationStack {
             VStack {
-                MonthYearHeader(selectedDate: $selectedDate, selectedMonth: $selectedMonth)
+                MonthYearHeader()
                 ScrollView {
-                    if recordsInMonth.isEmpty {
+                    if viewModel.recordsInMonth.isEmpty {
                         ContentUnavailableView("No hay registros", systemImage: "doc.text.magnifyingglass")
                             .foregroundStyle(.appWhite)
                             .offset(y: 200)
@@ -36,18 +35,21 @@ struct SummaryView: View {
             }
             .background(.appBackground)
             .task {
-                if let workDays = try? modelContext.fetch(WorkDay.allWorkDaysDescriptor()) {
-                    self.workDays = workDays
-                }
+                viewModel.selectedDate = dateVM.currentDate
+                viewModel.load(from: modelContext)
+            }
+            .onChange(of: dateVM.currentDate) { _, newDate in
+                viewModel.selectedDate = newDate
             }
         }
     }
 }
 
 #Preview {
-    SummaryView(selectedDate: .constant(.now), selectedMonth: .constant(.currentMonth))
+    SummaryView()
     #if DEBUG
         .modelContainer(WorkDay.preview)
+        .environment(DateSelectionViewModel())
     #endif
 }
 
@@ -56,161 +58,68 @@ extension SummaryView {
     var PayrollDisclosureGroup: some View {
         DisclosureGroup(isExpanded: $showPayrollGroup) {
             VStack(spacing: 12) {
-                LabeledContent("Nocturnidad", value: nightTimeInMonth, format: .number.precision(.fractionLength(0)))
-                LabeledContent("Comp. Jor. Cont. Peculiares", value: noonRecordsCount, format: .number)
-                LabeledContent("Prima saturación maquinista", value: saturationInMonth, format: .number.precision(.fractionLength(0)))
-                LabeledContent("Indemnización Domingo/Festivo", value: sundaysOrWorkedHolidaysInMonth, format: .number)
-                LabeledContent("Indemnización descanso bocadillo", value: snackBreakCompensation, format: .number)
-                LabeledContent("Indemnización sábados", value: saturdaysInMonth, format: .number)
-                LabeledContent("Horas extras extructurales", value: extraTimeInMonth, format: .number.precision(.fractionLength(2)))
-                    .hide(if: extraTimeInMonth == 0)
-                LabeledContent("SPP", value: totalSPPHours, format: .number.precision(.fractionLength(2)))
-                    .hide(if: totalSPPHours == 0)
-                LabeledContent("Dietas", value: numberOfAllowance, format: .number.precision(.fractionLength(2)))
-                    .hide(if: numberOfAllowance == 0)
-                LabeledContent("Comp. Festivos Especiales", value: numberOfSpecialWorkedHolidays, format: .number)
-                    .hide(if: numberOfSpecialWorkedHolidays == 0)
+                LabeledContent("Nocturnidad", value: viewModel.nightTimeInMonth, format: .number.precision(.fractionLength(0)))
+                LabeledContent("Comp. Jor. Cont. Peculiares", value: viewModel.noonRecordsCount, format: .number)
+                LabeledContent("Prima saturación maquinista", value: viewModel.saturationInMonth, format: .number.precision(.fractionLength(0)))
+                LabeledContent("Indemnización Domingo/Festivo", value: viewModel.sundaysOrWorkedHolidaysInMonth, format: .number)
+                LabeledContent("Indemnización descanso bocadillo", value: viewModel.snackBreakCompensation, format: .number)
+                LabeledContent("Indemnización sábados", value: viewModel.saturdaysInMonth, format: .number)
+                LabeledContent("Horas extras extructurales", value: viewModel.extraTimeInMonth, format: .number.precision(.fractionLength(2)))
+                    .hide(if: viewModel.extraTimeInMonth == 0)
+                LabeledContent("SPP", value: viewModel.totalSPPHours, format: .number.precision(.fractionLength(2)))
+                    .hide(if: viewModel.totalSPPHours == 0)
+                LabeledContent("Dietas", value: viewModel.numberOfAllowance, format: .number.precision(.fractionLength(2)))
+                    .hide(if: viewModel.numberOfAllowance == 0)
+                LabeledContent("Comp. Festivos Especiales", value: viewModel.numberOfSpecialWorkedHolidays, format: .number)
+                    .hide(if: viewModel.numberOfSpecialWorkedHolidays == 0)
             }
             .padding(.bottom)
         } label: {
-            Label("Nómina \(selectedMonth.toString("MMMM yyyy"))", systemImage: "doc.text.magnifyingglass")
+            Label("Nómina \(dateVM.currentMonth.toString("MMMM yyyy"))", systemImage: "doc.text.magnifyingglass")
                 .disclosureGroupLabelStyle()
         }
         .disclosureGroupBackgroundStyle()
     }
-    
+
     var MonthDisclosureGroup: some View {
         DisclosureGroup {
             VStack(spacing: 12) {
-                LabeledContent("Horas trabajadas", value: monthWorkedHours, format: .number.precision(.fractionLength(2)))
-                
-                LabeledContent("Dias trabajados", value: workedDaysInCurrentMonth, format: .number)
-                
+                LabeledContent("Horas trabajadas", value: viewModel.monthWorkedHours, format: .number.precision(.fractionLength(2)))
+
+                LabeledContent("Dias trabajados", value: viewModel.workedDaysInCurrentMonth, format: .number)
+
                 ForEach(TypeOfShift.allCases) { typeOfShift in
-                    let (hours, days) = recordsByType(recordsInMonth, typeOfShift)
+                    let (hours, days) = viewModel.recordsByType(viewModel.recordsInMonth, typeOfShift)
                     LabeledContent("\(typeOfShift.rawValue) (\(days))", value: hours, format: .number.precision(.fractionLength(2)))
                 }
             }
             .padding(.bottom)
         } label: {
-            Label("Datos de \(selectedMonth.toString("MMMM"))", systemImage: "\(selectedMonth.component(.month)).square.fill")
+            Label("Datos de \(dateVM.currentMonth.toString("MMMM"))", systemImage: "\(dateVM.currentMonth.component(.month)).square.fill")
                 .disclosureGroupLabelStyle()
         }
         .disclosureGroupBackgroundStyle()
     }
-    
+
     var YearDisclosureGroup: some View {
         DisclosureGroup {
             VStack(spacing: 12) {
-                LabeledContent("Horas trabajadas", value: yearWorkedHours, format: .number.precision(.fractionLength(2)))
-                
+                LabeledContent("Horas trabajadas", value: viewModel.yearWorkedHours, format: .number.precision(.fractionLength(2)))
+
                 LabeledContent("Horas año anterior", value: prevYearHours, format: .number.precision(.fractionLength(2)))
-                
-                LabeledContent("Dias trabajados", value: workedDaysInCurrentYear, format: .number)
-                
+
+                LabeledContent("Dias trabajados", value: viewModel.workedDaysInCurrentYear, format: .number)
+
                 ForEach(TypeOfShift.allCases, id: \.self) { typeOfShift in
-                    let (hours, days) = recordsByType(recordsInYear, typeOfShift)
+                    let (hours, days) = viewModel.recordsByType(viewModel.recordsInYear, typeOfShift)
                     LabeledContent("\(typeOfShift.rawValue) (\(days))", value: hours, format: .number.precision(.fractionLength(2)))
                 }
             }
             .padding(.bottom)
         } label: {
-            Label("Datos de \(String(selectedMonth.year))", systemImage: "calendar")
+            Label("Datos de \(String(dateVM.currentMonth.year))", systemImage: "calendar")
                 .disclosureGroupLabelStyle()
         }
         .disclosureGroupBackgroundStyle()
-    }
-
-    // MARK: - Computed properties and functions
-    func recordsByType(_ records: [WorkDay], _ typeOfShift: TypeOfShift) -> (hours: Double, days: Int) {
-        let filteredRecords = records.filter { $0.typeOfShift == typeOfShift }
-        let hours = filteredRecords.map(\.workedTimeInHours).reduce(0, +)
-        return (hours, filteredRecords.count)
-    }
-    
-    func workedHoursIn(records: [WorkDay]) -> Double {
-        records.map(\.workedTimeInHours).reduce(0, +)
-    }
-
-    // MARK: - Month computed properties
-    
-    // All records in selected month
-    var recordsInMonth: [WorkDay] {
-        WorkDay.filtered(workDays, byMonth: selectedDate)
-    }
-    
-    var ordinaryRecordsInMonth: [WorkDay] {
-        recordsInMonth.filter { !$0.isSPP }
-    }
-    
-    var sppRecordsInMonth: [WorkDay] {
-        recordsInMonth.filter { $0.isSPP }
-    }
-    
-    var notSickRecordsInMonth: [WorkDay] {
-        ordinaryRecordsInMonth.filter { !$0.isSickLeave && !$0.isWorkAccident }
-    }
-    
-    var monthWorkedHours: Double {
-        workedHoursIn(records: ordinaryRecordsInMonth)
-    }
-    
-    var workedDaysInCurrentMonth: Int {
-        ordinaryRecordsInMonth.count
-    }
-    
-    var snackBreakCompensation: Int {
-        notSickRecordsInMonth.filter({ !$0.isStandardShift }).count
-    }
-    
-    var nightTimeInMonth: Double {
-        let totalSeconds = notSickRecordsInMonth.map(\.workDayNightTime).reduce(0, +)
-        return totalSeconds / 3600
-    }
-    
-    var noonRecordsCount: Int {
-        notSickRecordsInMonth.filter { $0.typeOfShift == .noon }.count
-    }
-    
-    var saturationInMonth: Double {
-        notSickRecordsInMonth.compactMap(\.saturation).reduce(0, +)
-    }
-    
-    var sundaysOrWorkedHolidaysInMonth: Int {
-        notSickRecordsInMonth.filter({ $0.isWorkedHoliday || $0.startDate.component(.weekday) == Constants.sundayWeekday }).count
-    }
-
-    var saturdaysInMonth: Int {
-        notSickRecordsInMonth.filter({ $0.startDate.component(.weekday) == Constants.saturdayWeekday }).count
-    }
-    
-    var extraTimeInMonth: Double {
-        notSickRecordsInMonth.map(\.extraTime).reduce(0, +).minutesInHours
-    }
-    
-    var totalSPPHours: Double {
-        sppRecordsInMonth.map(\.sppMinutes).reduce(0, +).minutesInHours
-    }
-    
-    var numberOfAllowance: Double {
-        let allowanceDays = notSickRecordsInMonth.filter { $0.isAllowance }.count
-        return Double(allowanceDays) * Constants.allowanceValue
-    }
-    
-    var numberOfSpecialWorkedHolidays: Int {
-        notSickRecordsInMonth.filter { $0.isSpecialWorkedHoliday }.count
-    }
-
-    // MARK: - Year computed properties
-    var recordsInYear: [WorkDay] {
-        WorkDay.filtered(workDays, byYear: selectedDate)
-    }
-    
-    var yearWorkedHours: Double {
-        workedHoursIn(records: recordsInYear)
-    }
-    
-    var workedDaysInCurrentYear: Int {
-        recordsInYear.count
     }
 }

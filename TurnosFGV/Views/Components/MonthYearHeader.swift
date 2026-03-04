@@ -8,22 +8,22 @@
 import SwiftUI
 
 struct MonthYearHeader: View {
-    @Binding var selectedDate: Date
-    @Binding var selectedMonth: Date
-    
+    @Environment(DateSelectionViewModel.self) var dateVM
+
     @State private var showMonthYearPicker: Bool = false
     @State private var selectDateTip = SelectDateTip()
 
     var body: some View {
+        @Bindable var dateVM = dateVM
         HStack {
             Button {
                 selectDateTip.invalidate(reason: .actionPerformed)
                 showMonthYearPicker.toggle()
             } label: {
                 HStack {
-                    Text(selectedMonth.toString("MMMM"))
+                    Text(dateVM.currentMonth.toString("MMMM"))
                         .foregroundStyle(.appWhite)
-                    Text(String(selectedMonth.year))
+                    Text(String(dateVM.currentMonth.year))
                         .foregroundStyle(.appPurple)
                 }
                 .font(.title)
@@ -31,21 +31,21 @@ struct MonthYearHeader: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             .popoverTip(selectDateTip)
-            
+
             HStack(spacing: 15) {
                 decrease(isMonth: true)
-                
+
                 Button {
-                    selectedDate = Date.now
+                    dateVM.currentDate = Date.now
                     withAnimation {
-                        selectedMonth = Date.now.startOfMonth
+                        dateVM.currentMonth = Date.now.startOfMonth
                     }
                 } label: {
                     Image(systemName: "circle.fill")
                         .contentShape(.rect)
                         .font(.callout)
                 }
-                
+
                 increase(isMonth: true)
             }
             .font(.title3)
@@ -63,13 +63,13 @@ struct MonthYearHeader: View {
 }
 
 #Preview {
-    MonthYearHeader(selectedDate: .constant(.now), selectedMonth: .constant(.now.startOfMonth))
+    MonthYearHeader()
+        .environment(DateSelectionViewModel())
 }
 
 extension MonthYearHeader {
     private func decrease(isMonth: Bool = false) -> some View {
         Button {
-            // Update to Previous Month/Year
             monthYearUpdate(increment: false, isMonth: isMonth)
         } label: {
             Image(systemName: "chevron.left")
@@ -77,10 +77,9 @@ extension MonthYearHeader {
                 .contentShape(.rect)
         }
     }
-    
+
     private func increase(isMonth: Bool = false) -> some View {
         Button {
-            // Update to Next Month/Year
             monthYearUpdate(increment: true, isMonth: isMonth)
         } label: {
             Image(systemName: "chevron.right")
@@ -88,40 +87,41 @@ extension MonthYearHeader {
                 .contentShape(.rect)
         }
     }
-    
+
     @ViewBuilder
     private var monthYearPicker: some View {
+        @Bindable var dateVM = dateVM
         let months: [String] = Calendar.current.shortMonthSymbols
         let columns = [GridItem(.adaptive(minimum: 80))]
-        
+
         VStack(spacing: 30) {
             // Year picker
             HStack {
                 decrease()
-                
-                Text(String(selectedDate.year))
+
+                Text(String(dateVM.currentDate.year))
                     .transition(.move(edge: .trailing))
-                
+
                 increase()
             }
             .font(.title3)
             .fontWeight(.bold)
             .foregroundStyle(.appWhite)
-            
+
             // Month picker
             LazyVGrid(columns: columns, spacing: 20) {
                 ForEach(months, id: \.self) { item in
                     Text(item)
                         .font(.headline).bold()
                         .frame(width: 60, height: 33)
-                        .background(item == selectedDate.toString("MMM") ? Color.appBlue : Color.gray.opacity(0.3), in: .rect(cornerRadius: 8))
+                        .background(item == dateVM.currentDate.toString("MMM") ? Color.appBlue : Color.gray.opacity(0.3), in: .rect(cornerRadius: 8))
                         .onTapGesture {
                             var dateComponents = DateComponents()
                             dateComponents.month = months.firstIndex(of: item)! + 1
-                            dateComponents.year = selectedDate.year
-                            selectedMonth = Calendar.current.date(from: dateComponents)!
+                            dateComponents.year = dateVM.currentDate.year
+                            dateVM.currentMonth = Calendar.current.date(from: dateComponents)!
                             dateComponents.day = 1
-                            selectedDate = Calendar.current.date(from: dateComponents)!
+                            dateVM.currentDate = Calendar.current.date(from: dateComponents)!
                         }
                 }
             }
@@ -137,16 +137,17 @@ extension MonthYearHeader {
             }
         }
     }
-    
+
     private func monthYearUpdate(increment: Bool = true, isMonth: Bool = false) {
+        @Bindable var dateVM = dateVM
         let calendar = Calendar.current
-        
-        guard let month = calendar.date(byAdding: isMonth ? .month : .year, value: increment ? 1 : -1, to: selectedMonth) else { return }
-        guard let date = calendar.date(byAdding: isMonth ? .month : .year, value: increment ? 1 : -1, to: selectedDate) else { return }
-        
-        selectedDate = date
+
+        guard let month = calendar.date(byAdding: isMonth ? .month : .year, value: increment ? 1 : -1, to: dateVM.currentMonth) else { return }
+        guard let date = calendar.date(byAdding: isMonth ? .month : .year, value: increment ? 1 : -1, to: dateVM.currentDate) else { return }
+
+        dateVM.currentDate = date
         withAnimation {
-            selectedMonth = month
+            dateVM.currentMonth = month
         }
     }
 }

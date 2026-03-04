@@ -9,9 +9,9 @@ import SwiftUI
 import CloudStorage
 
 struct SettingsView: View {
-    @CloudStorage("prevYearHours") var prevYearHours: Double = 0.0
-    @CloudStorage("role") var roleString: String = ""
-    @CloudStorage("location") var locationString: String = ""
+    @CloudStorage(Constants.prevYearHoursKey) var prevYearHours: Double = 0.0
+    @CloudStorage(Constants.roleKey) var roleString: String = ""
+    @CloudStorage(Constants.locationKey) var locationString: String = ""
     
     var prevYear: Int { Date.now.year - 1 }
 

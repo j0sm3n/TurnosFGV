@@ -12,7 +12,7 @@ enum Tab: String {
     case summary = "Nómina"
     case chart = "Resumen"
     case settings = "Ajustes"
-    
+
     var icon: String {
         switch self {
             case .calendar: "calendar"
@@ -24,25 +24,25 @@ enum Tab: String {
 }
 
 struct ContentView: View {
-    @State private var currentDate: Date = .now
-    @State private var currentMonth: Date = .currentMonth
+    @State private var dateVM = DateSelectionViewModel()
     @AppStorage("selectedTab") private var selectedTab: Tab = .calendar
-    
+
     var body: some View {
         TabView(selection: $selectedTab) {
-            CalendarScreen(selectedDate: $currentDate, selectedMonth: $currentMonth)
+            CalendarScreen()
                 .setUpTab(.calendar)
-            
-            SummaryView(selectedDate: $currentDate, selectedMonth: $currentMonth)
+
+            SummaryView()
                 .setUpTab(.summary)
-            
-            ChartView(selectedDate: $currentDate)
+
+            ChartView()
                 .setUpTab(.chart)
-            
+
             SettingsView()
                 .setUpTab(.settings)
         }
         .tabBarMinimizeBehavior(.onScrollDown)
+        .environment(dateVM)
     }
 }
 

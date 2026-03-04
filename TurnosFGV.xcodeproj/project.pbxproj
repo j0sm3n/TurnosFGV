@@ -36,7 +36,7 @@
 			files = (
 				82ABA4292C019F58001B539A /* Algorithms in Frameworks */,
 				824E68252BB6B3070022B2DB /* CloudStorage in Frameworks */,
-				);
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -78,7 +78,7 @@
 			);
 			name = TurnosFGV;
 			packageProductDependencies = (
-					824E68242BB6B3070022B2DB /* CloudStorage */,
+				824E68242BB6B3070022B2DB /* CloudStorage */,
 				82ABA4282C019F58001B539A /* Algorithms */,
 			);
 			productName = TurnosFGV;
@@ -110,7 +110,7 @@
 			);
 			mainGroup = 8230319C2BAC4D6C005B00EF;
 			packageReferences = (
-					824E68232BB6B3070022B2DB /* XCRemoteSwiftPackageReference "CloudStorage" */,
+				824E68232BB6B3070022B2DB /* XCRemoteSwiftPackageReference "CloudStorage" */,
 				82ABA4272C019F58001B539A /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 			);
 			productRefGroup = 823031A62BAC4D6C005B00EF /* Products */;

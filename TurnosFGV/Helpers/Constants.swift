@@ -31,4 +31,9 @@ struct Constants {
     static let sundayWeekday: Int = 1
     /// Weekday index for Saturday in the Gregorian calendar (Saturday = 7).
     static let saturdayWeekday: Int = 7
+
+    // MARK: - CloudStorage keys
+    static let roleKey = "role"
+    static let locationKey = "location"
+    static let prevYearHoursKey = "prevYearHours"
 }

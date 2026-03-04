@@ -9,8 +9,8 @@ import CloudStorage
 import SwiftUI
 
 struct OnboardView: View {
-    @CloudStorage("role") var roleString: String = ""
-    @CloudStorage("location") var locationString: String = ""
+    @CloudStorage(Constants.roleKey) var roleString: String = ""
+    @CloudStorage(Constants.locationKey) var locationString: String = ""
     
     @State private var role: Role = .maquinista
     @State private var location: Location = .benidorm
