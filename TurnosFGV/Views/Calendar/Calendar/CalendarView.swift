@@ -45,7 +45,7 @@ struct CalendarView: View {
             .redacted(reason: monthDays.isEmpty ? .placeholder : [])
         }
         .task(id: selectedMonth) {
-            monthDays = extractDates(selectedMonth)
+            monthDays = Calendar.current.extractDates(selectedMonth)
         }
     }
 }

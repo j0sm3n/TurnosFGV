@@ -23,7 +23,7 @@ struct RecordRowView: View {
     let workDay: WorkDay
     let selectedWorkDay: Bool
     
-    var shiftSize: CGFloat {
+    private var shiftSize: CGFloat {
         workDay.shift.count > 3 ? 18 : workDay.shift.count > 2 ? 32 : 40
     }
     
