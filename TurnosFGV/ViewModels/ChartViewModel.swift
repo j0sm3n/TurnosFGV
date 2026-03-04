@@ -13,6 +13,7 @@ final class ChartViewModel {
     private(set) var barChartData: [MonthChartData] = []
     private(set) var pieChartData: [TypeChartData] = []
     private(set) var isAnimated: Bool = false
+    private var animationTasks: [Task<Void, Never>] = []
 
     func loadData(for date: Date, from context: ModelContext) {
         guard let days = workedDaysInYear(for: date, from: context) else { return }
@@ -26,26 +27,30 @@ final class ChartViewModel {
 
         for (index, _) in barChartData.enumerated() {
             let delay = Double(index) * 0.05
-            Task { @MainActor in
+            animationTasks.append(Task { @MainActor [weak self] in
                 try? await Task.sleep(for: .seconds(delay))
+                guard !Task.isCancelled, let self, index < self.barChartData.count else { return }
                 withAnimation(.smooth) {
                     self.barChartData[index].isAnimated = true
                 }
-            }
+            })
         }
 
         for (index, _) in pieChartData.enumerated() {
             let delay = Double(index) * 0.05
-            Task { @MainActor in
+            animationTasks.append(Task { @MainActor [weak self] in
                 try? await Task.sleep(for: .seconds(delay))
+                guard !Task.isCancelled, let self, index < self.pieChartData.count else { return }
                 withAnimation(.smooth) {
                     self.pieChartData[index].isAnimated = true
                 }
-            }
+            })
         }
     }
 
     func resetAnimation() {
+        animationTasks.forEach { $0.cancel() }
+        animationTasks.removeAll()
         barChartData.indices.forEach { barChartData[$0].isAnimated = false }
         isAnimated = false
     }
