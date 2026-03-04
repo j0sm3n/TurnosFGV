@@ -110,19 +110,16 @@ extension MonthYearHeader {
 
             // Month picker
             LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(months, id: \.self) { item in
-                    Text(item)
-                        .font(.headline).bold()
-                        .frame(width: 60, height: 33)
-                        .background(item == dateVM.currentDate.toString("MMM") ? Color.appBlue : Color.gray.opacity(0.3), in: .rect(cornerRadius: 8))
-                        .onTapGesture {
-                            var dateComponents = DateComponents()
-                            dateComponents.month = months.firstIndex(of: item)! + 1
-                            dateComponents.year = dateVM.currentDate.year
-                            dateVM.currentMonth = Calendar.current.date(from: dateComponents)!
-                            dateComponents.day = 1
-                            dateVM.currentDate = Calendar.current.date(from: dateComponents)!
-                        }
+                ForEach(Array(months.enumerated()), id: \.offset) { index, item in
+                    Button {
+                        selectMonth(index: index, from: months, dateVM: dateVM)
+                    } label: {
+                        Text(item)
+                            .font(.headline).bold()
+                            .frame(width: 60, height: 33)
+                            .background(item == dateVM.currentDate.toString("MMM") ? Color.appBlue : Color.gray.opacity(0.3), in: .rect(cornerRadius: 8))
+                    }
+                    .buttonStyle(.plain)
                 }
             }
             .padding(.horizontal)
@@ -149,5 +146,15 @@ extension MonthYearHeader {
         withAnimation {
             dateVM.currentMonth = month
         }
+    }
+
+    private func selectMonth(index: Int, from months: [String], dateVM: DateSelectionViewModel) {
+        var components = DateComponents()
+        components.month = index + 1
+        components.year = dateVM.currentDate.year
+        components.day = 1
+        guard let newDate = Calendar.current.date(from: components) else { return }
+        dateVM.currentDate = newDate
+        dateVM.currentMonth = newDate
     }
 }

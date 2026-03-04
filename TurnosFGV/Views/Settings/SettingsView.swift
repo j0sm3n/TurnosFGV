@@ -13,7 +13,7 @@ struct SettingsView: View {
     @CloudStorage(Constants.roleKey) var roleString: String = ""
     @CloudStorage(Constants.locationKey) var locationString: String = ""
     
-    var prevYear: Int { Date.now.year - 1 }
+    private let prevYear: Int = Date.now.year - 1
 
     var body: some View {
         NavigationStack {

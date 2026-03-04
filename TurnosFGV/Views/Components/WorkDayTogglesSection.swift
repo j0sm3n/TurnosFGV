@@ -31,6 +31,8 @@ struct WorkDayTogglesSection: View {
             .padding(.trailing, 2)
         }
         .foregroundStyle(.white)
+        .onChange(of: workDay.isFreeLicense) { if workDay.isFreeLicense { isLicense = true } }
+        .onChange(of: workDay.isPaidLicense) { if workDay.isPaidLicense { isLicense = true } }
         DisclosureGroup("Baja", isExpanded: $isSick) {
             Group {
                 ToggleRow("Por enfermedad", isOn: $workDay.isSickLeave)
@@ -40,5 +42,7 @@ struct WorkDayTogglesSection: View {
             .padding(.trailing, 2)
         }
         .foregroundStyle(.white)
+        .onChange(of: workDay.isSickLeave) { if workDay.isSickLeave { isSick = true } }
+        .onChange(of: workDay.isWorkAccident) { if workDay.isWorkAccident { isSick = true } }
     }
 }

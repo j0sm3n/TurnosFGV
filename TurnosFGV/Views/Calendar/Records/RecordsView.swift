@@ -12,24 +12,24 @@ struct RecordsView: View {
     // Binding month and date
     @Binding var selectedDate: Date
     @Binding var selectedMonth: Date
-    
+
     // View properties
     @State private var showNewRecordView: Bool = false
     @State private var showWorkedDayAlert: Bool = false
     @State private var selectedWorkDay: WorkDay?
-    
+
     // Transition namespace
     @Namespace private var transition
-    @Namespace private var transition2
+    @Namespace private var recordTransition
     private let transitionID = "newRecord"
-    
+
     // SwiftData query
     @Query(sort: \WorkDay.startDate) private var workDays: [WorkDay]
-    
+
     var body: some View {
         VStack {
-            RecordsHeader
-            RecordsScrollView
+            recordsHeader
+            recordsScrollView
         }
     }
 }
@@ -47,12 +47,12 @@ struct RecordsView: View {
 
 extension RecordsView {
     @ViewBuilder
-    private var RecordsHeader: some View {
+    private var recordsHeader: some View {
         HStack {
             Text("Registros")
                 .font(.title2.bold())
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             // Add Record Button
             Button {
                 if canWorkSelectedDate {
@@ -76,9 +76,9 @@ extension RecordsView {
         }
         .padding(.horizontal)
     }
-    
+
     @ViewBuilder
-    private var RecordsScrollView: some View {
+    private var recordsScrollView: some View {
         ScrollViewReader { proxy in
             ScrollView {
                 LazyVStack {
@@ -90,7 +90,7 @@ extension RecordsView {
                                 .id(workDay.id)
                         }
                         .tint(.white)
-                        .matchedTransitionSource(id: workDay.id, in: transition2)
+                        .matchedTransitionSource(id: workDay.id, in: recordTransition)
                     }
                 }
                 .padding(.horizontal)
@@ -98,14 +98,7 @@ extension RecordsView {
             }
             .scrollIndicators(.hidden)
             .scrollTargetBehavior(.viewAligned)
-            .task {
-                if let record = getRecordOfDay(selectedDate) {
-                    withAnimation {
-                        proxy.scrollTo(record.id, anchor: .top)
-                    }
-                }
-            }
-            .onChange(of: selectedDate) {
+            .onChange(of: selectedDate, initial: true) {
                 if let record = getRecordOfDay(selectedDate) {
                     withAnimation {
                         proxy.scrollTo(record.id, anchor: .top)
@@ -127,16 +120,16 @@ extension RecordsView {
             })
             .sheet(item: $selectedWorkDay) { workDay in
                 RecordDetailView(workDay: workDay)
-                    .navigationTransition(.zoom(sourceID: workDay.id, in: transition2))
+                    .navigationTransition(.zoom(sourceID: workDay.id, in: recordTransition))
             }
         }
     }
-    
-    var canWorkSelectedDate: Bool {
+
+    private var canWorkSelectedDate: Bool {
         getRecordOfDay(selectedDate) == nil
     }
-    
-    func getRecordOfDay(_ day: Date) -> WorkDay? {
+
+    private func getRecordOfDay(_ day: Date) -> WorkDay? {
         workDays.first(where: { $0.startDate.isSameDay(as: day) })
     }
 }

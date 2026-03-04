@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum Tab: String {
+enum AppTab: String {
     case calendar = "Calendario"
     case summary = "Nómina"
     case chart = "Resumen"
@@ -25,21 +25,22 @@ enum Tab: String {
 
 struct ContentView: View {
     @State private var dateVM = DateSelectionViewModel()
-    @AppStorage("selectedTab") private var selectedTab: Tab = .calendar
+    @AppStorage("selectedTab") private var selectedTab: AppTab = .calendar
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            CalendarScreen()
-                .setUpTab(.calendar)
-
-            SummaryView()
-                .setUpTab(.summary)
-
-            ChartView()
-                .setUpTab(.chart)
-
-            SettingsView()
-                .setUpTab(.settings)
+            Tab(AppTab.calendar.rawValue, systemImage: AppTab.calendar.icon, value: AppTab.calendar) {
+                CalendarScreen()
+            }
+            Tab(AppTab.summary.rawValue, systemImage: AppTab.summary.icon, value: AppTab.summary) {
+                SummaryView()
+            }
+            Tab(AppTab.chart.rawValue, systemImage: AppTab.chart.icon, value: AppTab.chart) {
+                ChartView()
+            }
+            Tab(AppTab.settings.rawValue, systemImage: AppTab.settings.icon, value: AppTab.settings) {
+                SettingsView()
+            }
         }
         .tabBarMinimizeBehavior(.onScrollDown)
         .environment(dateVM)
@@ -51,14 +52,4 @@ struct ContentView: View {
     #if DEBUG
         .modelContainer(WorkDay.preview)
     #endif
-}
-
-extension View {
-    func setUpTab(_ tab: Tab) -> some View {
-        self
-            .tag(tab)
-            .tabItem {
-                Label(tab.rawValue, systemImage: tab.icon)
-            }
-    }
 }

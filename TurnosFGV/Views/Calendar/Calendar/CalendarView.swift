@@ -62,7 +62,14 @@ struct CalendarView: View {
 #endif
 
 extension CalendarView {
+    private var colorByDay: [Date: Color] {
+        Dictionary(
+            workDays.map { wd in (wd.startDate.startOfDay, wd.color) },
+            uniquingKeysWith: { first, _ in first }
+        )
+    }
+
     private func colorOfWorkedDay(_ date: Date) -> Color? {
-        workDays.first(where: { $0.startDate.isSameDay(as: date) })?.color
+        colorByDay[date.startOfDay]
     }
 }

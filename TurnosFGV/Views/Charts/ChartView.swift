@@ -27,8 +27,10 @@ struct ChartView: View {
             .scrollContentBackground(.hidden)
             .scrollIndicators(.hidden)
             .navigationTitle("Resumen \(dateVM.currentDate.year)")
-            .onAppear {
+            .task(id: dateVM.currentDate.year) {
                 viewModel.loadData(for: dateVM.currentDate, from: modelContext)
+            }
+            .onAppear {
                 viewModel.animateChart()
             }
             .onDisappear {

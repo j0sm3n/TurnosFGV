@@ -40,12 +40,12 @@ struct RecordDetailView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                DateHeader
+                dateHeader
                 ScrollView {
                     VStack(spacing: 20) {
-                        ShiftPicker
-                        ShiftStartAndEnd
-                        ShiftExtraOptions
+                        shiftPicker
+                        shiftStartAndEnd
+                        shiftExtraOptions
                     }
                 }
                 .scrollIndicators(.hidden)
@@ -105,7 +105,7 @@ struct RecordDetailView: View {
 
 extension RecordDetailView {
     // MARK: - Extracted views
-    var DateHeader: some View {
+    private var dateHeader: some View {
         VStack {
             Text(updateWorkDay.startDate.formatted(date: .complete, time: .omitted))
                 .font(.title.bold())
@@ -116,12 +116,12 @@ extension RecordDetailView {
         .frame(maxWidth: .infinity, alignment: .center)
     }
 
-    var ShiftPicker: some View {
+    private var shiftPicker: some View {
         ShiftPickerGroupBox(shiftsByLocation: shiftsByLocation, selectedShift: $shift)
             .onChange(of: shift, initial: false) { shiftChanged() }
     }
 
-    var ShiftStartAndEnd: some View {
+    private var shiftStartAndEnd: some View {
         GroupBox {
             LabeledContent("Inicio de jornada") {
                 Text(updateWorkDay.startDate, style: .time)
@@ -134,7 +134,7 @@ extension RecordDetailView {
         .groupBoxBackGroundStyle()
     }
 
-    var ShiftExtraOptions: some View {
+    private var shiftExtraOptions: some View {
         GroupBox {
             LabeledContent("Duración", value: updateWorkDay.workingHours)
 
@@ -148,9 +148,6 @@ extension RecordDetailView {
                         .frame(width: 80)
                         .multilineTextAlignment(.trailing)
                         .focused($isFocused)
-                        .onChange(of: updateWorkDay.extraTime) { _, newValue in
-                            extraTimeChanged(newValue: newValue)
-                        }
                     Text("min")
                 }
             }
@@ -166,15 +163,15 @@ extension RecordDetailView {
     }
 
     // MARK: - Computed properties and functions
-    var locations: [String] {
+    private var locations: [String] {
         shiftsByLocation.keys.sorted(by: <)
     }
 
-    var shifts: [Shift] {
+    private var shifts: [Shift] {
         locations.flatMap { shiftsByLocation[$0] ?? [] }
     }
 
-    func updateRecord() {
+    private func updateRecord() {
         workDay.shift = updateWorkDay.shift
         workDay.startDate = updateWorkDay.startDate
         workDay.endDate = updateWorkDay.endDate
@@ -193,12 +190,12 @@ extension RecordDetailView {
         dismiss()
     }
 
-    func deleteRecord() {
+    private func deleteRecord() {
         modelContext.delete(workDay)
         dismiss()
     }
 
-    func shiftChanged() {
+    private func shiftChanged() {
         guard let shift, updateWorkDay.shift != shift.name else { return }
 
         updateWorkDay.shift = shift.name
@@ -207,11 +204,5 @@ extension RecordDetailView {
         updateWorkDay.saturation = shift.saturation
         updateWorkDay.extraTime = 0
         updateWorkDay.isAllowance = !shiftsByLocation.isFromUserLocation(shift, userLocation: location)
-    }
-
-    func extraTimeChanged(newValue: Int) {
-        if newValue != updateWorkDay.extraTime {
-            updateWorkDay.extraTime = newValue
-        }
     }
 }

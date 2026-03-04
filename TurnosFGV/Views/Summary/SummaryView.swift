@@ -26,15 +26,15 @@ struct SummaryView: View {
                             .foregroundStyle(.appWhite)
                             .offset(y: 200)
                     } else {
-                        PayrollDisclosureGroup
-                        MonthDisclosureGroup
-                        YearDisclosureGroup
+                        payrollDisclosureGroup
+                        monthDisclosureGroup
+                        yearDisclosureGroup
                     }
                 }
                 .scrollIndicators(.hidden)
             }
             .background(.appBackground)
-            .task {
+            .task(id: dateVM.currentDate.startOfMonth) {
                 viewModel.selectedDate = dateVM.currentDate
                 viewModel.load(from: modelContext)
             }
@@ -55,7 +55,7 @@ struct SummaryView: View {
 
 extension SummaryView {
     // MARK: - Extracted views
-    var PayrollDisclosureGroup: some View {
+    private var payrollDisclosureGroup: some View {
         DisclosureGroup(isExpanded: $showPayrollGroup) {
             VStack(spacing: 12) {
                 LabeledContent("Nocturnidad", value: viewModel.nightTimeInMonth, format: .number.precision(.fractionLength(0)))
@@ -81,7 +81,7 @@ extension SummaryView {
         .disclosureGroupBackgroundStyle()
     }
 
-    var MonthDisclosureGroup: some View {
+    private var monthDisclosureGroup: some View {
         DisclosureGroup {
             VStack(spacing: 12) {
                 LabeledContent("Horas trabajadas", value: viewModel.monthWorkedHours, format: .number.precision(.fractionLength(2)))
@@ -101,7 +101,7 @@ extension SummaryView {
         .disclosureGroupBackgroundStyle()
     }
 
-    var YearDisclosureGroup: some View {
+    private var yearDisclosureGroup: some View {
         DisclosureGroup {
             VStack(spacing: 12) {
                 LabeledContent("Horas trabajadas", value: viewModel.yearWorkedHours, format: .number.precision(.fractionLength(2)))

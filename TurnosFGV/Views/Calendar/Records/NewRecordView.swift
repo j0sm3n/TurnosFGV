@@ -38,9 +38,9 @@ struct NewRecordView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                ShiftPicker
-                ShiftStartAndShiftEndText
-                ShiftExtraOptions
+                shiftPicker
+                shiftStartAndEnd
+                shiftExtraOptions
             }
         }
         .padding(15)
@@ -83,13 +83,11 @@ struct NewRecordView: View {
 
 extension NewRecordView {
     // MARK: - Extracted views
-    @ViewBuilder
-    var ShiftPicker: some View {
+    private var shiftPicker: some View {
         ShiftPickerGroupBox(shiftsByLocation: shiftsByLocation, selectedShift: $selectedShift)
     }
 
-    @ViewBuilder
-    var ShiftStartAndShiftEndText: some View {
+    private var shiftStartAndEnd: some View {
         GroupBox {
             LabeledContent("Inicio") {
                 Text(draft.startDate.toString("dd/MM/yyyy HH:mm"))
@@ -103,8 +101,7 @@ extension NewRecordView {
         .groupBoxBackGroundStyle()
     }
 
-    @ViewBuilder
-    var ShiftExtraOptions: some View {
+    private var shiftExtraOptions: some View {
         GroupBox {
             WorkDayTogglesSection(workDay: draft)
         }
