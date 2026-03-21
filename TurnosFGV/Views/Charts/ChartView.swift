@@ -4,7 +4,6 @@
 //
 //  Created by Jose Antonio Mendoza on 3/3/24.
 //
-import Algorithms
 import SwiftData
 import SwiftUI
 
@@ -16,9 +15,16 @@ struct ChartView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 20) {
-                    BarChartView(chartData: viewModel.barChartData)
-                    PieChartView(chartData: viewModel.pieChartData)
+                switch viewModel.loadState {
+                case .failed(let message):
+                    ContentUnavailableView("Error al cargar", systemImage: "exclamationmark.triangle")
+                        .padding(.top, 100)
+                        .accessibilityLabel(message)
+                default:
+                    VStack(spacing: 20) {
+                        BarChartView(chartData: viewModel.barChartData)
+                        PieChartView(chartData: viewModel.pieChartData)
+                    }
                 }
             }
             .padding()
@@ -28,7 +34,7 @@ struct ChartView: View {
             .scrollIndicators(.hidden)
             .navigationTitle("Resumen \(dateVM.currentDate.year)")
             .task(id: dateVM.currentDate.year) {
-                viewModel.loadData(for: dateVM.currentDate, from: modelContext)
+                viewModel.loadData(for: dateVM.currentDate, using: LiveWorkDayRepository(context: modelContext))
             }
             .onAppear {
                 viewModel.animateChart()

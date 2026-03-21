@@ -10,34 +10,18 @@ import SwiftData
 import SwiftUI
 
 struct RecordDetailView: View {
-    // Environment properties
-    @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-
-    // CloudStorage properties
     @CloudStorage(Constants.locationKey) var location: String = ""
 
-    // View properties
-    @State private var showDeleteAlert: Bool = false
-    @State private var shiftsByLocation: [String: [Shift]] = [:]
+    @State private var viewModel: RecordDetailViewModel
     @FocusState private var isFocused: Bool
 
-    // Update record properties
-    @State private var shift: Shift?
-    @State private var updateWorkDay: WorkDay
-
-    // Record to edit
-    @Bindable var workDay: WorkDay
-
-    // Shifts Data Model
-    let shiftGroups = ShiftsDataModel.shared
-
-    init(workDay: WorkDay) {
-        self.workDay = workDay
-        self.updateWorkDay = workDay.copy()
+    init(viewModel: RecordDetailViewModel) {
+        _viewModel = State(wrappedValue: viewModel)
     }
 
     var body: some View {
+        @Bindable var viewModel = viewModel
         NavigationStack {
             VStack {
                 dateHeader
@@ -53,22 +37,21 @@ struct RecordDetailView: View {
             .padding()
             .background(.appBackground)
             .task {
-                shiftsByLocation = shiftGroups.getActualShiftsByLocation(workDay.startDate)
-                shift = shifts.first(where: { $0.name == updateWorkDay.shift })
+                viewModel.loadShifts()
             }
             .toolbar {
                 ToolbarItem(placement: .destructiveAction) {
                     Button(role: .destructive) {
-                        showDeleteAlert = true
+                        viewModel.showDeleteAlert = true
                     }
                     .tint(.red)
                 }
-
                 ToolbarItem(placement: .confirmationAction) {
                     Button(role: .confirm) {
-                        updateRecord()
+                        viewModel.updateRecord()
+                        dismiss()
                     }
-                    .tint(updateWorkDay.color)
+                    .tint(viewModel.updateWorkDay.color)
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button(role: .cancel) {
@@ -76,18 +59,24 @@ struct RecordDetailView: View {
                     }
                 }
             }
-            .alert("Borrar turno \(shift?.name ?? "")", isPresented: $showDeleteAlert) {
-                Button("Borrar", role: .destructive, action: deleteRecord)
+            .alert("Borrar turno \(viewModel.shift?.name ?? "")", isPresented: $viewModel.showDeleteAlert) {
+                Button("Borrar", role: .destructive) {
+                    viewModel.deleteRecord()
+                    dismiss()
+                }
                 Button("Cancelar", role: .cancel, action: {})
             } message: {
-                Text("¿Seguro que quieres borrar el turno del día \(updateWorkDay.startDate.toString("dd MMM"))?")
+                Text("¿Seguro que quieres borrar el turno del día \(viewModel.updateWorkDay.startDate.toString("dd MMM"))?")
             }
         }
     }
 }
 
 #Preview {
-    @Previewable let container = try! ModelContainer(for: WorkDay.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+    @Previewable let container = try! ModelContainer(
+        for: WorkDay.self,
+        configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+    )
     @Previewable let workDay = WorkDay(
         shift: "1",
         startDate: Date(isoDateTime: "2024-02-04T05:27:00+01:00")!,
@@ -96,10 +85,12 @@ struct RecordDetailView: View {
         extraTime: 8,
         isAllowance: true
     )
-
     container.mainContext.insert(workDay)
-
-    return RecordDetailView(workDay: workDay)
+    let viewModel = RecordDetailViewModel(
+        workDay: workDay,
+        repository: LiveWorkDayRepository(context: container.mainContext)
+    )
+    return RecordDetailView(viewModel: viewModel)
         .modelContainer(container)
 }
 
@@ -107,7 +98,7 @@ extension RecordDetailView {
     // MARK: - Extracted views
     private var dateHeader: some View {
         VStack {
-            Text(updateWorkDay.startDate.formatted(date: .complete, time: .omitted))
+            Text(viewModel.updateWorkDay.startDate.formatted(date: .complete, time: .omitted))
                 .font(.title.bold())
                 .fontDesign(.rounded)
                 .multilineTextAlignment(.center)
@@ -117,31 +108,31 @@ extension RecordDetailView {
     }
 
     private var shiftPicker: some View {
-        ShiftPickerGroupBox(shiftsByLocation: shiftsByLocation, selectedShift: $shift)
-            .onChange(of: shift, initial: false) { shiftChanged() }
+        @Bindable var viewModel = viewModel
+        return ShiftPickerGroupBox(shiftsByLocation: viewModel.shiftsByLocation, selectedShift: $viewModel.shift)
+            .onChange(of: viewModel.shift, initial: false) {
+                viewModel.onShiftChanged(userLocation: location)
+            }
     }
 
     private var shiftStartAndEnd: some View {
         GroupBox {
             LabeledContent("Inicio de jornada") {
-                Text(updateWorkDay.startDate, style: .time)
+                Text(viewModel.updateWorkDay.startDate, style: .time)
             }
-
             LabeledContent("Fin de jornada") {
-                Text(updateWorkDay.endDate, style: .time)
+                Text(viewModel.updateWorkDay.endDate, style: .time)
             }
         }
         .groupBoxBackGroundStyle()
     }
 
     private var shiftExtraOptions: some View {
-        GroupBox {
-            LabeledContent("Duración", value: updateWorkDay.workingHours)
-
-            LabeledContent("Saturación", value: updateWorkDay.saturation ?? 0, format: .number)
-
-            LabeledContent("Nocturnidad", value: updateWorkDay.nightTimeString)
-
+        @Bindable var updateWorkDay = viewModel.updateWorkDay
+        return GroupBox {
+            LabeledContent("Duración", value: viewModel.updateWorkDay.workingHours)
+            LabeledContent("Saturación", value: viewModel.updateWorkDay.saturation ?? 0, format: .number)
+            LabeledContent("Nocturnidad", value: viewModel.updateWorkDay.nightTimeString)
             LabeledContent("Exceso de jornada") {
                 HStack {
                     TextField("Minutos", value: $updateWorkDay.extraTime, formatter: NumberFormatter())
@@ -152,57 +143,10 @@ extension RecordDetailView {
                 }
             }
             .contentShape(.rect)
-            .onTapGesture {
-                isFocused = true
-            }
-
-            WorkDayTogglesSection(workDay: updateWorkDay)
+            .onTapGesture { isFocused = true }
+            WorkDayTogglesSection(workDay: viewModel.updateWorkDay)
         }
         .groupBoxBackGroundStyle()
-        .tint(updateWorkDay.color)
-    }
-
-    // MARK: - Computed properties and functions
-    private var locations: [String] {
-        shiftsByLocation.keys.sorted(by: <)
-    }
-
-    private var shifts: [Shift] {
-        locations.flatMap { shiftsByLocation[$0] ?? [] }
-    }
-
-    private func updateRecord() {
-        workDay.shift = updateWorkDay.shift
-        workDay.startDate = updateWorkDay.startDate
-        workDay.endDate = updateWorkDay.endDate
-        workDay.saturation = updateWorkDay.saturation
-        workDay.extraTime = updateWorkDay.extraTime
-        workDay.isAllowance = updateWorkDay.isAllowance
-        workDay.isFreeLicense = updateWorkDay.isFreeLicense
-        workDay.isWorkedHoliday = updateWorkDay.isWorkedHoliday
-        workDay.isSpecialWorkedHoliday = updateWorkDay.isSpecialWorkedHoliday
-        workDay.isMentoring = updateWorkDay.isMentoring
-        workDay.isPaidLicense = updateWorkDay.isPaidLicense
-        workDay.isSickLeave = updateWorkDay.isSickLeave
-        workDay.isWorkAccident = updateWorkDay.isWorkAccident
-        workDay.isSPP = updateWorkDay.isSPP
-
-        dismiss()
-    }
-
-    private func deleteRecord() {
-        modelContext.delete(workDay)
-        dismiss()
-    }
-
-    private func shiftChanged() {
-        guard let shift, updateWorkDay.shift != shift.name else { return }
-
-        updateWorkDay.shift = shift.name
-        updateWorkDay.startDate = updateWorkDay.startDate.startOfDay.addingTimeInterval(shift.startTime)
-        updateWorkDay.endDate = updateWorkDay.startDate.addingTimeInterval(shift.duration)
-        updateWorkDay.saturation = shift.saturation
-        updateWorkDay.extraTime = 0
-        updateWorkDay.isAllowance = !shiftsByLocation.isFromUserLocation(shift, userLocation: location)
+        .tint(viewModel.updateWorkDay.color)
     }
 }

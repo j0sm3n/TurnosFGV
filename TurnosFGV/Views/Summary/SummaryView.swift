@@ -21,14 +21,22 @@ struct SummaryView: View {
             VStack {
                 MonthYearHeader()
                 ScrollView {
-                    if viewModel.recordsInMonth.isEmpty {
-                        ContentUnavailableView("No hay registros", systemImage: "doc.text.magnifyingglass")
+                    switch viewModel.loadState {
+                    case .failed(let message):
+                        ContentUnavailableView("Error al cargar", systemImage: "exclamationmark.triangle")
                             .foregroundStyle(.appWhite)
                             .offset(y: 200)
-                    } else {
-                        payrollDisclosureGroup
-                        monthDisclosureGroup
-                        yearDisclosureGroup
+                            .accessibilityLabel(message)
+                    default:
+                        if viewModel.recordsInMonth.isEmpty {
+                            ContentUnavailableView("No hay registros", systemImage: "doc.text.magnifyingglass")
+                                .foregroundStyle(.appWhite)
+                                .offset(y: 200)
+                        } else {
+                            payrollDisclosureGroup
+                            monthDisclosureGroup
+                            yearDisclosureGroup
+                        }
                     }
                 }
                 .scrollIndicators(.hidden)
@@ -36,7 +44,7 @@ struct SummaryView: View {
             .background(.appBackground)
             .task(id: dateVM.currentDate.startOfMonth) {
                 viewModel.selectedDate = dateVM.currentDate
-                viewModel.load(from: modelContext)
+                viewModel.load(using: LiveWorkDayRepository(context: modelContext))
             }
             .onChange(of: dateVM.currentDate) { _, newDate in
                 viewModel.selectedDate = newDate

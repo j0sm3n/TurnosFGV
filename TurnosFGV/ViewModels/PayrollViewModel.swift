@@ -4,16 +4,22 @@
 //
 
 import Foundation
-import SwiftData
 
+@MainActor
 @Observable
 final class PayrollViewModel {
     private(set) var workDays: [WorkDay] = []
+    private(set) var loadState: Loadable<Void> = .idle
     var selectedDate: Date = .now
 
-    func load(from context: ModelContext) {
-        if let days = try? context.fetch(WorkDay.allWorkDaysDescriptor()) {
-            workDays = days
+    func load(using repository: any WorkDayRepository) {
+        loadState = .loading
+        do {
+            workDays = try repository.fetchAll()
+            loadState = .loaded(())
+        } catch {
+            loadState = .failed(error.localizedDescription)
+            workDays = []
         }
     }
 
@@ -103,11 +109,15 @@ final class PayrollViewModel {
         WorkDay.filtered(workDays, byYear: selectedDate)
     }
 
+    var ordinaryRecordsInYear: [WorkDay] {
+        recordsInYear.filter { !$0.isSPP }
+    }
+
     var yearWorkedHours: Double {
-        workedHoursIn(records: recordsInYear)
+        workedHoursIn(records: ordinaryRecordsInYear)
     }
 
     var workedDaysInCurrentYear: Int {
-        recordsInYear.count
+        ordinaryRecordsInYear.count
     }
 }

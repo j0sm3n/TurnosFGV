@@ -5,69 +5,58 @@
 
 import Algorithms
 import Foundation
-import SwiftData
 import SwiftUI
 
+@MainActor
 @Observable
 final class ChartViewModel {
     private(set) var barChartData: [MonthChartData] = []
     private(set) var pieChartData: [TypeChartData] = []
     private(set) var isAnimated: Bool = false
-    private var animationTasks: [Task<Void, Never>] = []
+    private(set) var loadState: Loadable<Void> = .idle
+    private var animationTask: Task<Void, Never>?
 
-    func loadData(for date: Date, from context: ModelContext) {
-        guard let days = workedDaysInYear(for: date, from: context) else { return }
-        barChartData = createBarChartData(from: days)
-        pieChartData = createPieChartData(from: days)
+    func loadData(for date: Date, using repository: any WorkDayRepository) {
+        loadState = .loading
+        do {
+            let allDays = try repository.fetchAll()
+            let daysInYear = WorkDay.filtered(allDays, byYear: date)
+            barChartData = createBarChartData(from: daysInYear)
+            pieChartData = createPieChartData(from: daysInYear)
+            loadState = .loaded(())
+        } catch {
+            loadState = .failed(error.localizedDescription)
+        }
     }
 
     func animateChart() {
         guard !isAnimated else { return }
         isAnimated = true
+        animationTask?.cancel()
 
-        for (index, _) in barChartData.enumerated() {
-            let delay = Double(index) * 0.05
-            animationTasks.append(Task { @MainActor [weak self] in
-                try? await Task.sleep(for: .seconds(delay))
-                guard !Task.isCancelled, let self, index < self.barChartData.count else { return }
-                withAnimation(.smooth) {
-                    self.barChartData[index].isAnimated = true
-                }
-            })
-        }
-
-        for (index, _) in pieChartData.enumerated() {
-            let delay = Double(index) * 0.05
-            animationTasks.append(Task { @MainActor [weak self] in
-                try? await Task.sleep(for: .seconds(delay))
-                guard !Task.isCancelled, let self, index < self.pieChartData.count else { return }
-                withAnimation(.smooth) {
-                    self.pieChartData[index].isAnimated = true
-                }
-            })
+        animationTask = Task { [weak self] in
+            guard let self else { return }
+            for index in self.barChartData.indices {
+                guard !Task.isCancelled else { return }
+                withAnimation(.smooth) { self.barChartData[index].isAnimated = true }
+                try? await Task.sleep(for: .milliseconds(50))
+            }
+            for index in self.pieChartData.indices {
+                guard !Task.isCancelled else { return }
+                withAnimation(.smooth) { self.pieChartData[index].isAnimated = true }
+                try? await Task.sleep(for: .milliseconds(50))
+            }
         }
     }
 
     func resetAnimation() {
-        animationTasks.forEach { $0.cancel() }
-        animationTasks.removeAll()
+        animationTask?.cancel()
+        animationTask = nil
         barChartData.indices.forEach { barChartData[$0].isAnimated = false }
         isAnimated = false
     }
 
     // MARK: - Private helpers
-
-    private func workedDaysInYear(for date: Date, from context: ModelContext) -> [WorkDay]? {
-        let startOfYear = date.startOfYear.startOfDay
-        let endOfYear = date.endOfYear.endOfDay
-
-        let descriptor = FetchDescriptor<WorkDay>(
-            predicate: #Predicate { ($0.startDate > startOfYear) && ($0.startDate < endOfYear) },
-            sortBy: [SortDescriptor(\.startDate)]
-        )
-
-        return try? context.fetch(descriptor)
-    }
 
     private func createBarChartData(from workedDaysInYear: [WorkDay]) -> [MonthChartData] {
         let workedDaysArray = workedDaysInYear.chunked { $0.startDate.component(.month) == $1.startDate.component(.month) }

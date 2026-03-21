@@ -10,32 +10,17 @@ import SwiftData
 import SwiftUI
 
 struct NewRecordView: View {
-    // Environment properties
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.modelContext) private var modelContext
-
-    // CloudStorage properties
     @CloudStorage(Constants.locationKey) var location: String = ""
 
-    // View properties
-    @State private var shiftsByLocation: [String: [Shift]] = [:]
-    @State private var selectedShift: Shift?
+    @State private var viewModel: NewRecordViewModel
 
-    // Draft record
-    @State private var draft: WorkDay
-
-    // Shifts Data Model
-    let shiftGroups = ShiftsDataModel.shared
-
-    // Selected date
-    let date: Date
-
-    init(date: Date) {
-        self.date = date
-        self._draft = State(initialValue: WorkDay(shift: "", startDate: date, endDate: date))
+    init(viewModel: NewRecordViewModel) {
+        _viewModel = State(wrappedValue: viewModel)
     }
 
     var body: some View {
+        @Bindable var viewModel = viewModel
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 shiftPicker
@@ -46,16 +31,10 @@ struct NewRecordView: View {
         .padding(15)
         .background(.appBackground)
         .task {
-            shiftsByLocation = shiftGroups.getActualShiftsByLocation(date)
+            viewModel.loadShifts()
         }
-        .onChange(of: selectedShift) {
-            if let selectedShift {
-                draft.shift = selectedShift.name
-                draft.startDate = date.startOfDay.addingTimeInterval(selectedShift.startTime)
-                draft.endDate = draft.startDate.addingTimeInterval(selectedShift.duration)
-                draft.saturation = selectedShift.saturation
-                draft.isAllowance = !shiftsByLocation.isFromUserLocation(selectedShift, userLocation: location)
-            }
+        .onChange(of: viewModel.selectedShift) {
+            viewModel.onShiftSelected(userLocation: location)
         }
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
@@ -65,36 +44,46 @@ struct NewRecordView: View {
             }
             ToolbarItem(placement: .confirmationAction) {
                 Button(role: .confirm) {
-                    saveRecord()
+                    viewModel.save()
+                    dismiss()
                 }
-                .tint(selectedShift?.color ?? .clear)
-                .disabled(selectedShift == nil)
+                .tint(viewModel.selectedShift?.color ?? .clear)
+                .disabled(!viewModel.canSave)
             }
         }
     }
 }
 
 #Preview {
+    @Previewable let container = try! ModelContainer(
+        for: WorkDay.self,
+        configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+    )
+    let viewModel = NewRecordViewModel(
+        date: .now,
+        repository: LiveWorkDayRepository(context: container.mainContext)
+    )
     NavigationStack {
-        NewRecordView(date: .now)
-            .modelContainer(for: WorkDay.self, inMemory: true)
+        NewRecordView(viewModel: viewModel)
     }
+    .modelContainer(container)
 }
 
 extension NewRecordView {
     // MARK: - Extracted views
     private var shiftPicker: some View {
-        ShiftPickerGroupBox(shiftsByLocation: shiftsByLocation, selectedShift: $selectedShift)
+        @Bindable var viewModel = viewModel
+        return ShiftPickerGroupBox(shiftsByLocation: viewModel.shiftsByLocation, selectedShift: $viewModel.selectedShift)
     }
 
     private var shiftStartAndEnd: some View {
         GroupBox {
             LabeledContent("Inicio") {
-                Text(draft.startDate.toString("dd/MM/yyyy HH:mm"))
+                Text(viewModel.draft.startDate.toString("dd/MM/yyyy HH:mm"))
                     .monospaced()
             }
             LabeledContent("Fin") {
-                Text(draft.endDate.toString("dd/MM/yyyy HH:mm"))
+                Text(viewModel.draft.endDate.toString("dd/MM/yyyy HH:mm"))
                     .monospaced()
             }
         }
@@ -103,16 +92,9 @@ extension NewRecordView {
 
     private var shiftExtraOptions: some View {
         GroupBox {
-            WorkDayTogglesSection(workDay: draft)
+            WorkDayTogglesSection(workDay: viewModel.draft)
         }
-        .tint(selectedShift?.color ?? .appYellow)
+        .tint(viewModel.selectedShift?.color ?? .appYellow)
         .groupBoxBackGroundStyle()
-    }
-
-    // MARK: - Functions
-    private func saveRecord() {
-        guard selectedShift != nil else { return }
-        modelContext.insert(draft)
-        dismiss()
     }
 }

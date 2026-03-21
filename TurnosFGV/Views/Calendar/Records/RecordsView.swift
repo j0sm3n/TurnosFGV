@@ -9,6 +9,8 @@ import SwiftData
 import SwiftUI
 
 struct RecordsView: View {
+    @Environment(\.modelContext) private var modelContext
+
     // Binding month and date
     @Binding var selectedDate: Date
     @Binding var selectedMonth: Date
@@ -113,13 +115,21 @@ extension RecordsView {
                     }
                 }
             }, content: {
+                let viewModel = NewRecordViewModel(
+                    date: selectedDate,
+                    repository: LiveWorkDayRepository(context: modelContext)
+                )
                 NavigationStack {
-                    NewRecordView(date: selectedDate)
+                    NewRecordView(viewModel: viewModel)
                         .navigationTransition(.zoom(sourceID: transitionID, in: transition))
                 }
             })
             .sheet(item: $selectedWorkDay) { workDay in
-                RecordDetailView(workDay: workDay)
+                let viewModel = RecordDetailViewModel(
+                    workDay: workDay,
+                    repository: LiveWorkDayRepository(context: modelContext)
+                )
+                RecordDetailView(viewModel: viewModel)
                     .navigationTransition(.zoom(sourceID: workDay.id, in: recordTransition))
             }
         }

@@ -37,3 +37,11 @@ struct Constants {
     static let locationKey = "location"
     static let prevYearHoursKey = "prevYearHours"
 }
+
+/// Generic state container for async data loading operations.
+enum Loadable<Value> {
+    case idle
+    case loading
+    case loaded(Value)
+    case failed(String)
+}
