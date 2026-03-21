@@ -7,58 +7,26 @@
 
 import SwiftUI
 
-enum Tab: String {
-    case calendar = "Calendario"
-    case summary = "Nómina"
-    case chart = "Resumen"
-    case settings = "Ajustes"
-    
-    var icon: String {
-        switch self {
-            case .calendar: "calendar"
-            case .summary: "doc.plaintext"
-            case .chart: "chart.bar.xaxis"
-            case .settings: "gearshape"
-        }
-    }
-}
-
 struct ContentView: View {
-    @State private var currentDate: Date = .now
-    @State private var currentMonth: Date = .currentMonth
-    @AppStorage("selectedTab") private var selectedTab: Tab = .calendar
-    
+    @State private var dateVM = DateSelectionViewModel()
+
     var body: some View {
-        if #available(iOS 26.0, *) {
-            TabView(selection: $selectedTab) {
-                CalendarScreen(selectedDate: $currentDate, selectedMonth: $currentMonth)
-                    .setUpTab(.calendar)
-                
-                SummaryView(selectedDate: $currentDate, selectedMonth: $currentMonth)
-                    .setUpTab(.summary)
-                
-                ChartView(selectedDate: $currentDate)
-                    .setUpTab(.chart)
-                
-                SettingsView()
-                    .setUpTab(.settings)
+        TabView {
+            Tab("Calendario", systemImage: "calendar") {
+                CalendarScreen()
             }
-            .tabBarMinimizeBehavior(.onScrollDown)
-        } else {
-            TabView(selection: $selectedTab) {
-                CalendarScreen(selectedDate: $currentDate, selectedMonth: $currentMonth)
-                    .setUpTab(.calendar)
-                
-                SummaryView(selectedDate: $currentDate, selectedMonth: $currentMonth)
-                    .setUpTab(.summary)
-                
-                ChartView(selectedDate: $currentDate)
-                    .setUpTab(.chart)
-                
+            Tab("Nómina", systemImage: "doc.plaintext") {
+                SummaryView()
+            }
+            Tab("Resumen", systemImage: "chart.bar.xaxis") {
+                ChartView()
+            }
+            Tab("Ajustes", systemImage: "gearshape") {
                 SettingsView()
-                    .setUpTab(.settings)
             }
         }
+        .tabBarMinimizeBehavior(.onScrollDown)
+        .environment(dateVM)
     }
 }
 
@@ -67,14 +35,4 @@ struct ContentView: View {
     #if DEBUG
         .modelContainer(WorkDay.preview)
     #endif
-}
-
-extension View {
-    func setUpTab(_ tab: Tab) -> some View {
-        self
-            .tag(tab)
-            .tabItem {
-                Label(tab.rawValue, systemImage: tab.icon)
-            }
-    }
 }

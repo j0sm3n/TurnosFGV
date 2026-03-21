@@ -23,7 +23,7 @@ struct RecordRowView: View {
     let workDay: WorkDay
     let selectedWorkDay: Bool
     
-    var shiftSize: CGFloat {
+    private var shiftSize: CGFloat {
         workDay.shift.count > 3 ? 18 : workDay.shift.count > 2 ? 32 : 40
     }
     
@@ -37,7 +37,7 @@ struct RecordRowView: View {
                     .frame(width: 60, alignment: .center)
                 
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(workDay.startDate.toString(format: .custom("dd MMM yyyy"))!)
+                    Text(workDay.startDate.toString("dd MMM yyyy"))
                         .fontWeight(.semibold)
                     HStack {
                         Text(workDay.viewRecordDuration)
@@ -63,10 +63,8 @@ struct RecordRowView: View {
 
 #Preview {
     let workDay = WorkDay(shift: "1",
-                          startDate: .init(fromString: "2024-02-04T05:27:00+01:00",
-                                           format: .isoDateTime)!,
-                          endDate: .init(fromString: "2024-02-04T13:36:00+01:00",
-                                         format: .isoDateTime)!,
+                          startDate: Date(isoDateTime: "2024-02-04T05:27:00+01:00")!,
+                          endDate: Date(isoDateTime: "2024-02-04T13:36:00+01:00")!,
                           saturation: 72.1,
                           extraTime: 8,
                           isAllowance: false,
@@ -89,29 +87,7 @@ extension RecordRowView {
         
         var body: some View {
             LazyHGrid(rows: rows, spacing: 4) {
-                Group {
-                    if workDay.isAllowance {
-                        tag(WorkDayTag.allowance.rawValue)
-                    }
-                    if workDay.isWorkedHoliday {
-                        tag(WorkDayTag.holiday.rawValue)
-                    }
-                    if workDay.isSpecialWorkedHoliday {
-                        tag(WorkDayTag.specialHoliday.rawValue)
-                    }
-                    if workDay.isMentoring {
-                        tag(WorkDayTag.mentoring.rawValue)
-                    }
-                    if workDay.isSickLeave {
-                        tag(WorkDayTag.sick.rawValue)
-                    }
-                    if workDay.isWorkAccident {
-                        tag(WorkDayTag.accident.rawValue)
-                    }
-                    if workDay.isSPP {
-                        tag(WorkDayTag.spp.rawValue)
-                    }
-                }
+                ForEach(workDay.activeTags) { workDayTag in tag(workDayTag.rawValue) }
             }
             .padding(.trailing)
             .padding(.vertical, 6)

@@ -13,7 +13,7 @@ struct PieChartView: View {
     
     let chartData: [TypeChartData]
     
-    var selectedType: TypeChartData? {
+    private var selectedType: TypeChartData? {
         guard let pieSelection else { return nil }
         var total = 0.0
         return chartData.first {

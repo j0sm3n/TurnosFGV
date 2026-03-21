@@ -7,7 +7,6 @@
 
 import SwiftData
 import SwiftUI
-import DateHelper
 
 struct CalendarView: View {
     @Binding var selectedDate: Date
@@ -46,7 +45,7 @@ struct CalendarView: View {
             .redacted(reason: monthDays.isEmpty ? .placeholder : [])
         }
         .task(id: selectedMonth) {
-            monthDays = extractDates(selectedMonth)
+            monthDays = Calendar.current.extractDates(selectedMonth)
         }
     }
 }
@@ -63,7 +62,14 @@ struct CalendarView: View {
 #endif
 
 extension CalendarView {
+    private var colorByDay: [Date: Color] {
+        Dictionary(
+            workDays.map { wd in (wd.startDate.startOfDay, wd.color) },
+            uniquingKeysWith: { first, _ in first }
+        )
+    }
+
     private func colorOfWorkedDay(_ date: Date) -> Color? {
-        workDays.first(where: { $0.startDate.compare(.isSameDay(as: date)) })?.color
+        colorByDay[date.startOfDay]
     }
 }

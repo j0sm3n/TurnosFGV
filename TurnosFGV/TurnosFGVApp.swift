@@ -20,14 +20,16 @@ struct TurnosFGVApp: App {
     
     init() {
         do {
-            let schema = Schema([WorkDay.self])
-            let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+            let config = ModelConfiguration(isStoredInMemoryOnly: false)
             self.container = try ModelContainer(for: WorkDay.self, migrationPlan: MigrationPlan.self, configurations: config)
         } catch {
             fatalError("Could not configure the container")
         }
-        
+
         try? Tips.configure([.displayFrequency(.immediate)])
+
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.appPurple)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color.white)], for: .selected)
     }
     
     var body: some Scene {

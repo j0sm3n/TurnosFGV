@@ -8,11 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		824E68252BB6B3070022B2DB /* CloudStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 824E68242BB6B3070022B2DB /* CloudStorage */; };
-		8292A27F2BAC8AAE0086A8C3 /* DateHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 8292A27E2BAC8AAE0086A8C3 /* DateHelper */; };
 		82ABA4292C019F58001B539A /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 82ABA4282C019F58001B539A /* Algorithms */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		821323C42F58091800BE7C80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8230319D2BAC4D6C005B00EF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 823031A42BAC4D6C005B00EF;
+			remoteInfo = TurnosFGV;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		821323C02F58091800BE7C80 /* TurnosFGVTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TurnosFGVTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		823031A52BAC4D6C005B00EF /* TurnosFGV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TurnosFGV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -27,17 +37,24 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		821323C12F58091800BE7C80 /* TurnosFGVTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TurnosFGVTests; sourceTree = "<group>"; };
 		82BC9EBB2CE3255100379913 /* TurnosFGV */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (82BC9EE82CE3255100379913 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = TurnosFGV; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		821323BD2F58091800BE7C80 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		823031A22BAC4D6C005B00EF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				82ABA4292C019F58001B539A /* Algorithms in Frameworks */,
 				824E68252BB6B3070022B2DB /* CloudStorage in Frameworks */,
-				8292A27F2BAC8AAE0086A8C3 /* DateHelper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				82BC9EBB2CE3255100379913 /* TurnosFGV */,
+				821323C12F58091800BE7C80 /* TurnosFGVTests */,
 				823031A62BAC4D6C005B00EF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				823031A52BAC4D6C005B00EF /* TurnosFGV.app */,
+				821323C02F58091800BE7C80 /* TurnosFGVTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -63,6 +82,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		821323BF2F58091800BE7C80 /* TurnosFGVTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 821323C62F58091800BE7C80 /* Build configuration list for PBXNativeTarget "TurnosFGVTests" */;
+			buildPhases = (
+				821323BC2F58091800BE7C80 /* Sources */,
+				821323BD2F58091800BE7C80 /* Frameworks */,
+				821323BE2F58091800BE7C80 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				821323C52F58091800BE7C80 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				821323C12F58091800BE7C80 /* TurnosFGVTests */,
+			);
+			name = TurnosFGVTests;
+			packageProductDependencies = (
+			);
+			productName = TurnosFGVTests;
+			productReference = 821323C02F58091800BE7C80 /* TurnosFGVTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		823031A42BAC4D6C005B00EF /* TurnosFGV */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 823031B32BAC4D6D005B00EF /* Build configuration list for PBXNativeTarget "TurnosFGV" */;
@@ -80,7 +122,6 @@
 			);
 			name = TurnosFGV;
 			packageProductDependencies = (
-				8292A27E2BAC8AAE0086A8C3 /* DateHelper */,
 				824E68242BB6B3070022B2DB /* CloudStorage */,
 				82ABA4282C019F58001B539A /* Algorithms */,
 			);
@@ -95,9 +136,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1530;
+				LastSwiftUpdateCheck = 2630;
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
+					821323BF2F58091800BE7C80 = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = 823031A42BAC4D6C005B00EF;
+					};
 					823031A42BAC4D6C005B00EF = {
 						CreatedOnToolsVersion = 15.3;
 					};
@@ -113,7 +158,6 @@
 			);
 			mainGroup = 8230319C2BAC4D6C005B00EF;
 			packageReferences = (
-				8292A27D2BAC8AAE0086A8C3 /* XCRemoteSwiftPackageReference "DateHelper" */,
 				824E68232BB6B3070022B2DB /* XCRemoteSwiftPackageReference "CloudStorage" */,
 				82ABA4272C019F58001B539A /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 			);
@@ -122,11 +166,19 @@
 			projectRoot = "";
 			targets = (
 				823031A42BAC4D6C005B00EF /* TurnosFGV */,
+				821323BF2F58091800BE7C80 /* TurnosFGVTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		821323BE2F58091800BE7C80 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		823031A32BAC4D6C005B00EF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -137,6 +189,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		821323BC2F58091800BE7C80 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		823031A12BAC4D6C005B00EF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -146,7 +205,59 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		821323C52F58091800BE7C80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 823031A42BAC4D6C005B00EF /* TurnosFGV */;
+			targetProxy = 821323C42F58091800BE7C80 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		821323C72F58091800BE7C80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = F259VZ645X;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.josmen.TurnosFGVTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TurnosFGV.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TurnosFGV";
+			};
+			name = Debug;
+		};
+		821323C82F58091800BE7C80 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = F259VZ645X;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.josmen.TurnosFGVTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TurnosFGV.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TurnosFGV";
+			};
+			name = Release;
+		};
 		823031B12BAC4D6C005B00EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -277,12 +388,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TurnosFGV/TurnosFGV.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_ASSET_PATHS = "\"TurnosFGV/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TurnosFGV/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Turnos FGV";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -290,7 +402,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -315,12 +427,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TurnosFGV/TurnosFGV.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_ASSET_PATHS = "\"TurnosFGV/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TurnosFGV/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Turnos FGV";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -328,7 +441,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -349,6 +462,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		821323C62F58091800BE7C80 /* Build configuration list for PBXNativeTarget "TurnosFGVTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				821323C72F58091800BE7C80 /* Debug */,
+				821323C82F58091800BE7C80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		823031A02BAC4D6C005B00EF /* Build configuration list for PBXProject "TurnosFGV" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -378,14 +500,6 @@
 				minimumVersion = 0.4.0;
 			};
 		};
-		8292A27D2BAC8AAE0086A8C3 /* XCRemoteSwiftPackageReference "DateHelper" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/melvitax/DateHelper.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.1;
-			};
-		};
 		82ABA4272C019F58001B539A /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-algorithms.git";
@@ -401,11 +515,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 824E68232BB6B3070022B2DB /* XCRemoteSwiftPackageReference "CloudStorage" */;
 			productName = CloudStorage;
-		};
-		8292A27E2BAC8AAE0086A8C3 /* DateHelper */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8292A27D2BAC8AAE0086A8C3 /* XCRemoteSwiftPackageReference "DateHelper" */;
-			productName = DateHelper;
 		};
 		82ABA4282C019F58001B539A /* Algorithms */ = {
 			isa = XCSwiftPackageProductDependency;

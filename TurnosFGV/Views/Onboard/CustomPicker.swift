@@ -15,12 +15,6 @@ protocol PickerEnum: Identifiable, Hashable, CaseIterable where AllCases == Arra
 struct CustomPicker<S: PickerEnum>: View where S.AllCases == Array<S> {
     var selection: Binding<S>
     
-    init(selection: Binding<S>) {
-        self.selection = selection
-        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.appPurple)
-        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color.white)], for: .selected)
-    }
-    
     var body: some View {
         Picker("", selection: selection) {
             ForEach(S.allCases, id: \.self) {

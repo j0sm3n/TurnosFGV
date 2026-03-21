@@ -6,7 +6,6 @@
 //
 
 import CloudStorage
-import DateHelper
 import SwiftData
 import SwiftUI
 
@@ -14,56 +13,39 @@ struct RecordDetailView: View {
     // Environment properties
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    
+
     // CloudStorage properties
-    @CloudStorage("location") var location: String = ""
-    
+    @CloudStorage(Constants.locationKey) var location: String = ""
+
     // View properties
-    @State private var isLicense: Bool = false
-    @State private var isSick: Bool = false
     @State private var showDeleteAlert: Bool = false
     @State private var shiftsByLocation: [String: [Shift]] = [:]
     @FocusState private var isFocused: Bool
-    
+
     // Update record properties
     @State private var shift: Shift?
     @State private var updateWorkDay: WorkDay
-    
+
     // Record to edit
     @Bindable var workDay: WorkDay
-    
+
     // Shifts Data Model
-    let shiftGroups = ShiftsDataModel()
-    
+    let shiftGroups = ShiftsDataModel.shared
+
     init(workDay: WorkDay) {
         self.workDay = workDay
-        self.updateWorkDay = WorkDay(
-            shift: workDay.shift,
-            startDate: workDay.startDate,
-            endDate: workDay.endDate,
-            saturation: workDay.saturation,
-            extraTime: workDay.extraTime,
-            isAllowance: workDay.isAllowance,
-            isFreeLicense: workDay.isFreeLicense,
-            isWorkedHoliday: workDay.isWorkedHoliday,
-            isSpecialWorkedHoliday: workDay.isSpecialWorkedHoliday,
-            isMentoring: workDay.isMentoring,
-            isPaidLicense: workDay.isPaidLicense,
-            isSickLeave: workDay.isSickLeave,
-            isWorkAccident: workDay.isWorkAccident,
-            isSPP: workDay.isSPP
-        )
+        self.updateWorkDay = workDay.copy()
     }
-    
+
     var body: some View {
         NavigationStack {
             VStack {
-                DateHeader
+                dateHeader
                 ScrollView {
                     VStack(spacing: 20) {
-                        ShiftPicker
-                        ShiftStartAndEnd
-                        ShiftExtraOptions
+                        shiftPicker
+                        shiftStartAndEnd
+                        shiftExtraOptions
                     }
                 }
                 .scrollIndicators(.hidden)
@@ -76,27 +58,20 @@ struct RecordDetailView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .destructiveAction) {
-                    Button("Borrar", systemImage: "trash", role: .destructive) {
+                    Button(role: .destructive) {
                         showDeleteAlert = true
                     }
                     .tint(.red)
                 }
-                
+
                 ToolbarItem(placement: .confirmationAction) {
-                    if #available(iOS 26.0, *) {
-                        Button("Actualizar", systemImage: "checkmark", role: .confirm) {
-                            updateRecord()
-                        }
-                        .tint(updateWorkDay.color)
-                    } else {
-                        Button("Actualizar", systemImage: "checkmark") {
-                            updateRecord()
-                        }
-                        .tint(updateWorkDay.color)
+                    Button(role: .confirm) {
+                        updateRecord()
                     }
+                    .tint(updateWorkDay.color)
                 }
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancelar", systemImage: "xmark", role: .cancel) {
+                    Button(role: .cancel) {
                         dismiss()
                     }
                 }
@@ -105,7 +80,7 @@ struct RecordDetailView: View {
                 Button("Borrar", role: .destructive, action: deleteRecord)
                 Button("Cancelar", role: .cancel, action: {})
             } message: {
-                Text("¿Seguro que quieres borrar el turno del día \(String(describing: updateWorkDay.startDate.toString(format: .custom("dd MMM"))!))?")
+                Text("¿Seguro que quieres borrar el turno del día \(updateWorkDay.startDate.toString("dd MMM"))?")
             }
         }
     }
@@ -115,22 +90,22 @@ struct RecordDetailView: View {
     @Previewable let container = try! ModelContainer(for: WorkDay.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
     @Previewable let workDay = WorkDay(
         shift: "1",
-        startDate: .init(fromString: "2024-02-04T05:27:00+01:00", format: .isoDateTime)!,
-        endDate: .init(fromString: "2024-02-04T13:36:00+01:00", format: .isoDateTime)!,
+        startDate: Date(isoDateTime: "2024-02-04T05:27:00+01:00")!,
+        endDate: Date(isoDateTime: "2024-02-04T13:36:00+01:00")!,
         saturation: 72.1,
         extraTime: 8,
         isAllowance: true
     )
-    
+
     container.mainContext.insert(workDay)
-    
+
     return RecordDetailView(workDay: workDay)
-        .modelContainer(for: WorkDay.self, inMemory: true)
+        .modelContainer(container)
 }
 
 extension RecordDetailView {
     // MARK: - Extracted views
-    var DateHeader: some View {
+    private var dateHeader: some View {
         VStack {
             Text(updateWorkDay.startDate.formatted(date: .complete, time: .omitted))
                 .font(.title.bold())
@@ -140,60 +115,39 @@ extension RecordDetailView {
         }
         .frame(maxWidth: .infinity, alignment: .center)
     }
-    
-    var ShiftPicker: some View {
-        GroupBox {
-            LabeledContent("Turno") {
-                Menu {
-                    ForEach(locations, id: \.self) { location in
-                        Picker(location, selection: $shift) {
-                            ForEach(shiftsOf(location)) { locationShift in
-                                Text(locationShift.name).tag(locationShift as Shift?)
-                            }
-                        }
-                    }
-                    .pickerStyle(.menu)
-                } label: {
-                    Text(shift?.name ?? "")
-                        .shiftTextModifier(color: updateWorkDay.color)
-                }
-                .onChange(of: shift, initial: false) { shiftChanged() }
-            }
-        }
-        .groupBoxBackGroundStyle()
+
+    private var shiftPicker: some View {
+        ShiftPickerGroupBox(shiftsByLocation: shiftsByLocation, selectedShift: $shift)
+            .onChange(of: shift, initial: false) { shiftChanged() }
     }
-    
-    var ShiftStartAndEnd: some View {
+
+    private var shiftStartAndEnd: some View {
         GroupBox {
             LabeledContent("Inicio de jornada") {
                 Text(updateWorkDay.startDate, style: .time)
             }
-            
+
             LabeledContent("Fin de jornada") {
                 Text(updateWorkDay.endDate, style: .time)
             }
         }
         .groupBoxBackGroundStyle()
     }
-    
-    var ShiftExtraOptions: some View {
+
+    private var shiftExtraOptions: some View {
         GroupBox {
             LabeledContent("Duración", value: updateWorkDay.workingHours)
-            
+
             LabeledContent("Saturación", value: updateWorkDay.saturation ?? 0, format: .number)
-            
+
             LabeledContent("Nocturnidad", value: updateWorkDay.nightTimeString)
-            
+
             LabeledContent("Exceso de jornada") {
                 HStack {
                     TextField("Minutos", value: $updateWorkDay.extraTime, formatter: NumberFormatter())
                         .frame(width: 80)
                         .multilineTextAlignment(.trailing)
                         .focused($isFocused)
-                        .onChange(of: updateWorkDay.extraTime) { _, newValue in
-                            print("New value: \(newValue)")
-                            extraTimeChanged(newValue: newValue)
-                        }
                     Text("min")
                 }
             }
@@ -201,77 +155,23 @@ extension RecordDetailView {
             .onTapGesture {
                 isFocused = true
             }
-            
-            LabeledContent("Dieta") {
-                Toggle("", isOn: $updateWorkDay.isAllowance)
-            }
-            
-            LabeledContent("Festivo") {
-                Toggle("", isOn: $updateWorkDay.isWorkedHoliday)
-            }
-            
-            LabeledContent("Festivo especial") {
-                Toggle("", isOn: $updateWorkDay.isSpecialWorkedHoliday)
-            }
-            
-            LabeledContent("Práctica") {
-                Toggle("", isOn: $updateWorkDay.isMentoring)
-            }
-            
-            LabeledContent("SPP") {
-                Toggle("", isOn: $updateWorkDay.isSPP)
-            }
-            
-            DisclosureGroup("Licencia", isExpanded: $isLicense) {
-                Group {
-                    LabeledContent("Sin sueldo") {
-                        Toggle("", isOn: $updateWorkDay.isFreeLicense)
-                    }
-                    
-                    LabeledContent("Con sueldo") {
-                        Toggle("", isOn: $updateWorkDay.isPaidLicense)
-                    }
-                }
-                .padding(.leading)
-                .padding(.trailing, 2)
-            }
-            .foregroundStyle(.white)
-            .onAppear(perform: checkIsLicense)
-            
-            DisclosureGroup("Baja", isExpanded: $isSick) {
-                Group {
-                    LabeledContent("Por enfermedad") {
-                        Toggle("", isOn: $updateWorkDay.isSickLeave)
-                    }
-                    
-                    LabeledContent("Accidente laboral") {
-                        Toggle("", isOn: $updateWorkDay.isWorkAccident)
-                    }
-                }
-                .padding(.leading)
-                .padding(.trailing, 2)
-            }
-            .foregroundStyle(.white)
-            .onAppear(perform: checkIsSick)
+
+            WorkDayTogglesSection(workDay: updateWorkDay)
         }
         .groupBoxBackGroundStyle()
         .tint(updateWorkDay.color)
     }
 
     // MARK: - Computed properties and functions
-    var locations: [String] {
+    private var locations: [String] {
         shiftsByLocation.keys.sorted(by: <)
     }
-    
-    var shifts: [Shift] {
-        Array(locations).flatMap { shiftsByLocation[$0] ?? [] }
+
+    private var shifts: [Shift] {
+        locations.flatMap { shiftsByLocation[$0] ?? [] }
     }
-    
-    func shiftsOf(_ location: String) -> [Shift] {
-        shiftsByLocation[location]?.sorted() ?? []
-    }
-    
-    func updateRecord() {
+
+    private func updateRecord() {
         workDay.shift = updateWorkDay.shift
         workDay.startDate = updateWorkDay.startDate
         workDay.endDate = updateWorkDay.endDate
@@ -286,48 +186,23 @@ extension RecordDetailView {
         workDay.isSickLeave = updateWorkDay.isSickLeave
         workDay.isWorkAccident = updateWorkDay.isWorkAccident
         workDay.isSPP = updateWorkDay.isSPP
-        
+
         dismiss()
     }
-    
-    func deleteRecord() {
+
+    private func deleteRecord() {
         modelContext.delete(workDay)
         dismiss()
     }
-    
-    func shiftChanged() {
+
+    private func shiftChanged() {
         guard let shift, updateWorkDay.shift != shift.name else { return }
 
-        if let shiftLocation = shiftGroups.shiftLocation(for: shift.id) {
-            updateWorkDay.shift = shift.name
-            updateWorkDay.startDate = updateWorkDay.startDate.adjust(for: .startOfDay)!.addingTimeInterval(shift.startTime)
-            updateWorkDay.endDate = updateWorkDay.startDate.addingTimeInterval(shift.duration)
-            updateWorkDay.saturation = shift.saturation
-            updateWorkDay.extraTime = 0
-            
-            if shiftLocation.rawValue != location {
-                updateWorkDay.isAllowance = true
-            } else {
-                updateWorkDay.isAllowance = false
-            }
-        }
-    }
-    
-    func extraTimeChanged(newValue: Int) {
-        if newValue != updateWorkDay.extraTime {
-            updateWorkDay.extraTime = newValue
-        }
-    }
-        
-    func checkIsLicense() {
-        if updateWorkDay.isFreeLicense || updateWorkDay.isPaidLicense {
-            isLicense = true
-        }
-    }
-    
-    func checkIsSick() {
-        if updateWorkDay.isSickLeave || updateWorkDay.isWorkAccident {
-            isSick = true
-        }
+        updateWorkDay.shift = shift.name
+        updateWorkDay.startDate = updateWorkDay.startDate.startOfDay.addingTimeInterval(shift.startTime)
+        updateWorkDay.endDate = updateWorkDay.startDate.addingTimeInterval(shift.duration)
+        updateWorkDay.saturation = shift.saturation
+        updateWorkDay.extraTime = 0
+        updateWorkDay.isAllowance = !shiftsByLocation.isFromUserLocation(shift, userLocation: location)
     }
 }

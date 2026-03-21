@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct OnboardStepView<T: PickerEnum>: View {
-    var id = UUID()
     let systemImageName: String
     let title: String
     let description: String

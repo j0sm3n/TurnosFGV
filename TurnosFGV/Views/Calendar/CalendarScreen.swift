@@ -9,15 +9,15 @@ import SwiftData
 import SwiftUI
 
 struct CalendarScreen: View {
-    @Binding var selectedDate: Date
-    @Binding var selectedMonth: Date
-    
+    @Environment(DateSelectionViewModel.self) var dateVM
+
     var body: some View {
+        @Bindable var dateVM = dateVM
         NavigationStack {
             VStack {
-                MonthYearHeader(selectedDate: $selectedDate, selectedMonth: $selectedMonth)
-                CalendarView(selectedDate: $selectedDate, selectedMonth: $selectedMonth)
-                RecordsView(selectedDate: $selectedDate, selectedMonth: $selectedMonth)
+                MonthYearHeader()
+                CalendarView(selectedDate: $dateVM.currentDate, selectedMonth: $dateVM.currentMonth)
+                RecordsView(selectedDate: $dateVM.currentDate, selectedMonth: $dateVM.currentMonth)
             }
             .background(.appBackground)
         }

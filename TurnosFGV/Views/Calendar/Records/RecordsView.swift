@@ -12,24 +12,24 @@ struct RecordsView: View {
     // Binding month and date
     @Binding var selectedDate: Date
     @Binding var selectedMonth: Date
-    
+
     // View properties
     @State private var showNewRecordView: Bool = false
     @State private var showWorkedDayAlert: Bool = false
     @State private var selectedWorkDay: WorkDay?
-    
+
     // Transition namespace
     @Namespace private var transition
-    @Namespace private var transition2
+    @Namespace private var recordTransition
     private let transitionID = "newRecord"
-    
+
     // SwiftData query
     @Query(sort: \WorkDay.startDate) private var workDays: [WorkDay]
-    
+
     var body: some View {
         VStack {
-            RecordsHeader
-            RecordsScrollView
+            recordsHeader
+            recordsScrollView
         }
     }
 }
@@ -38,7 +38,7 @@ struct RecordsView: View {
 #Preview {
     VStack {
         VStack {}.frame(height: 400)
-        RecordsView(selectedDate: .constant(.now), selectedMonth: .constant(.now.adjust(for: .startOfMonth)!))
+        RecordsView(selectedDate: .constant(.now), selectedMonth: .constant(.now.startOfMonth))
             .modelContainer(WorkDay.preview)
     }
     .background(.appBackground)
@@ -47,81 +47,50 @@ struct RecordsView: View {
 
 extension RecordsView {
     @ViewBuilder
-    private var RecordsHeader: some View {
+    private var recordsHeader: some View {
         HStack {
             Text("Registros")
                 .font(.title2.bold())
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             // Add Record Button
-            if #available(iOS 26.0, *) {
-                Button {
-                    if canWorkSelectedDate {
-                        showNewRecordView = true
-                    } else {
-                        showWorkedDayAlert = true
-                    }
-                } label: {
-                    Image(systemName: "plus")
-                        .font(.title.bold())
-                        .foregroundStyle(.white)
-                        .padding()
+            Button {
+                if canWorkSelectedDate {
+                    showNewRecordView = true
+                } else {
+                    showWorkedDayAlert = true
                 }
-                .glassEffect(.clear)
-                .matchedTransitionSource(id: transitionID, in: transition)
-                .alert("Ups!", isPresented: $showWorkedDayAlert) {
-                    Button("Ok") {}
-                } message: {
-                    Text("Ya existe un turno el día \(selectedDate.toString(format: .custom("dd/MM/yyyy"))!)")
-                }
-            } else {
-                Button {
-                    if canWorkSelectedDate {
-                        showNewRecordView = true
-                    } else {
-                        showWorkedDayAlert = true
-                    }
-                } label: {
-                    Image(systemName: "plus")
-                        .font(.title.bold())
-                        .foregroundStyle(.white)
-                        .frame(width: 50, height: 50)
-                        .background(.appPurple.gradient.shadow(.inner(color: .white, radius: 2)), in: .rect(cornerRadius: 20))
-                }
-                .alert("Ups!", isPresented: $showWorkedDayAlert) {
-                    Button("Ok") {}
-                } message: {
-                    Text("Ya existe un turno el día \(selectedDate.toString(format: .custom("dd/MM/yyyy"))!)")
-                }
+            } label: {
+                Image(systemName: "plus")
+                    .font(.title.bold())
+                    .foregroundStyle(.white)
+                    .padding()
+            }
+            .glassEffect(.clear)
+            .matchedTransitionSource(id: transitionID, in: transition)
+            .alert("Ups!", isPresented: $showWorkedDayAlert) {
+                Button("Ok") {}
+            } message: {
+                Text("Ya existe un turno el día \(selectedDate.toString("dd/MM/yyyy"))")
             }
         }
         .padding(.horizontal)
     }
-    
+
     @ViewBuilder
-    private var RecordsScrollView: some View {
+    private var recordsScrollView: some View {
         ScrollViewReader { proxy in
             ScrollView {
                 LazyVStack {
                     ForEach(workDays) { workDay in
-                        if #available(iOS 26.0, *) {
-                            Button {
-                                selectedWorkDay = workDay
-                            } label: {
-                                RecordRowView(workDay: workDay, selectedWorkDay: workDay.startDate.compare(.isSameDay(as: selectedDate)))
-                                    .id(workDay.id)
-                            }
-                            .tint(.white)
-                            .matchedTransitionSource(id: workDay.id, in: transition2)
-                        } else {
-                            Button {
-                                selectedWorkDay = workDay
-                            } label: {
-                                RecordRowView(workDay: workDay, selectedWorkDay: workDay.startDate.compare(.isSameDay(as: selectedDate)))
-                                    .id(workDay.id)
-                            }
-                            .tint(.white)
+                        Button {
+                            selectedWorkDay = workDay
+                        } label: {
+                            RecordRowView(workDay: workDay, selectedWorkDay: workDay.startDate.isSameDay(as: selectedDate))
+                                .id(workDay.id)
                         }
+                        .tint(.white)
+                        .matchedTransitionSource(id: workDay.id, in: recordTransition)
                     }
                 }
                 .padding(.horizontal)
@@ -129,20 +98,13 @@ extension RecordsView {
             }
             .scrollIndicators(.hidden)
             .scrollTargetBehavior(.viewAligned)
-            .task {
+            .onChange(of: selectedDate, initial: true) {
                 if let record = getRecordOfDay(selectedDate) {
                     withAnimation {
                         proxy.scrollTo(record.id, anchor: .top)
                     }
                 }
-            }
-            .onChange(of: selectedDate) {
-                if let record = getRecordOfDay(selectedDate) {
-                    withAnimation {
-                        proxy.scrollTo(record.id, anchor: .top)
-                    }
-                }
-                selectedMonth = selectedDate.adjust(for: .startOfMonth)!
+                selectedMonth = selectedDate.startOfMonth
             }
             .fullScreenCover(isPresented: $showNewRecordView, onDismiss: {
                 if let record = getRecordOfDay(selectedDate) {
@@ -158,16 +120,16 @@ extension RecordsView {
             })
             .sheet(item: $selectedWorkDay) { workDay in
                 RecordDetailView(workDay: workDay)
-                    .navigationTransition(.zoom(sourceID: workDay.id, in: transition2))
+                    .navigationTransition(.zoom(sourceID: workDay.id, in: recordTransition))
             }
         }
     }
-    
-    var canWorkSelectedDate: Bool {
+
+    private var canWorkSelectedDate: Bool {
         getRecordOfDay(selectedDate) == nil
     }
-    
-    func getRecordOfDay(_ day: Date) -> WorkDay? {
-        workDays.first(where: { $0.startDate.compare(.isSameDay(as: day)) })
+
+    private func getRecordOfDay(_ day: Date) -> WorkDay? {
+        workDays.first(where: { $0.startDate.isSameDay(as: day) })
     }
 }

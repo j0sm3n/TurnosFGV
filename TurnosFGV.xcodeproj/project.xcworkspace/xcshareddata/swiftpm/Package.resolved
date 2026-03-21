@@ -1,5 +1,5 @@
 {
-  "originHash" : "30b858c5c7802bc1dd9b38faaf871911b5c54f0b630930d6100719a922e48bee",
+  "originHash" : "d3f54d96088a7cc4b8f1bb66e325e32b21d81c64a5b849505ae60987be6f732c",
   "pins" : [
     {
       "identity" : "cloudstorage",
@@ -8,15 +8,6 @@
       "state" : {
         "revision" : "d94cb14e563c1a20edeba8a861395c60c2b9d064",
         "version" : "0.7.0"
-      }
-    },
-    {
-      "identity" : "datehelper",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/melvitax/DateHelper.git",
-      "state" : {
-        "revision" : "76d0840daab7288fc99b04a4c23d504f0394e083",
-        "version" : "5.0.1"
       }
     },
     {
